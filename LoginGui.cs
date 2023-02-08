@@ -42,7 +42,6 @@ public class LoginGui : MonoBehaviour
         }
         if (eLoginState_0 == eLoginState.login)
         {
-
             GUI.DrawTexture(new Rect(0.5f * this.display_0 - 960f, 0f, 1920f, 1024f), this.texture_0);
             // Text Input
             this.userName_0 = GUI.TextField(new Rect(0.5f * this.display_0 - 118f, 713f, 288f, 30f), this.userName_0, 15);

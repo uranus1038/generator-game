@@ -6,5 +6,7 @@ public enum eLobbyState
 {
     Init , 
     createRoom  ,
-    
+    renderRoom ,
+    notice ,
+
 }
