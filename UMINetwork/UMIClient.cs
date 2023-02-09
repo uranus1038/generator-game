@@ -31,7 +31,7 @@ namespace UMI.Network
                 client.Connect(IPAddress.Parse("127.0.0.1"), 8000);
                 stream = client.GetStream();
 
-                string a = "10.1f";
+                string a = "{Message:requastConnect}";
                 byte[] message = Encoding.ASCII.GetBytes(a);
                 stream.Write(message, 0, message.Length);
 

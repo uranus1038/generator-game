@@ -22,11 +22,16 @@ namespace UMI.Network
         private static NetworkStream stream; 
         // Client
         private static  TcpClient UMIClient ;
+        //receive
+        protected static string userName = "GOD`U"; 
 
         private void Awake()
         {
             hInst = this; 
         }
+
+        protected virtual void UMIReceive() { }
+
         public static void UMISartHost(int maxPlayer, int port)
         {
             UMI.Log("UMI::SUSSESSED()::SERVER_STRAT->"+port);
@@ -40,13 +45,16 @@ namespace UMI.Network
         {
             UMITCPListener = new TcpListener(IPAddress.Any, UMIPort);
             UMITCPListener.Start();
-            Debug.Log(UMIPort);
+            
             for(int i =0 ; i < UMIMaxPlayer; i++)
             {
                 TcpClient client = UMITCPListener.AcceptTcpClient();
                 Thread UMITCPHandlerThread = new Thread(new ParameterizedThreadStart(UMITCPHandler));
                 // index client
                 UMITCPHandlerThread.Start(client);
+                // Retrieve the client's IP address
+                IPAddress clientIP = ((IPEndPoint)client.Client.RemoteEndPoint).Address;
+                UMI.Log("UMI::CLIENTCONNECT()::IPADDRESS->"+clientIP.ToString());
             }
         }
         // Receive
