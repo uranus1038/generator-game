@@ -1,6 +1,9 @@
 using UnityEngine;
-using UMI.Network;
+using UMI.Network.Server;
+using UMI.Network.Client;
+using UMI.Network.API;
 using UMI.Manager;
+
 public class LobbyGui : MonoBehaviour
 {
     //flot 
@@ -24,20 +27,21 @@ public class LobbyGui : MonoBehaviour
             {
                 this.eLobbyState_0 = eLobbyState.createRoom;
             }
-            if (GUI.Button(new Rect(0.5f * this.display_0 - 125f, 400f, 250f, 38f), "Option"))
+            if (GUI.Button(new Rect(0.5f * this.display_0 - 125f, 400f, 250f, 38f), UMINetworkManager.hDac[1].ToString()))
             {
+                UMIClient.hInst.connectServer();
 
             }
             if (GUI.Button(new Rect(0.5f * this.display_0 - 125f, 450f, 250f, 38f), "Quit"))
             {
-                UMIClient.UMIConnect();
+             
             }
         }
         else if (this.eLobbyState_0 == eLobbyState.createRoom)
         {
             if (GUI.Button(new Rect(0.5f * this.display_0 - 125f, 400f, 250f, 38f), "CreateRoom"))
             {
-                UMIHost.UMISartHost(4, 8000);
+                UMIServe.hInst.Startserve();
                 this.eLobbyState_0 = eLobbyState.notice;
             }
         }
@@ -58,6 +62,7 @@ public class LobbyGui : MonoBehaviour
             if (GUI.Button(new Rect(0.5f * this.display_0 - 125f, 400f, 250f, 38f), "Start"))
             {
                 UMIGame.LoadNextLevel(1);
+                
             }
         }
 

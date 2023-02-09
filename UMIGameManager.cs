@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UMI.Network.Client; 
 public class UMIGameManager : MonoBehaviour
 {
     public static UMIGameManager hInst;
@@ -16,12 +16,12 @@ public class UMIGameManager : MonoBehaviour
     {
         hInst = this; 
         this.Init();
-        this.gameObject_0 = (GameObject)UnityEngine.Object.Instantiate((GameObject)Resources.Load("GameAssets/Characters/viewChar/boyChar", typeof(GameObject))
-  , new Vector3(0.0f, 0.0f, 0.0f), Quaternion.Euler(0f, 0f, 0f));
+  //      this.gameObject_0 = (GameObject)UnityEngine.Object.Instantiate((GameObject)Resources.Load("GameAssets/Characters/viewChar/boyChar", typeof(GameObject))
+  //, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.Euler(0f, 0f, 0f));
     }
     void Start()
     {
-
+       
     }
     void Init()
     {

@@ -10,6 +10,8 @@ namespace UMI.Network
 {
     public class UMIClient : MonoBehaviour
     {
+        //UID
+        public static int UID ; 
         //Client
         private static TcpClient client;
         //Data
@@ -37,11 +39,14 @@ namespace UMI.Network
 
                 byte[] recevie = new byte[1024];
                 stream.Read(recevie, 0, recevie.Length);
-                Debug.Log(Encoding.ASCII.GetString(recevie));
+                UMI.Log(Encoding.ASCII.GetString(recevie));
+                byte[] id = new byte[1024];
+                stream.Read(id, 0, id.Length);
+                UID = int.Parse(Encoding.ASCII.GetString(id));
+                UMI.Log(UID);
                 string isConnect = Encoding.ASCII.GetString(recevie);
                 try
                 {
-
                     float isConnected = float.Parse(isConnect);
                 }
                 catch

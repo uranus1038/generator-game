@@ -51,6 +51,7 @@ public class CharacterControl : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        // Check Collision
         if (collision.gameObject.name == "girlCharacter")
         {
             this.isMove = false;
@@ -60,6 +61,7 @@ public class CharacterControl : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
+        // Check Collision
         if (collision.gameObject.name == "girlCharacter")
         {
             this.isMove = true;

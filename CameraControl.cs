@@ -32,9 +32,9 @@ public class CameraControl : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        Vector3 playerPosition = this.target_0.transform.position + this.offset_0;
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, playerPosition, smoothSpeed);
-        this.transform.position = smoothedPosition;
+        //Vector3 playerPosition = this.target_0.transform.position + this.offset_0;
+        //Vector3 smoothedPosition = Vector3.Lerp(transform.position, playerPosition, smoothSpeed);
+        //this.transform.position = smoothedPosition;
         
     }
 }

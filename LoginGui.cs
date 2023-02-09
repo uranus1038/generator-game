@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UMIAPIUser;
+using UMI.Network.API;
+using UMI.Manager; 
 public class LoginGui : MonoBehaviour
 {
     private float delay_0;
@@ -50,6 +52,8 @@ public class LoginGui : MonoBehaviour
             if (GUI.Button(new Rect(0.5f * this.display_0 - 156f, 804f, 108f, 37f), "Submit")) 
             {
                 StartCoroutine(UMIAPI.hInst.UMIGetUser(this.userName_0));
+                UMINetworkManager.hDac.Add(1,this.userName_0);
+                UMIGame.LoadNextLevel(2);
             }
         }
     }

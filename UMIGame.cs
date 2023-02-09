@@ -8,11 +8,13 @@ namespace UMI.Manager
     {
         public static void LoadNextLevel(int num)
         {
-            if (num == 1)
+            switch(num)
             {
-                Application.LoadLevel("T00_GamePlay");
-                return;
+                case 1: Application.LoadLevel("T00_GamePlay");  break;
+                case 2: Application.LoadLevel("A01_LobbyGui");  break;
+                default: return; 
             }
+         
 
         }
     }
