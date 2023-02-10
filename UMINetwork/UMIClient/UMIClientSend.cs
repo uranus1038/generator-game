@@ -33,7 +33,6 @@ namespace UMI.Network.Client
         }
         public static void reqPlayerMoveMent(Vector3 position)
         {
-            UMI.Log(position);
             using (UMIPacket packet = new UMIPacket((int)YUMIClientPackets.reqPlayerMovement))
             {   
                 packet.Write(position);
