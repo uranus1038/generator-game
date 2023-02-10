@@ -1,7 +1,7 @@
 using UnityEngine;
 using UMI.Network.Server;
 using UMI.Network.Client;
-using UMI.Network.API;
+using UMI.Network;
 using UMI.Manager;
 
 public class LobbyGui : MonoBehaviour
@@ -29,7 +29,7 @@ public class LobbyGui : MonoBehaviour
             }
             if (GUI.Button(new Rect(0.5f * this.display_0 - 125f, 400f, 250f, 38f), UMINetworkManager.hDac[1].ToString()))
             {
-                UMIClient.hInst.connectServer();
+                UMIGame.LoadNextLevel(1);
 
             }
             if (GUI.Button(new Rect(0.5f * this.display_0 - 125f, 450f, 250f, 38f), "Quit"))
@@ -41,13 +41,13 @@ public class LobbyGui : MonoBehaviour
         {
             if (GUI.Button(new Rect(0.5f * this.display_0 - 125f, 400f, 250f, 38f), "CreateRoom"))
             {
-                UMIServe.hInst.Startserve();
+                UMIServe.star.StartServe();
                 this.eLobbyState_0 = eLobbyState.notice;
             }
         }
         else if (this.eLobbyState_0 == eLobbyState.notice)
         {
-            if (Time.time < this.delay_0 + 5f)
+            if (Time.time < this.delay_0 + 2f)
             {
                 // # Notice
                 GUI.TextField(new Rect(0.5f * this.display_0 - 125f, 400f, 250f, 38f), "Notice");
@@ -62,7 +62,6 @@ public class LobbyGui : MonoBehaviour
             if (GUI.Button(new Rect(0.5f * this.display_0 - 125f, 400f, 250f, 38f), "Start"))
             {
                 UMIGame.LoadNextLevel(1);
-                
             }
         }
 

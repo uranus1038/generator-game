@@ -5,14 +5,14 @@ using System.Net.Sockets;
 using System.Numerics;
 namespace UMI.Network.Server
 {
-    class UMIClientServer
+    class UMIServerManager
     {
         public int UID;
         public UMITCP TCP;
         public UMIUDP UDP;
         public static int dataBufferSize = 4096;
         public UMIPlayer player;
-        public UMIClientServer(int CUID)
+        public UMIServerManager(int CUID)
         {
             this.UID = CUID;
             this.TCP = new UMITCP(UID);
@@ -40,7 +40,7 @@ namespace UMI.Network.Server
                 receiveBuffer = new byte[dataBufferSize];
                 stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
                 receiveData = new UMIPacket();
-                UMIServerSend.Welcome(this.UID, "Hi you");
+                UMIServerSend.serverOn(this.UID, "SERVER_RESPON_STATUS()->LOG->CODE-200");
             }
             public void SendData(UMIPacket packet)
             {
@@ -145,7 +145,6 @@ namespace UMI.Network.Server
             }
             public void Connect(IPEndPoint endPoint)
             {
-                UMIServerSend.low(UID, "upd"); 
                 this.endPoint = endPoint;
             }
             public void SendData(UMIPacket packet)
@@ -183,8 +182,9 @@ namespace UMI.Network.Server
 
         public void SendIntoGame(string playerName)
         {
+            UMI.Log("ok");
             player = new UMIPlayer(this.UID, playerName, new Vector3(0, 0, 0));
-            foreach (UMIClientServer client in UMIServer.clients.Values)
+            foreach (UMIServerManager client in UMIServer.clients.Values)
             {
                 if (client.player != null)
                 {
@@ -195,7 +195,7 @@ namespace UMI.Network.Server
 
                 }
             }
-            foreach (UMIClientServer client in UMIServer.clients.Values)
+            foreach (UMIServerManager client in UMIServer.clients.Values)
             {
                 if (client.player != null)
                 {

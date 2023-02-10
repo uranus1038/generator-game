@@ -1,18 +1,20 @@
+// Receive from server
 public enum YUMIServerPackets
 {
-    welcome = 1,
-    spawnPlayer,
-    playerPosition
-  , playerRotation,
-    disConnectSv,
-    hello , 
+    resServer = 1,
+    resSpawnPlayer,
+    resPlayerPosition
+  , resPlayerRotation,
+    resDisconnect,
+    
 }
 
-/// <summary>Sent from client to server.</summary>
+// Receive from client
 public enum YUMIClientPackets
 {
-    welcomeReceived = 1,
-    playerMovement,
-    disConnectClient
+    getRespon = 1,
+    reqPlayerMovement,
+    reqDisconnect,   
+    reqSpawnPlayer  ,
 
 }

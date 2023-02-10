@@ -6,7 +6,7 @@ namespace UMI.Network.Server
     {
         public static void UMIUpdate()
         {
-            foreach (UMIClientServer client in UMIServer.clients.Values)
+            foreach (UMIServerManager client in UMIServer.clients.Values)
             {
                 if (client.player != null)
                 {

@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using UnityEngine; 
 namespace UMI.Network.Server
 {
-    class UMIThreadManager 
+    class UMIThreadManager : MonoBehaviour
     {
         private static readonly List<Action> executeOnMainThread = new List<Action>();
         private static readonly List<Action> executeCopiedOnMainThread = new List<Action>();
         private static bool actionToExecuteOnMainThread = false;
 
-       
+        private void FixedUpdate()
+        {
+            UMIMain();
+            UMIGameLogic.UMIUpdate();
+        }
 
         /// <summary>Sets an action to be executed on the main thread.</summary>
         /// <param name="_action">The action to be executed on the main thread.</param>

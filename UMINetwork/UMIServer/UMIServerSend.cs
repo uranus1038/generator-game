@@ -56,61 +56,40 @@ namespace UMI.Network.Server
             }
         }
         #endregion
-        public static void Welcome(int _toClient, string _msg)
+        public static void serverOn(int toClient, string msg)
         {
-            using (UMIPacket _packet = new UMIPacket((int)YUMIServerPackets.welcome))
+            using (UMIPacket packet = new UMIPacket((int)YUMIServerPackets.resServer))
             {
-                _packet.Write(_msg);
-                _packet.Write(_toClient);
-
-                SendTCPData(_toClient, _packet);
-                
+                packet.Write(msg);
+                packet.Write(toClient);
+                SendTCPData(toClient, packet);
             }
-        }
-        public static void low(int _toClient, string _msg)
-        {
-            using (UMIPacket _packet = new UMIPacket((int)YUMIServerPackets.welcome))
-            {
-                _packet.Write(_msg);
-                _packet.Write(_toClient);
-
-                SendTCPData(_toClient, _packet);
-
-            }
-        }
+        }  
         public static void spawnPlayer(int toClient, UMIPlayer player)
         {
-            using (UMIPacket packet = new UMIPacket((int)YUMIServerPackets.spawnPlayer))
+            using (UMIPacket packet = new UMIPacket((int)YUMIServerPackets.resSpawnPlayer))
             {
                 packet.Write(player.UID);
                 packet.Write(player.userName);
                 packet.Write(player.position);
                 packet.Write(player.rotation);
-
                 SendTCPData(toClient, packet);
-
             }
         }
-        public static void playerPosition(UMIPlayer player)
+        public static void playerPosition2D(UMIPlayer player)
         {
-            using (UMIPacket packet = new UMIPacket((int)YUMIServerPackets.playerPosition))
+            using (UMIPacket packet = new UMIPacket((int)YUMIServerPackets.resPlayerPosition))
             {
                 packet.Write(player.UID);
                 packet.Write(player.position);
-                
-
-
                 SendUDPDataX(player.UID, packet);
             }
         }
-
         public static void disconnectSend(int client)
         {
-            using (UMIPacket packet = new UMIPacket((int)YUMIServerPackets.disConnectSv))
+            using (UMIPacket packet = new UMIPacket((int)YUMIServerPackets.resDisconnect))
             {
-
                 packet.Write(client);
-
                 SendUDPDataX(client, packet);
             }
         }

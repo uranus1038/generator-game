@@ -8,7 +8,7 @@ using System.Text;
 
 namespace UMI.Network
 {
-    public class UMIClient : MonoBehaviour
+    public class UMIClientReport : MonoBehaviour
     {
         //UID
         public static int UID ; 

@@ -18,7 +18,7 @@ namespace UMI.Network.Client
 
         /// <summary>Sets an action to be executed on the main thread.</summary>
         /// <param name="_action">The action to be executed on the main thread.</param>
-        public static void umiExecuteOnMainThread(Action _action)
+        public static void UMIExecuteOnMainThread(Action _action)
         {
             if (_action == null)
             {

@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using UnityEngine;
 namespace UMI.Network.Server
 {
-    class UMIServer
+    class UMIServer : MonoBehaviour
     {
         public static int maxPlayer { get; private set; }
         public static int port { get; private set; }
-        public static Dictionary<int, UMIClientServer> clients = new Dictionary<int, UMIClientServer>();
+        public static Dictionary<int, UMIServerManager> clients = new Dictionary<int, UMIServerManager>();
         public delegate void PacketHandler(int client, UMIPacket packet);
         public static Dictionary<int, PacketHandler> packetHandle;
 
 
-        private static UdpClient UMIUDPListener;
-        private static TcpListener UMITCPListener;
+        public static UdpClient UMIUDPListener;
+        public static TcpListener UMITCPListener;
        
         public static void Start(int maxPlayerV, int portV)
         {
@@ -114,17 +115,25 @@ namespace UMI.Network.Server
         {
             for (int i = 1; i <= maxPlayer; i++)
             {
-                clients.Add(i, new UMIClientServer(i));
+                try
+                {
+                    clients.Add(i, new UMIServerManager(i));
+
+                }catch
+                {
+                    UMI.Log(i);
+                }
             }
             packetHandle = new Dictionary<int, PacketHandler>()
             {
                 //receive
-                {   (int)YUMIClientPackets.welcomeReceived , UMIServerHandle.welcomReceived },
-                {   (int)YUMIClientPackets.playerMovement , UMIServerHandle.playerMovement},
-                {   (int)YUMIClientPackets.disConnectClient , UMIServerHandle.disconnectReceive}
+                {   (int)YUMIClientPackets.getRespon , UMIServerHandle.connectReq },
+                {   (int)YUMIClientPackets.reqPlayerMovement , UMIServerHandle.playerMovement2D},
+                {   (int)YUMIClientPackets.reqDisconnect , UMIServerHandle.disconnectReceive} ,
+                {   (int)YUMIClientPackets.reqSpawnPlayer , UMIServerHandle.spawnPlayer}
 
             };
-            UMI.Log("initializeServer");
+            UMI.Log("UMI::DATA_SERVER()->LOG->initializeServer");
         }
 
 

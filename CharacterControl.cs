@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UMI.Network.Client;
 
 public class CharacterControl : MonoBehaviour
 {
+    public static bool camera_0 = false; 
     //Speed
     protected float speed_0 =3f ;
     protected float speed_1 =3f;
@@ -14,6 +15,7 @@ public class CharacterControl : MonoBehaviour
     protected bool isMove = true; 
     private void Start()
     {
+        camera_0 = true;
         this.rigidbody2d = GetComponent<Rigidbody2D>();
     }
 
@@ -22,7 +24,6 @@ public class CharacterControl : MonoBehaviour
         if (this.isMove)
         {
             if (Input.GetKey("w"))
-
                 this.transform.position += new Vector3(0, speed_1 * Time.deltaTime, 0);
             if (Input.GetKey("s"))
                 this.transform.position += new Vector3(0, -speed_1 * Time.deltaTime, 0);
@@ -37,8 +38,7 @@ public class CharacterControl : MonoBehaviour
             float VerticalInput = Input.GetAxis("Vertical");
             this.rigidbody2d.velocity = new Vector2(this.rigidbody2d.velocity.x, VerticalInput * this.speed_0);
         }
-        
-            
+        UMIClientSend.reqPlayerMoveMent(this.transform.position);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -48,7 +48,6 @@ public class CharacterControl : MonoBehaviour
             print("Enter");
         }
     }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Check Collision

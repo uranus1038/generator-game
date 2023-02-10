@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-namespace UMI
+using UMI; 
+namespace  UMI
 {
     public class UMI : MonoBehaviour
     {

@@ -5,41 +5,24 @@ namespace UMI.Network.Server
 {
     class UMIServe : MonoBehaviour
     {
-        public static UMIServe hInst;
+        public static UMIServe star;
         private void Awake()
         {
-            hInst = this; 
+            star = this; 
         }
-        private static bool isRunnig = false;
-        public const int TICK_PER_SEC = 30;
-        public const int MS_PER_TICK = 1000 / TICK_PER_SEC;
-        public  void Startserve()
+     
+        public  void StartServe()
         {
-            isRunnig = true;
-            UMIServer.Start(100, 800);
+            UMIServer.Start(4, 8080);
             
-            
-            Thread mainThread = new Thread(new ThreadStart(UMIMain));
-            mainThread.Start();
-            
+        }
+        public void StartServeX()
+        {
+            UMIServer.Start(4, 8180);
+
         }
 
-        private static void UMIMain()
-        {
-            DateTime nextLoop = DateTime.Now;
-            while (isRunnig)
-            {
-                while (nextLoop < DateTime.Now)
-                {
-                    UMIThreadManager.UMIMain();
-                    nextLoop = nextLoop.AddMilliseconds(MS_PER_TICK);
-                }
-                if (nextLoop > DateTime.Now)
-                {
-                    Thread.Sleep(nextLoop - DateTime.Now);
-                }
-            }
-        }
+
 
 
     }

@@ -16,18 +16,14 @@ namespace UMI.Network.Server
             this.userName = userName;
             this.position = spawnPosition;
             this.rotation = Quaternion.Identity; 
-
         }
         public void UMIUpdate()
         {
-            UMIServerSend.playerPosition(this);
+            UMIServerSend.playerPosition2D(this);
         }
-
-
-        public void setInput(Vector3 position)
+        public void resPosition(Vector3 position)
         {
             this.position = position;
         }
-
     }
 }

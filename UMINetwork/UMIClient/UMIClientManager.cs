@@ -6,12 +6,12 @@ using System.Net.Sockets;
 using System;
 namespace UMI.Network.Client
 {
-    public class UMIClient : MonoBehaviour
+    public class UMIClientManager : MonoBehaviour
     {
-        public static UMIClient hInst;
+        public static UMIClientManager star;
         public static int dataBufferSize = 4096;
-        public string IP = "127.0.0.1";
-        public int port = 8000;
+        public string IP;
+        public int port;
         public int UID = 0;
         public UMITCP TCP;
         public UMIUDP UDP;
@@ -20,11 +20,11 @@ namespace UMI.Network.Client
         private static Dictionary<int, packetHandler> packetHandlers;
         private void Awake()
         {
-            if (hInst == null)
+            if (star == null)
             {
-                hInst = this;
+                star = this;
             }
-            else if (hInst != this)
+            else if (star != this)
             {
                 UMI.Log($"UMI::DESTROY()->INSTANCE");
                 Destroy(this);
@@ -39,11 +39,13 @@ namespace UMI.Network.Client
             
          
         }
+        // Quit Gmae 
         public void OnApplicationQuit()
         {
             UMIClientSend.DisconnectSend(this.UID);
             Disconnect();
-           
+            TCP.socket.Close(); 
+            UDP.socket.Close();
         }
         public void connectServer()
         {
@@ -51,8 +53,9 @@ namespace UMI.Network.Client
             InitializeClientData();
             this.isConnected = true;
             this.TCP.Connect();
-            
+           
         }
+        // TCP
         public class UMITCP
         {
             
@@ -61,29 +64,23 @@ namespace UMI.Network.Client
             private NetworkStream stream;
             private byte[] receiveBuffer;
             private float float_1; 
-      
-          
-         
-          
+ 
             public void Connect()
             {
                
                 socket = new TcpClient { ReceiveBufferSize = dataBufferSize, SendBufferSize = dataBufferSize };
 
                 receiveBuffer = new byte[dataBufferSize];
-                socket.BeginConnect(hInst.IP, hInst.port, ConnectCallback, socket);
-
+                socket.BeginConnect(star.IP, star.port, ConnectCallback, socket);
             }
             private void ConnectCallback(IAsyncResult result)
             {
                 if (!socket.Connected)
                 {
-                    
                     UMI.Log("UMI::SERVERSTATUS()->DOWN");
+                    UMI.Log("UMI::SERVER_RESPON_STATUS()->LOG->CODE-400");
                     return;
-                }
-
-                
+                }       
                 stream = socket.GetStream();
                 receiveData = new UMIPacket();
                 stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
@@ -95,7 +92,6 @@ namespace UMI.Network.Client
                 {
                     if (this.socket != null)
                     {
-                        UMI.Log("success write");
                         stream.BeginWrite(packet.ToArray(), 0, packet.Length(), null, null);
                     }
                 }
@@ -113,8 +109,8 @@ namespace UMI.Network.Client
                     if (byteLength <= 0)
                     {
 
-                        hInst.Disconnect();
-                        UMIClientSend.DisconnectSend(UMIClient.hInst.UID);
+                        star.Disconnect();
+                        UMIClientSend.DisconnectSend(UMIClientManager.star.UID);
                         return;
                     }
                     byte[] data = new byte[byteLength];
@@ -125,7 +121,7 @@ namespace UMI.Network.Client
                 }
                 catch
                 {
-                    UMIClientSend.DisconnectSend(UMIClient.hInst.UID);
+                    UMIClientSend.DisconnectSend(UMIClientManager.star.UID);
                     Disconnect();
                 }
             }
@@ -146,7 +142,7 @@ namespace UMI.Network.Client
                 while (packetLenght > 0 && packetLenght <= receiveData.UnreadLength())
                 {
                     byte[] packetByte = receiveData.ReadBytes(packetLenght);
-                    UMIThreadManager.umiExecuteOnMainThread(() =>
+                    UMIThreadManager.UMIExecuteOnMainThread(() =>
                     {
                         using (UMIPacket packet = new UMIPacket(packetByte))
                         {
@@ -174,7 +170,7 @@ namespace UMI.Network.Client
 
             private void Disconnect()
             {
-                hInst.Disconnect();
+                star.Disconnect();
                 this.stream = null;
                 this.receiveData = null;
                 this.receiveBuffer = null;
@@ -182,20 +178,20 @@ namespace UMI.Network.Client
             }
 
         }
-
+        // UDP
         public class UMIUDP
         {
             public UdpClient socket;
             public IPEndPoint endPoint;
             public UMIUDP()
             {
-                endPoint = new IPEndPoint(IPAddress.Parse(hInst.IP), hInst.port);
+                endPoint = new IPEndPoint(IPAddress.Parse(star.IP), star.port);
             }
             public void Connect(int localPort)
             {
                 socket = new UdpClient(localPort);
                 socket.Connect(endPoint);
-                socket.BeginReceive(umiReceiveCallback, null);
+                socket.BeginReceive(ReceiveCallback, null);
 
                 using (UMIPacket packet = new UMIPacket())
                 {
@@ -207,7 +203,7 @@ namespace UMI.Network.Client
             {
                 try
                 {
-                    packet.InsertInt(hInst.UID);
+                    packet.InsertInt(star.UID);
                     if (this.socket != null)
                     {
                         socket.BeginSend(packet.ToArray(), packet.Length(), null, null);
@@ -218,23 +214,23 @@ namespace UMI.Network.Client
                     UMI.Log($"UMI::ERRSEND()->{ex}");
                 }
             }
-            private void umiReceiveCallback(IAsyncResult result)
+            private void ReceiveCallback(IAsyncResult result)
             {
                 try
                 {
                     byte[] data = socket.EndReceive(result, ref endPoint);
-                    socket.BeginReceive(umiReceiveCallback, null);
+                    socket.BeginReceive(ReceiveCallback, null);
                     if (data.Length < 4)
                     {
-                        UMIClientSend.DisconnectSend(UMIClient.hInst.UID);
-                        hInst.Disconnect();
+                        UMIClientSend.DisconnectSend(UMIClientManager.star.UID);
+                        star.Disconnect();
                         return;
                     }
                     HandleData(data);
                 }
                 catch
                 {
-                    UMIClientSend.DisconnectSend(UMIClient.hInst.UID);
+                    UMIClientSend.DisconnectSend(UMIClientManager.star.UID);
                     Disconnect();
                 }
             }
@@ -246,7 +242,7 @@ namespace UMI.Network.Client
                     data = packet.ReadBytes(packetLength);
                 }
 
-                UMIThreadManager.umiExecuteOnMainThread(() =>
+                UMIThreadManager.UMIExecuteOnMainThread(() =>
                 {
                     using (UMIPacket packet = new UMIPacket(data))
                     {
@@ -255,17 +251,15 @@ namespace UMI.Network.Client
                     }
                 });
             }
-
-
-
             private void Disconnect()
             {
-                hInst.Disconnect();
+                star.Disconnect();
                 this.endPoint = null;
                 this.socket = null;
             }
 
         }
+        // Discoonect from server 
         private void Disconnect()
         {
             if (isConnected)
@@ -277,19 +271,17 @@ namespace UMI.Network.Client
                 UMI.Log($"UMI::DISCONNECT()");
             }
         }
+        // Receive from server
         private void InitializeClientData()
         {
             packetHandlers = new Dictionary<int, packetHandler>()
         {
-           { (int)YUMIServerPackets.welcome ,UMIClientHandle.Welcom},
-           { (int)YUMIServerPackets.spawnPlayer ,UMIClientHandle.spawnPlayer},
-           { (int)YUMIServerPackets.playerPosition ,UMIClientHandle.playerPosition},
-           { (int)YUMIServerPackets.disConnectSv ,UMIClientHandle.DisconnectReceive},
-           { (int)YUMIServerPackets.hello , UMIClientHandle.asd},
-
+                //Receive respon 
+           { (int)YUMIServerPackets.resServer ,UMIClientHandle.connectRespon},
+           { (int)YUMIServerPackets.resSpawnPlayer ,UMIClientHandle.spawnPlayer},
+           { (int)YUMIServerPackets.resPlayerPosition ,UMIClientHandle.playerPosition2D},
+           { (int)YUMIServerPackets.resDisconnect ,UMIClientHandle.disconnectGetRespon},
         };
-
         }
-
     }
 }

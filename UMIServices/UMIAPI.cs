@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace UMIAPIUser
+namespace UMI.Network.API
 {
     public class UMIAPI : MonoBehaviour
     {

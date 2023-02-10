@@ -1,25 +1,24 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System.Net;
-using System.Net.Sockets; 
-namespace UMI.Network.API
+using UMI.Network.Client;
+using UMI.Network.Server;
+namespace UMI.Network
 {
     public class UMINetworkManager : MonoBehaviour
     {
-        public static UMINetworkManager hInst; 
-        public int ID;
+        public static UMINetworkManager star;
         // Load Data
-        public static Hashtable hDac = new Hashtable(); 
+        public static Hashtable hDac = new Hashtable();
         private void Awake()
         {
-            hInst = this;
+            star = this;
+            
         }
         private void Start()
         {
-           
+            UMI.Log("UMI::LOG()->START");
+            UMIClientManager.star.connectServer();
+            
         }
-       
-        
     }
 }

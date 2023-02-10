@@ -66,7 +66,7 @@ namespace UMI.Network
                 }
                 catch( Exception ex)
                 {
-                    UMI.Log("ok");
+                    UMI.Log($"{ex}");
                     UID = i;
                     TcpClient client = UMITCPListener.AcceptTcpClient();
                     Thread UMITCPHandlerThread = new Thread(new ParameterizedThreadStart(UMITCPHandler));

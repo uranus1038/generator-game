@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
-using UMIAPIUser;
 using UMI.Network.API;
-using UMI.Manager; 
+using UMI.Manager;
+using UMI.Network;
 public class LoginGui : MonoBehaviour
 {
     private float delay_0;
