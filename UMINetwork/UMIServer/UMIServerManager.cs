@@ -3,10 +3,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Numerics;
+
 namespace UMI.Network.Server
 {
     class UMIServerManager
-    {
+    { 
         public int UID;
         public UMITCP TCP;
         public UMIUDP UDP;
@@ -176,6 +177,7 @@ namespace UMI.Network.Server
         {
             UMI.Log($"UMI::DISCONNECT()->{TCP.socket.Client.RemoteEndPoint}");
             player = null;
+           
             TCP.Disconnect();
             UDP.Disconnect();
         }

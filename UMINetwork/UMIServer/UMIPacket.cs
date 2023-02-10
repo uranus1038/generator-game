@@ -146,19 +146,19 @@ namespace UMI.Network.Server
             Write(_value.Length); // Add the length of the string to the packet
             buffer.AddRange(Encoding.ASCII.GetBytes(_value)); // Add the string itself
         }
-        public void Write(Vector3 _value)
+        public void Write(Vector3 value)
         {
-            Write(_value.X);
-            Write(_value.Y);
-            Write(_value.Z);
+            Write(value.X);
+            Write(value.Y);
+            Write(value.Z);
 
         }
-        public void Write(Quaternion _value)
+        public void Write(Quaternion value)
         {
-            Write(_value.X);
-            Write(_value.Y);
-            Write(_value.Z);
-            Write(_value.W);
+            Write(value.X);
+            Write(value.Y);
+            Write(value.Z);
+            Write(value.W);
         }
         #endregion
 

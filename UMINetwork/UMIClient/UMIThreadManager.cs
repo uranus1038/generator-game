@@ -11,9 +11,10 @@ namespace UMI.Network.Client
         private static readonly List<Action> executeCopiedOnMainThread = new List<Action>();
         private static bool actionToExecuteOnMainThread = false;
 
-        private void Update()
+        private void FixedUpdate()
         {
             UMIMain();
+            UMIGameLogic.UMIUpdate();
         }
 
         /// <summary>Sets an action to be executed on the main thread.</summary>

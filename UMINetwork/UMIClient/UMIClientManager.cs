@@ -10,8 +10,8 @@ namespace UMI.Network.Client
     {
         public static UMIClientManager star;
         public static int dataBufferSize = 4096;
-        public string IP;
-        public int port;
+        public string IP = "127.0.0.1";
+        public int port =8080;
         public int UID = 0;
         public UMITCP TCP;
         public UMIUDP UDP;

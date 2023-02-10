@@ -23,7 +23,6 @@ namespace UMI.Network.Server
         }
         public static void playerMovement2D(int fClient, UMIPacket packet)
         {
-            UMI.Log(fClient +"  succes");
             Vector3 position = packet.ReadVector3();
             UMIServer.clients[fClient].player.resPosition(position);
         }

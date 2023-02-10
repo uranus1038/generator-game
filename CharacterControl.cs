@@ -24,16 +24,17 @@ public class CharacterControl : MonoBehaviour
     private void FixedUpdate()
     {
         if (this.isMove)
-        {
-            if (Input.GetKey("w"))
+        {   
+            if (Input.GetKey(KeyCode.W))
                 this.transform.position += new Vector3(0, speed_1 * Time.deltaTime, 0);
-            if (Input.GetKey("s"))
+            if (Input.GetKey(KeyCode.S))
                 this.transform.position += new Vector3(0, -speed_1 * Time.deltaTime, 0);
-            if (Input.GetKey("a"))
+            if (Input.GetKey(KeyCode.A))
                 this.transform.position += new Vector3(-speed_1 * Time.deltaTime, 0, 0);
-            if (Input.GetKey("d"))
+            if (Input.GetKey(KeyCode.D))
                 this.transform.position += new Vector3(speed_1 * Time.deltaTime, 0, 0);
-        }else
+        }
+        else
         {
             float horizontalInput = Input.GetAxis("Horizontal");
             this.rigidbody2d.velocity = new Vector2(horizontalInput * this.speed_0, this.rigidbody2d.velocity.y);
@@ -41,6 +42,7 @@ public class CharacterControl : MonoBehaviour
             this.rigidbody2d.velocity = new Vector2(this.rigidbody2d.velocity.x, VerticalInput * this.speed_0);
         }
         this.position = this.transform.position; 
+ 
         UMIClientSend.reqPlayerMoveMent(this.position);
     }
 
@@ -54,7 +56,7 @@ public class CharacterControl : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Check Collision
-        if (collision.gameObject.name == "girlCharacter")
+        if (collision.gameObject.name == "boyCharPlayer(Clone)")
         {
             this.isMove = false;
             print("Enter");
@@ -64,7 +66,7 @@ public class CharacterControl : MonoBehaviour
     private void OnCollisionExit2D(Collision2D collision)
     {
         // Check Collision
-        if (collision.gameObject.name == "girlCharacter")
+        if (collision.gameObject.name == "boyCharPlayer(Clone)")
         {
             this.isMove = true;
         }

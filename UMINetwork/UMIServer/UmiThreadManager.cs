@@ -9,9 +9,9 @@ namespace UMI.Network.Server
         private static readonly List<Action> executeCopiedOnMainThread = new List<Action>();
         private static bool actionToExecuteOnMainThread = false;
 
-        private void FixedUpdate()
+        private void Update()
         {
-            UMIMain();  
+            UMIMain();
         }
         /// <summary>Sets an action to be executed on the main thread.</summary>
         /// <param name="_action">The action to be executed on the main thread.</param>
