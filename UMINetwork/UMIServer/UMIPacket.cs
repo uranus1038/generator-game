@@ -25,7 +25,6 @@ namespace UMI.Network.Server
         {
             buffer = new List<byte>(); // Intitialize buffer
             readPos = 0; // Set readPos to 0
-
             Write(_id); // Write packet id to the buffer
         }
 

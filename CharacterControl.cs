@@ -11,6 +11,8 @@ public class CharacterControl : MonoBehaviour
     protected float speed_1 =3f;
     // Rigibody
     private Rigidbody2D rigidbody2d;
+    // Current position
+    public Vector3 position;
     //Smooth movement
     protected bool isMove = true; 
     private void Start()
@@ -19,7 +21,7 @@ public class CharacterControl : MonoBehaviour
         this.rigidbody2d = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (this.isMove)
         {
@@ -38,7 +40,8 @@ public class CharacterControl : MonoBehaviour
             float VerticalInput = Input.GetAxis("Vertical");
             this.rigidbody2d.velocity = new Vector2(this.rigidbody2d.velocity.x, VerticalInput * this.speed_0);
         }
-        UMIClientSend.reqPlayerMoveMent(this.transform.position);
+        this.position = this.transform.position; 
+        UMIClientSend.reqPlayerMoveMent(this.position);
     }
 
     private void OnTriggerEnter(Collider other)

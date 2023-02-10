@@ -16,6 +16,11 @@ namespace UMI.Network.Client
             packet.WriteLength();
             UMIClientManager.star.UDP.SendData(packet);
         }
+        private static void SendUDPData(int UID,UMIPacket packet)
+        {
+            packet.WriteLength();
+            UMIClientManager.star.UDP.SendData(packet);
+        }
         #endregion
         public static void requastConnect()
         {
@@ -28,8 +33,9 @@ namespace UMI.Network.Client
         }
         public static void reqPlayerMoveMent(Vector3 position)
         {
+            UMI.Log(position);
             using (UMIPacket packet = new UMIPacket((int)YUMIClientPackets.reqPlayerMovement))
-            {
+            {   
                 packet.Write(position);
                 // _Packet.Write(GameManager.players[Client.instance.my_Id].transform.rotation);
                 SendUDPData(packet);

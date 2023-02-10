@@ -11,10 +11,8 @@ namespace UMI.Network.Server
 
         private void FixedUpdate()
         {
-            UMIMain();
-            UMIGameLogic.UMIUpdate();
+            UMIMain();  
         }
-
         /// <summary>Sets an action to be executed on the main thread.</summary>
         /// <param name="_action">The action to be executed on the main thread.</param>
         public static void UMIExecuteOnMainThread(Action _action)

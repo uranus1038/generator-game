@@ -1,7 +1,5 @@
 using UnityEngine;
 using System.Net;
-using System.Net.Sockets;
-using UnityEngine;
 namespace UMI.Network.Client
 { 
 public class UMIClientHandle : MonoBehaviour

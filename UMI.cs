@@ -15,5 +15,13 @@ namespace  UMI
         {
             print(Debug);
         }
+        public static void Log(int Debug , string strDebug)
+        {
+            print(Debug+strDebug);
+        }
+        public static void Log(Vector3 Debug)
+        {
+            print(Debug);
+        }
     }
 }

@@ -70,8 +70,6 @@ namespace UMI.Network
                     UID = i;
                     TcpClient client = UMITCPListener.AcceptTcpClient();
                     Thread UMITCPHandlerThread = new Thread(new ParameterizedThreadStart(UMITCPHandler));
-
-
                     // Retrieve the client's IP address
                     IPAddress clientIP = ((IPEndPoint)client.Client.RemoteEndPoint).Address;
                     UMI.Log("UMI::CLIENTCONNECT()::IPADDRESS->" + clientIP.ToString());
@@ -80,9 +78,6 @@ namespace UMI.Network
                     // index client
                     UMITCPHandlerThread.Start(players[i]);
                 }
-             
-
-
             }
            
 

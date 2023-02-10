@@ -64,7 +64,7 @@ namespace UMI.Network.Server
                 packet.Write(toClient);
                 SendTCPData(toClient, packet);
             }
-        }  
+        }
         public static void spawnPlayer(int toClient, UMIPlayer player)
         {
             using (UMIPacket packet = new UMIPacket((int)YUMIServerPackets.resSpawnPlayer))
@@ -82,7 +82,7 @@ namespace UMI.Network.Server
             {
                 packet.Write(player.UID);
                 packet.Write(player.position);
-                SendUDPDataX(player.UID, packet);
+                SendUDPDataX(packet);
             }
         }
         public static void disconnectSend(int client)

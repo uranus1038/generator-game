@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+using UMI.Network.Server;
 namespace UMI.Network.Client
 {
     public class UMIThreadManager : MonoBehaviour
