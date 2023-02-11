@@ -16,7 +16,6 @@ namespace UMI.Network.Server
             this.position = spawnPosition;
             this.rotation = Quaternion.Identity;
         }
-
         public void UMIUpdate()
         {
             UMIServerSend.playerPosition2D(this);

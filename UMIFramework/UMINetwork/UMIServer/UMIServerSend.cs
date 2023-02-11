@@ -81,7 +81,7 @@ namespace UMI.Network.Server
             {
                 packet.Write(player.UID);
                 packet.Write(player.position);
-                SendUDPDataX(packet);
+                SendUDPDataX(player.UID,packet);
             }
         }
         public static void disconnectSend(int client)

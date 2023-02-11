@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UMI.Network.Server;
+using System.Threading;
 namespace UMI.Network.Client
 {
     public class UMIThreadManager : MonoBehaviour
@@ -10,11 +11,10 @@ namespace UMI.Network.Client
         private static readonly List<Action> executeOnMainThread = new List<Action>();
         private static readonly List<Action> executeCopiedOnMainThread = new List<Action>();
         private static bool actionToExecuteOnMainThread = false;
-
-        private void FixedUpdate()
+        
+        private void Update()
         {
             UMIMain();
-            UMIGameLogic.UMIUpdate();
         }
 
         /// <summary>Sets an action to be executed on the main thread.</summary>

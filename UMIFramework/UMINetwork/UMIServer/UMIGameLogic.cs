@@ -11,9 +11,8 @@
                 {
                     client.player.UMIUpdate();
                 }
-
             }
-           // UMIThreadManager.UMIMain();
+           
         }
     }
 }

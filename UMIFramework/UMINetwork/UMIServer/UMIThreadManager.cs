@@ -5,14 +5,18 @@ namespace UMI.Network.Server
 {
     class UMIThreadManager : MonoBehaviour
     {
-        private static readonly List<Action> executeOnMainThread = new List<Action>();
-        private static readonly List<Action> executeCopiedOnMainThread = new List<Action>();
-        private static bool actionToExecuteOnMainThread = false;
-
         private void Update()
         {
             UMIMain();
         }
+        private void LateUpdate()
+        {
+            UMIGameLogic.UMIUpdate();
+        }
+
+        private static readonly List<Action> executeOnMainThread = new List<Action>();
+        private static readonly List<Action> executeCopiedOnMainThread = new List<Action>();
+        private static bool actionToExecuteOnMainThread = false;
         /// <summary>Sets an action to be executed on the main thread.</summary>
         /// <param name="_action">The action to be executed on the main thread.</param>
         public static void UMIExecuteOnMainThread(Action _action)

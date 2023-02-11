@@ -8,6 +8,19 @@ namespace UMI.Network.Server
 {
     class UMIServer : MonoBehaviour
     {
+        public static UMIServer star; 
+        public void Awake()
+        {
+            if (star == null)
+            {
+                star = this;
+            }
+            else if (star != this)
+            {
+                Debug.Log($"UMI::DESTROY()->INSTANCE");
+                Destroy(this);
+            }
+        }
         public static int maxPlayer { get; private set; }
         public static int port { get; private set; }
         public static Dictionary<int, UMIServerManager> clients = new Dictionary<int, UMIServerManager>();

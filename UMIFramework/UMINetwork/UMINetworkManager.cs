@@ -12,13 +12,11 @@ namespace UMI.Network
         private void Awake()
         {
             star = this;
-            
         }
         private void Start()
         {
-            UMI.Log("UMI::LOG()->START");
+            UMI.Log("UMI::LOG()->START_LOBBY");
             UMIClientManager.star.connectServer();
-            
         }
     }
 }

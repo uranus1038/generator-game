@@ -30,7 +30,6 @@ public class LobbyGui : MonoBehaviour
             if (GUI.Button(new Rect(0.5f * this.display_0 - 125f, 400f, 250f, 38f), UMINetworkManager.hDac[1].ToString()))
             {
                 UMIGame.LoadNextLevel(1);
-
             }
             if (GUI.Button(new Rect(0.5f * this.display_0 - 125f, 450f, 250f, 38f), "Quit"))
             {
@@ -61,6 +60,7 @@ public class LobbyGui : MonoBehaviour
         {
             if (GUI.Button(new Rect(0.5f * this.display_0 - 125f, 400f, 250f, 38f), "Start"))
             {
+               
                 UMIGame.LoadNextLevel(1);
             }
         }

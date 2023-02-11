@@ -7,8 +7,9 @@ namespace UMI.Network.Server
         public static void connectReq(int client, UMIPacket packet)
         {
             int UID = packet.ReadInt();
-            string txt = packet.ReadString();
-            UMIServer.clients[UID].SendIntoGame(txt);
+            string userName = packet.ReadString();
+            UMIServer.clients[UID].SendIntoGame(userName);
+           
             UMI.Log($"UMI::CONNEC()->LOG->connected successfully {UMIServer.clients[client].TCP.socket.Client.RemoteEndPoint} and is now player {UID}");
             if (client != UID)
             {

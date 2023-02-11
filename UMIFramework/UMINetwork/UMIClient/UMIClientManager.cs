@@ -29,31 +29,23 @@ namespace UMI.Network.Client
                 UMI.Log($"UMI::DESTROY()->INSTANCE");
                 Destroy(this);
             }
-            
-            
-        }
-        private void Start()
-        {
             this.TCP = new UMITCP();
             this.UDP = new UMIUDP();
-            
-         
-        }
+        }         
+        
         // Quit Gmae 
         public void OnApplicationQuit()
         {
             UMIClientSend.DisconnectSend(this.UID);
             Disconnect();
-            TCP.socket.Close(); 
-            UDP.socket.Close();
+            
         }
         public void connectServer()
         {
 
             InitializeClientData();
             this.isConnected = true;
-            this.TCP.Connect();
-           
+            this.TCP.Connect(); 
         }
         // TCP
         public class UMITCP
