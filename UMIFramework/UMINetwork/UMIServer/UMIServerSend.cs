@@ -84,6 +84,15 @@ namespace UMI.Network.Server
                 SendUDPDataX(player.UID,packet);
             }
         }
+        public static void playerAnimation(int UID,int actor)
+        {
+            using (UMIPacket packet = new UMIPacket((int)YUMIServerPackets.resAnimation))
+            {
+                packet.Write(UID);
+                packet.Write(actor);
+                SendUDPDataX(UID, packet);
+            }
+        }
         public static void disconnectSend(int client)
         {
             using (UMIPacket packet = new UMIPacket((int)YUMIServerPackets.resDisconnect))

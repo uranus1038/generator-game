@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterCandy : CharacterControl
+public class Boy : CharacterControl
 {
-    private void Awake()
-    {
-    }
     void Update()
     {
         this.playerController();

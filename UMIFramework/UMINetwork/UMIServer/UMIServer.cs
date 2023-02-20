@@ -143,7 +143,8 @@ namespace UMI.Network.Server
                 {   (int)YUMIClientPackets.getRespon , UMIServerHandle.connectReq },
                 {   (int)YUMIClientPackets.reqPlayerMovement , UMIServerHandle.playerMovement2D},
                 {   (int)YUMIClientPackets.reqDisconnect , UMIServerHandle.disconnectReceive} ,
-                {   (int)YUMIClientPackets.reqSpawnPlayer , UMIServerHandle.spawnPlayer}
+                {   (int)YUMIClientPackets.reqSpawnPlayer , UMIServerHandle.spawnPlayer} , 
+                {   (int)YUMIClientPackets.reqAnimation , UMIServerHandle.playerAnimation}
 
             };
             UMI.Log("UMI::DATA_SERVER()->LOG->initializeServer");

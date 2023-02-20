@@ -6,9 +6,7 @@ namespace UMI.Network.Client
 {
     public class UMIPlayerManager : MonoBehaviour
     {
-
         public int UID;
         public string userName;
-
     }
 }

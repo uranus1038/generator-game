@@ -273,6 +273,7 @@ namespace UMI.Network.Client
            { (int)YUMIServerPackets.resSpawnPlayer ,UMIClientHandle.spawnPlayer},
            { (int)YUMIServerPackets.resPlayerPosition ,UMIClientHandle.playerPosition2D},
            { (int)YUMIServerPackets.resDisconnect ,UMIClientHandle.disconnectGetRespon},
+           { (int)YUMIServerPackets.resAnimation ,UMIClientHandle.playerAnimation},
         };
         }
     }

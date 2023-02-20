@@ -6,6 +6,7 @@ public enum YUMIServerPackets
     resPlayerPosition
   , resPlayerRotation,
     resDisconnect,
+    resAnimation , 
     
 }
 
@@ -16,5 +17,6 @@ public enum YUMIClientPackets
     reqPlayerMovement,
     reqDisconnect,   
     reqSpawnPlayer  ,
+    reqAnimation  , 
 
 }

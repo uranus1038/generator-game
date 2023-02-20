@@ -344,6 +344,7 @@ namespace UMI.Network.Client
         {
             return new Quaternion(ReadFloat(_moveReadPos), ReadFloat(_moveReadPos), ReadFloat(_moveReadPos), ReadFloat(_moveReadPos));
         }
+
         #endregion
 
         private bool disposed = false;

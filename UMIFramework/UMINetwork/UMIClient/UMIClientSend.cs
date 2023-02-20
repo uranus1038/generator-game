@@ -40,6 +40,15 @@ namespace UMI.Network.Client
                 SendUDPData(packet);
             }
         }
+        public static void reqAnimation(int actor)
+        {
+            using (UMIPacket packet = new UMIPacket((int)YUMIClientPackets.reqAnimation))
+            {
+                packet.Write(actor);
+                // _Packet.Write(GameManager.players[Client.instance.my_Id].transform.rotation);
+                SendUDPData(packet);
+            }
+        }
         public static void DisconnectSend(int id)
         {
             using (UMIPacket packet = new UMIPacket((int)YUMIClientPackets.reqDisconnect))

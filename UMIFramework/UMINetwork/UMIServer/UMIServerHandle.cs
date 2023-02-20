@@ -27,13 +27,17 @@ namespace UMI.Network.Server
             Vector3 position = packet.ReadVector3();
             UMIServer.clients[fClient].player.resPosition(position);
         }
-        public static void disconnectReceive(int _fClient, UMIPacket packet)
+        public static void disconnectReceive(int fClient, UMIPacket packet)
         {
-            int _id = packet.ReadInt();
-            Console.WriteLine(_id);
-            UMIServerSend.disconnectSend(_id);
+            int id = packet.ReadInt();
+            UMIServerSend.disconnectSend(id);
         }
 
+        public static void playerAnimation(int fClient, UMIPacket packet)
+        {
+            int actor = packet.ReadInt();
+            UMIServerSend.playerAnimation(fClient, actor);
+        }
 
 
     }
