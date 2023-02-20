@@ -7,31 +7,35 @@ public class CharacterControl : MonoBehaviour
 {
     public static bool camera_0 = false; 
     //Speed
-    protected float speed_0 =30f ;
+    protected float speed_0 =3f ;
     protected float speed_1 =3f;
     // Rigibody
     private Rigidbody2D rigidbody2d;
     // Current position
     public Vector3 position;
     //Smooth movement
-    protected bool isMove = true; 
+    protected bool isMove = true;
+    //animator control
+    protected Animator action; 
     private void Start()
     {
         camera_0 = true;
         this.rigidbody2d = GetComponent<Rigidbody2D>();
+        this.action = GetComponent<Animator>();
     }
 
-    private void Update()
-    {
-        this.playerController();
-    }
-
-    public void playerController ()
+    protected void playerController ()
     {
         if (this.isMove)
         {
             if (Input.GetKey(KeyCode.W))
+            {
+                this.action.SetBool("isWalkForward",true);
                 this.transform.position += new Vector3(0, speed_1 * Time.deltaTime, 0);
+            }else if(Input.GetKeyUp(KeyCode.W))
+            {
+                this.action.SetBool("isWalkForward", false);
+            }
             if (Input.GetKey(KeyCode.S))
                 this.transform.position += new Vector3(0, -speed_1 * Time.deltaTime, 0);
             if (Input.GetKey(KeyCode.A))
@@ -51,13 +55,8 @@ public class CharacterControl : MonoBehaviour
         UMIClientSend.reqPlayerMoveMent(this.position);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.name == "ob")
-        {
-            print("Enter");
-        }
-    }
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Check Collision
@@ -74,6 +73,7 @@ public class CharacterControl : MonoBehaviour
         if (collision.gameObject.name == "boyCharPlayer(Clone)")
         {
             this.isMove = true;
+            print("Leave");
         }
     }
 }

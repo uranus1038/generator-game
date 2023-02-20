@@ -46,7 +46,7 @@ public class LobbyGui : MonoBehaviour
         }
         else if (this.eLobbyState_0 == eLobbyState.notice)
         {
-            if (Time.time < this.delay_0 + 2f)
+            if (Time.time < this.delay_0 + 0.5f)
             {
                 // # Notice
                 GUI.TextField(new Rect(0.5f * this.display_0 - 125f, 400f, 250f, 38f), "Notice");

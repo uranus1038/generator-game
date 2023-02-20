@@ -28,7 +28,6 @@ public class UMIClientHandle : MonoBehaviour
         //Quaternion rotation = Packet.ReadQuaternion();
         UMIGameManager.players[UID].transform.position = position;
         //GameManager.players[UID].transform.rotation = rotation;
-
     }
     public static void disconnectGetRespon(UMIPacket packet)
     {
