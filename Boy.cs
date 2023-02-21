@@ -9,14 +9,15 @@ public class Boy : CharacterControl
     {
         this.anim = new string[]
             {
-                "boyWalkBack",
-                "boyIdel-back",
-                "boyWalkForward",
-                "boyIdel" ,
-                "boyWalkRight" ,
-                "boyIdel-right",
-                "boyWalkLeft",
-                "boyIdel-left" , 
+              /*0*/  "boyWalkBack",
+              /*1*/  "boyIdel-back",
+              /*2*/  "boyWalkForward",
+              /*3*/  "boyIdel" ,
+              /*4*/  "boyWalkRight" ,
+              /*5*/  "boyIdel-right",
+              /*6*/  "boyWalkLeft",
+              /*7*/  "boyIdel-left" , 
+              /*8*/  "boyRunForward" ,
             };
 
     }

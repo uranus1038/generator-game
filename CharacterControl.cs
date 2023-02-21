@@ -47,94 +47,262 @@ public class CharacterControl : MonoBehaviour
 
     protected void playerController(string[] actorState)
     {
-        this.actorState = actorState; 
+        this.actorState = actorState;
         if (this.isMove)
         {
-            if (Input.GetButton("w"))
+            #region Input Movement & Animation
+            if ((Input.GetKey(KeyCode.LeftShift)))
             {
-                this.transform.position += new Vector3(0, speed_1 * Time.deltaTime, 0);
-                if (Input.GetButtonDown("w"))
+                // get W
+                if (Input.GetButton("w"))
                 {
-                    this.action.Play(this.actorState[0], 0, 0f);
+                    this.transform.position += new Vector3(0, speed_1 * Time.deltaTime, 0);
+                    if (Input.GetButtonDown("w"))
+                        this.action.Play(this.actorState[0], 0, 0f);
+                    UMIClientSend.reqAnimation((int)eAction.isWalkBack);
                 }
-                UMIClientSend.reqAnimation((int)eAction.isWalkBack);
-            }
-            if (Input.GetButtonUp("w"))
-            {
-                if (Input.GetButton("d") && Input.GetButtonUp("w"))
+                else if (Input.GetButtonUp("w"))
                 {
-                    this.action.Play(this.actorState[4], 0, 0f);
-                }
-                else
-                {
-                    this.action.Play(this.actorState[1], 0, 0f);
-                }
-                UMIClientSend.reqAnimation((int)eAction.isBack);
-            }
-            if (Input.GetButton("s"))
-            {
-                this.transform.position += new Vector3(0, -speed_1 * Time.deltaTime, 0);
-                if (Input.GetButtonDown("s"))
-                {
-                    this.action.Play(this.actorState[2], 0, 0f);
-                }
-                UMIClientSend.reqAnimation((int)eAction.isWalkForward);
-            }
-            if (Input.GetButtonUp("s"))
-            {
-                if (Input.GetButtonUp("s") && Input.GetButton("d"))
-                {
-                    this.action.Play(this.actorState[4], 0, 0f);
-                }
-                else
-                {
-                    this.action.Play(this.actorState[3], 0, 0f);
-                }
-                UMIClientSend.reqAnimation((int)eAction.isForward);
-            }
-            if (Input.GetButton("d"))
-            {
-                this.transform.position += new Vector3(speed_1 * Time.deltaTime, 0, 0);
-                if (Input.GetButton("d") != Input.GetButton("w") ||
-                    Input.GetButton("d") != Input.GetButton("s"))
-                {
-                    if (Input.GetButtonDown("d"))
+                    if (Input.GetButton("s") && Input.GetButtonUp("w"))
+                    {
+                        this.action.Play(this.actorState[2], 0, 0f);
+                    }
+                    else if (Input.GetButton("d") && Input.GetButtonUp("w"))
+                    {
                         this.action.Play(this.actorState[4], 0, 0f);
+                    }
+                    else if (Input.GetButton("a") && Input.GetButtonUp("w"))
+                    {
+                        this.action.Play(this.actorState[6], 0, 0f);
+                    }
+                    else
+                    {
+                        this.action.Play(this.actorState[1], 0, 0f);
+                    }
+                    UMIClientSend.reqAnimation((int)eAction.isBack);
                 }
-                UMIClientSend.reqAnimation((int)eAction.isWalkRight);
-            }
-            if (Input.GetButtonUp("d"))
-            {
-                if (Input.GetButtonUp("d") && Input.GetButton("w"))
+                // get S
+                if (Input.GetButton("s") || Input.GetKey(KeyCode.LeftShift) && Input.GetButton("s"))
                 {
-                    this.action.Play(this.actorState[0], 0, 0f);
-                }
-                else if (Input.GetButtonUp("d") && Input.GetButton("s"))
-                {
-                    this.action.Play(this.actorState[2], 0, 0f);
-                }
-                else
-                {
-                    this.action.Play(this.actorState[5], 0, 0f);
-                }
-                UMIClientSend.reqAnimation((int)eAction.isRight);
-            }
-            if (Input.GetButton("a"))
-            {
-                this.transform.position += new Vector3(-speed_1 * Time.deltaTime, 0, 0);
-                if (Input.GetButtonDown("a"))
-                {
-                    this.action.Play(this.actorState[6], 0, 0f);
-                }
-                UMIClientSend.reqAnimation((int)eAction.isWalkRight);
-            }
-            if (Input.GetButtonUp("a"))
-            {
-                this.action.Play(this.actorState[7], 0, 0f);
-                UMIClientSend.reqAnimation((int)eAction.isRight);
-            }
+                    this.transform.position += new Vector3(0, -speed_1 * Time.deltaTime, 0);
 
+                    if (Input.GetButtonDown("s"))
+                        this.action.Play(this.actorState[8], 0, 0f);
 
+                    UMIClientSend.reqAnimation((int)eAction.isWalkForward);
+                }
+                else if (Input.GetButtonUp("s"))
+                {
+                    if (Input.GetButtonUp("s") && Input.GetButton("w"))
+                    {
+                        this.action.Play(this.actorState[0], 0, 0f);
+                    }
+                    else if (Input.GetButtonUp("s") && Input.GetButton("d"))
+                    {
+                        this.action.Play(this.actorState[4], 0, 0f);
+                    }
+                    else if (Input.GetButtonUp("s") && Input.GetButton("a"))
+                    {
+                        this.action.Play(this.actorState[6], 0, 0f);
+                    }
+                    else
+                    {
+                        this.action.Play(this.actorState[3], 0, 0f);
+                    }
+                    UMIClientSend.reqAnimation((int)eAction.isForward);
+                }
+                // get D
+                if (Input.GetButton("d"))
+                {
+                    this.transform.position += new Vector3(speed_1 * Time.deltaTime, 0, 0);
+                    if (Input.GetButton("d") != Input.GetButton("w") ||
+                        Input.GetButton("d") != Input.GetButton("s"))
+                    {
+                        if (Input.GetButtonDown("d"))
+                            this.action.Play(this.actorState[4], 0, 0f);
+                    }
+                    UMIClientSend.reqAnimation((int)eAction.isWalkRight);
+                }
+                else if (Input.GetButtonUp("d"))
+                {
+                    if (Input.GetButton("a") && Input.GetButtonUp("d"))
+                    {
+                        this.action.Play(this.actorState[6], 0, 0f);
+                    }
+                    else if (Input.GetButtonUp("d") && Input.GetButton("w"))
+                    {
+                        this.action.Play(this.actorState[0], 0, 0f);
+                    }
+                    else if (Input.GetButtonUp("d") && Input.GetButton("s"))
+                    {
+                        this.action.Play(this.actorState[2], 0, 0f);
+                    }
+                    else
+                    {
+                        this.action.Play(this.actorState[5], 0, 0f);
+                    }
+                    UMIClientSend.reqAnimation((int)eAction.isRight);
+                }
+                // get A
+                if (Input.GetButton("a"))
+                {
+                    this.transform.position += new Vector3(-speed_1 * Time.deltaTime, 0, 0);
+                    if (Input.GetButton("a") != Input.GetButton("w") ||
+                       Input.GetButton("a") != Input.GetButton("s"))
+                    {
+                        if (Input.GetButtonDown("a"))
+                            this.action.Play(this.actorState[6], 0, 0f);
+                    }
+                    UMIClientSend.reqAnimation((int)eAction.isWalkRight);
+                }
+                else if (Input.GetButtonUp("a"))
+                {
+                    if (Input.GetButton("d") && Input.GetButtonUp("a"))
+                    {
+                        this.action.Play(this.actorState[4], 0, 0f);
+                    }
+                    else if (Input.GetButtonUp("a") && Input.GetButton("w"))
+                    {
+                        this.action.Play(this.actorState[0], 0, 0f);
+                    }
+                    else if (Input.GetButtonUp("a") && Input.GetButton("s"))
+                    {
+                        this.action.Play(this.actorState[2], 0, 0f);
+                    }
+                    else
+                    {
+                        this.action.Play(this.actorState[7], 0, 0f);
+                    }
+                    UMIClientSend.reqAnimation((int)eAction.isRight);
+                }
+                // # end
+            }else
+            {
+                // get W
+                if (Input.GetButton("w"))
+                {
+                    this.transform.position += new Vector3(0, speed_1 * Time.deltaTime, 0);
+                    if (Input.GetButtonDown("w"))
+                        this.action.Play(this.actorState[0], 0, 0f);
+                    UMIClientSend.reqAnimation((int)eAction.isWalkBack);
+                }
+                else if (Input.GetButtonUp("w"))
+                {
+                    if (Input.GetButton("s") && Input.GetButtonUp("w"))
+                    {
+                        this.action.Play(this.actorState[2], 0, 0f);
+                    }
+                    else if (Input.GetButton("d") && Input.GetButtonUp("w"))
+                    {
+                        this.action.Play(this.actorState[4], 0, 0f);
+                    }
+                    else if (Input.GetButton("a") && Input.GetButtonUp("w"))
+                    {
+                        this.action.Play(this.actorState[6], 0, 0f);
+                    }
+                    else
+                    {
+                        this.action.Play(this.actorState[1], 0, 0f);
+                    }
+                    UMIClientSend.reqAnimation((int)eAction.isBack);
+                }
+                // get S
+                if (Input.GetButton("s"))
+                {
+                    this.transform.position += new Vector3(0, -speed_1 * Time.deltaTime, 0);
+
+                    if (Input.GetButtonDown("s"))
+                        this.action.Play(this.actorState[2], 0, 0f);
+
+                    UMIClientSend.reqAnimation((int)eAction.isWalkForward);
+                }
+                else if (Input.GetButtonUp("s"))
+                {
+                    if (Input.GetButtonUp("s") && Input.GetButton("w"))
+                    {
+                        this.action.Play(this.actorState[0], 0, 0f);
+                    }
+                    else if (Input.GetButtonUp("s") && Input.GetButton("d"))
+                    {
+                        this.action.Play(this.actorState[4], 0, 0f);
+                    }
+                    else if (Input.GetButtonUp("s") && Input.GetButton("a"))
+                    {
+                        this.action.Play(this.actorState[6], 0, 0f);
+                    }
+                    else
+                    {
+                        this.action.Play(this.actorState[3], 0, 0f);
+                    }
+                    UMIClientSend.reqAnimation((int)eAction.isForward);
+                }
+                // get D
+                if (Input.GetButton("d"))
+                {
+                    this.transform.position += new Vector3(speed_1 * Time.deltaTime, 0, 0);
+                    if (Input.GetButton("d") != Input.GetButton("w") ||
+                        Input.GetButton("d") != Input.GetButton("s"))
+                    {
+                        if (Input.GetButtonDown("d"))
+                            this.action.Play(this.actorState[4], 0, 0f);
+                    }
+                    UMIClientSend.reqAnimation((int)eAction.isWalkRight);
+                }
+                else if (Input.GetButtonUp("d"))
+                {
+                    if (Input.GetButton("a") && Input.GetButtonUp("d"))
+                    {
+                        this.action.Play(this.actorState[6], 0, 0f);
+                    }
+                    else if (Input.GetButtonUp("d") && Input.GetButton("w"))
+                    {
+                        this.action.Play(this.actorState[0], 0, 0f);
+                    }
+                    else if (Input.GetButtonUp("d") && Input.GetButton("s"))
+                    {
+                        this.action.Play(this.actorState[2], 0, 0f);
+                    }
+                    else
+                    {
+                        this.action.Play(this.actorState[5], 0, 0f);
+                    }
+                    UMIClientSend.reqAnimation((int)eAction.isRight);
+                }
+                // get A
+                if (Input.GetButton("a"))
+                {
+                    this.transform.position += new Vector3(-speed_1 * Time.deltaTime, 0, 0);
+                    if (Input.GetButton("a") != Input.GetButton("w") ||
+                       Input.GetButton("a") != Input.GetButton("s"))
+                    {
+                        if (Input.GetButtonDown("a"))
+                            this.action.Play(this.actorState[6], 0, 0f);
+                    }
+                    UMIClientSend.reqAnimation((int)eAction.isWalkRight);
+                }
+                else if (Input.GetButtonUp("a"))
+                {
+                    if (Input.GetButton("d") && Input.GetButtonUp("a"))
+                    {
+                        this.action.Play(this.actorState[4], 0, 0f);
+                    }
+                    else if (Input.GetButtonUp("a") && Input.GetButton("w"))
+                    {
+                        this.action.Play(this.actorState[0], 0, 0f);
+                    }
+                    else if (Input.GetButtonUp("a") && Input.GetButton("s"))
+                    {
+                        this.action.Play(this.actorState[2], 0, 0f);
+                    }
+                    else
+                    {
+                        this.action.Play(this.actorState[7], 0, 0f);
+                    }
+                    UMIClientSend.reqAnimation((int)eAction.isRight);
+                }
+                // # end
+            }
+            #endregion
         }
         else
         {
