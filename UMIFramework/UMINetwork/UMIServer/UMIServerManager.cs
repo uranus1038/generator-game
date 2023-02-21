@@ -176,8 +176,7 @@ namespace UMI.Network.Server
         public void Disconnect()
         {
             UMI.Log($"UMI::DISCONNECT()->{TCP.socket.Client.RemoteEndPoint}");
-            player = null;
-           
+            player = null; 
             TCP.Disconnect();
             UDP.Disconnect();
         }

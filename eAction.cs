@@ -8,5 +8,11 @@ public enum eAction
     isWalkBack ,
     isBack ,
     isWalkRight , 
-    isRight
+    isRight , 
+    isWalkLeft,
+    isLeft ,
+    isRunForward , 
+    isRunBack , 
+    isRunRight , 
+    isRunLeft , 
 }

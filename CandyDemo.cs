@@ -5,6 +5,7 @@ public class CandyDemo : MonoBehaviour
     // Resources
     protected string playerObject_0;
     protected string playerObject_1;
+    protected string playerObject_2;
     private GameObject player_0;
     private void Awake()
     {
@@ -21,12 +22,13 @@ public class CandyDemo : MonoBehaviour
     }
     private void Start()
     {
-        this.player_0 = (GameObject)UnityEngine.Object.Instantiate((GameObject)Resources.Load(this.playerObject_0,
+        this.player_0 = (GameObject)UnityEngine.Object.Instantiate((GameObject)Resources.Load(this.playerObject_2,
             typeof(GameObject)), Vector3.zero, Quaternion.identity);
     }
     private void Init()
     {
         this.playerObject_0 = "GameAssets/Characters/viewChar/boyChar";
         this.playerObject_1 = "GameAssets/Characters/viewChar/boyCharPlayer";
+        this.playerObject_2 = "GameAssets/Characters/viewChar/girlChar";
     }
 }

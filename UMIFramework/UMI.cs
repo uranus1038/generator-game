@@ -27,5 +27,9 @@ namespace  UMI
         {
             print(Debug);
         }
+        public static void Log(float Debug)
+        {
+            print(Debug);
+        }
     }
 }
