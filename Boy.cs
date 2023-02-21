@@ -18,6 +18,8 @@ public class Boy : CharacterControl
               /*6*/  "boyWalkLeft",
               /*7*/  "boyIdel-left" , 
               /*8*/  "boyRunForward" ,
+              /*9*/  "boyRunBack" , /*10*/  "boyRunRight" , /*11*/  "boyRunLeft" , 
+
             };
 
     }

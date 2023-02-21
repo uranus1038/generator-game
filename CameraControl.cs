@@ -12,7 +12,7 @@ public class CameraControl : MonoBehaviour
     protected float smoothSpeed;
     private void Awake()
     {
-        this.offset_0 = new Vector3(0f, 0f, -12f);
+        this.offset_0 = new Vector3(0f, 0f, -10f);
         this.smoothSpeed = 0.018f;
         hInst = this;
     }
