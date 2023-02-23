@@ -38,10 +38,17 @@ namespace UMI.Network.Client
         }
         public static void disconnectGetRespon(UMIPacket packet)
         {
-            int UID = packet.ReadInt();
-            Destroy(UMIGameManager.players[UID].gameObject);
-            UMIGameManager.players.Remove(UID);
-            UMI.Log(UID);
+            try
+            {
+                int UID = packet.ReadInt();
+                Destroy(UMIGameManager.players[UID].gameObject);
+                UMIGameManager.players.Remove(UID);
+                UMI.Log(UID);
+            }catch
+            {
+                UMI.L0g("ERRSEND()->LOG->NOTPLAYER");
+            }
+          
         }
     }
 }

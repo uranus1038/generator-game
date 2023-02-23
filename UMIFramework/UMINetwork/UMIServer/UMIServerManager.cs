@@ -54,6 +54,8 @@ namespace UMI.Network.Server
                 }
                 catch (Exception ex)
                 {
+                    UMIServer.clients[this.UID].Disconnect();
+                    UMIServerSend.disconnectSend(this.UID);
                     UMI.Log($"UMI::ERRSEND()->{ex}");
                 }
             }
@@ -67,6 +69,7 @@ namespace UMI.Network.Server
                     {
                         //Console.WriteLine(_byte_Length);
                         UMIServer.clients[this.UID].Disconnect();
+                        UMIServerSend.disconnectSend(this.UID);
                         return;
                     }
                     byte[] data = new byte[byteLength];
@@ -79,7 +82,8 @@ namespace UMI.Network.Server
                 catch (Exception ex)
                 {
                     Console.WriteLine("UMI::ERRSEND()->"+ex);
-                    UMIServer.clients[this.UID].Disconnect();
+                    UMIServerSend.disconnectSend(this.UID);
+                    this.Disconnect();
                 }
             }
             private bool HandleData(byte[] data)

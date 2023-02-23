@@ -11,6 +11,10 @@ namespace  UMI
         {
             print(Debug);
         }
+        public static void L0g(string Debug)
+        {
+            print("UMI::"+Debug);
+        }
         public static void Log(string[] Debug)
         {
             print(Debug);

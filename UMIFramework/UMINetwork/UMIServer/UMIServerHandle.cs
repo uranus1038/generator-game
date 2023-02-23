@@ -24,8 +24,14 @@ namespace UMI.Network.Server
         }
         public static void playerMovement2D(int fClient, UMIPacket packet)
         {
-            Vector3 position = packet.ReadVector3();
-            UMIServer.clients[fClient].player.resPosition(position);
+            try
+            {
+                Vector3 position = packet.ReadVector3();
+                UMIServer.clients[fClient].player.resPosition(position);
+            }catch
+            {
+                UMI.L0g("ERRSEND()->LOG->NOTPLAYER");
+            }
         }
         public static void disconnectReceive(int fClient, UMIPacket packet)
         {

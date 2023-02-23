@@ -26,14 +26,14 @@ namespace UMI.Network.Client
         }
         private void Init()
         {
-            this.playerObject_0.Add("GameAssets/Characters/viewChar/boyChar") ;
-            this.playerObject_0.Add("GameAssets/Characters/viewChar/boyCharPlayer") ;
-            this.playerObject_0.Add("GameAssets/Characters/viewChar/girlChar") ;
-            this.playerObject_0.Add("GameAssets/Characters/viewChar/girlCharPlayer") ;
+            this.playerObject_0.Add("GameAssets/Characters/viewChar/boyChar");
+            this.playerObject_0.Add("GameAssets/Characters/viewChar/boyCharPlayer");
+            this.playerObject_0.Add("GameAssets/Characters/viewChar/girlChar");
+            this.playerObject_0.Add("GameAssets/Characters/viewChar/girlCharPlayer");
         }
         public void spawnPlayer(int UID, string userName, Vector3 position, Quaternion rotation)
         {
-            
+
             if (UID == UMIClientManager.star.UID)
             {
                 this.player_0 = (GameObject)UnityEngine.Object.Instantiate((GameObject)Resources.Load(this.playerObject_0[2], typeof(GameObject)), position, rotation);
@@ -44,19 +44,15 @@ namespace UMI.Network.Client
                 this.player_0 = (GameObject)UnityEngine.Object.Instantiate((GameObject)Resources.Load(this.playerObject_0[3], typeof(GameObject)), position, rotation);
 
             }
-            try
-            {
-                player_0.GetComponent<UMIPlayerManager>().UID = UID;
-                player_0.GetComponent<UMIPlayerManager>().userName = userName;
-                players.Add(UID, player_0.GetComponent<UMIPlayerManager>());
-            }
-            catch
-            {
-                UMIClientSend.requastConnect(); 
-            }
+
+            player_0.GetComponent<UMIPlayerManager>().UID = UID;
+            player_0.GetComponent<UMIPlayerManager>().userName = userName;
+            players.Add(UID, player_0.GetComponent<UMIPlayerManager>());
+
+
 
         }
-        
+
 
     }
 }

@@ -193,8 +193,8 @@ public class CharacterControl : MonoBehaviour
                 else
                 {
                     this.action.Play(this.actorState[7], 0, 0f);
+                     UMIClientSend.reqAnimation((int)eAction.isLeft);
                 }
-                UMIClientSend.reqAnimation((int)eAction.isLeft);
             }
             #endregion
             #region Run
