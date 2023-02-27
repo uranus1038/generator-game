@@ -35,7 +35,7 @@ namespace UMI.Network.Server
         {
             maxPlayer = maxPlayerV;
             port = portV;
-            UMI.Log("UMI::START()->SERVERRUNNING");
+            UMISystem.Log("UMI::START()->SERVERRUNNING");
             initializeServerData();
 
             // Start Server
@@ -47,14 +47,14 @@ namespace UMI.Network.Server
             UMIUDPListener = new UdpClient(port);
             UMIUDPListener.BeginReceive(UDPReceiveCallback, null);
 
-            UMI.Log($"UMI::PORT->{port}");
+            UMISystem.Log($"UMI::PORT->{port}");
         }
 
         private static void TCPConnectCallback(IAsyncResult result)
         {
             TcpClient client = UMITCPListener.EndAcceptTcpClient(result);
             UMITCPListener.BeginAcceptTcpClient(new AsyncCallback(TCPConnectCallback), null);
-            UMI.Log($"UMI::CONNECTFROMIPADRESS()->{client.Client.RemoteEndPoint}");
+            UMISystem.Log($"UMI::CONNECTFROMIPADRESS()->{client.Client.RemoteEndPoint}");
 
             for (int i = 1; i <= maxPlayer; i++)
             {
@@ -65,7 +65,7 @@ namespace UMI.Network.Server
                     return;
                 }
             }
-            UMI.Log($"UMI::STATUSSERVER()->{client.Client.RemoteEndPoint}.FULL");
+            UMISystem.Log($"UMI::STATUSSERVER()->{client.Client.RemoteEndPoint}.FULL");
         }
 
         private static void UDPReceiveCallback(IAsyncResult result)
@@ -77,7 +77,7 @@ namespace UMI.Network.Server
                 UMIUDPListener.BeginReceive(UDPReceiveCallback, null);
                 if (data.Length < 4)
                 {
-                    UMI.Log("UMI::STATUSSERVER()->ERRCONNECT");
+                    UMISystem.Log("UMI::STATUSSERVER()->ERRCONNECT");
                     return;
                 }
                 using (UMIPacket packet = new UMIPacket(data))
@@ -85,7 +85,7 @@ namespace UMI.Network.Server
                     int CID = packet.ReadInt();
                     if (CID == 0)
                     {
-                        UMI.Log("UMI::ERRMESSAGE()->CODE_0");
+                        UMISystem.Log("UMI::ERRMESSAGE()->CODE_0");
                         return;
                     }
                     if (clients[CID].UDP.endPoint == null)
@@ -102,7 +102,7 @@ namespace UMI.Network.Server
             }
             catch (Exception ex)
             {
-                UMI.Log($"UMI::ERRSENDUDP()->{ex}");
+                UMISystem.Log($"UMI::ERRSENDUDP()->{ex}");
 
 
             }
@@ -120,7 +120,7 @@ namespace UMI.Network.Server
             }
             catch (Exception ex)
             {
-                UMI.Log($"UMI::ERRSENDUDP()->{ex}");
+                UMISystem.Log($"UMI::ERRSENDUDP()->{ex}");
             }
         }
         private static void initializeServerData()
@@ -134,7 +134,7 @@ namespace UMI.Network.Server
 
                 }catch
                 {
-                    UMI.Log(i);
+                    UMISystem.Log(i);
                 }
             }
             packetHandle = new Dictionary<int, PacketHandler>()
@@ -147,7 +147,7 @@ namespace UMI.Network.Server
                 {   (int)YUMIClientPackets.reqAnimation , UMIServerHandle.playerAnimation}
 
             };
-            UMI.Log("UMI::DATA_SERVER()->LOG->initializeServer");
+            UMISystem.Log("UMI::DATA_SERVER()->LOG->initializeServer");
         }
 
 

@@ -10,10 +10,10 @@ namespace UMI.Network.Server
             string userName = packet.ReadString();
             UMIServer.clients[UID].SendIntoGame(userName);
            
-            UMI.Log($"UMI::CONNEC()->LOG->connected successfully {UMIServer.clients[client].TCP.socket.Client.RemoteEndPoint} and is now player {UID}");
+            UMISystem.Log($"UMI::CONNEC()->LOG->connected successfully {UMIServer.clients[client].TCP.socket.Client.RemoteEndPoint} and is now player {UID}");
             if (client != UID)
             {
-                UMI.Log($"Player {UID} id : {client}");
+                UMISystem.Log($"Player {UID} id : {client}");
             }
         }
         public static void spawnPlayer(int client, UMIPacket packet)
@@ -30,7 +30,7 @@ namespace UMI.Network.Server
                 UMIServer.clients[fClient].player.resPosition(position);
             }catch
             {
-                UMI.L0g("ERRSEND()->LOG->NOTPLAYER");
+                UMISystem.Log("ERRSEND()->LOG->NOTPLAYER");
             }
         }
         public static void disconnectReceive(int fClient, UMIPacket packet)

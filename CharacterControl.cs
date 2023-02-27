@@ -1,5 +1,6 @@
 using UnityEngine;
 using UMI.Network.Client;
+using UMI; 
 public class CharacterControl : MonoBehaviour
 {
     public static CharacterControl star;
@@ -723,12 +724,12 @@ public class CharacterControl : MonoBehaviour
         if (collision.gameObject.name == "boyCharPlayer(Clone)")
         {
             this.isMove = false;
-            UMI.UMI.Log("Enter");
+            UMISystem.Log("Enter");
         }
         else if (collision.gameObject.name == "girlCharPlayer(Clone)")
         {
             this.isMove = false;
-            UMI.UMI.Log("Enter");
+            UMISystem.Log("Enter");
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
@@ -743,7 +744,7 @@ public class CharacterControl : MonoBehaviour
         {
            
             this.isMove = true;
-            UMI.UMI.Log("Leave");
+            UMISystem.Log("Leave");
 
         }
     }

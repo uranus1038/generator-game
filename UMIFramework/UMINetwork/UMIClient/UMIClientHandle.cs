@@ -8,7 +8,7 @@ namespace UMI.Network.Client
         {
             string MAG = packet.ReadString();
             int UID = packet.ReadInt();
-            UMI.Log($"UMI::SERVER_RESPON()->{MAG}");
+            UMISystem.Log($"UMI::SERVER_RESPON()->{MAG}");
             UMIClientManager.star.UID = UID;
             UMIClientSend.requastConnect();
             UMIClientManager.star.UDP.Connect(((IPEndPoint)UMIClientManager.star.TCP.socket.Client.LocalEndPoint).Port);
@@ -43,10 +43,10 @@ namespace UMI.Network.Client
                 int UID = packet.ReadInt();
                 Destroy(UMIGameManager.players[UID].gameObject);
                 UMIGameManager.players.Remove(UID);
-                UMI.Log(UID);
+                UMISystem.Log(UID);
             }catch
             {
-                UMI.L0g("ERRSEND()->LOG->NOTPLAYER");
+                UMISystem.Log("ERRSEND()->LOG->NOTPLAYER");
             }
           
         }

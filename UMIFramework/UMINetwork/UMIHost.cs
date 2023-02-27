@@ -42,7 +42,7 @@ namespace UMI.Network
         // Start Host
         public static void UMISartHost(int maxPlayer, int port)
         {
-            UMI.Log("UMI::SUSSESSED()::SERVER_STRAT->" + port);
+            UMISystem.Log("UMI::SUSSESSED()::SERVER_STRAT->" + port);
             UMIMaxPlayer = maxPlayer;
             UMIPort = port;
             // Thread call func
@@ -66,13 +66,13 @@ namespace UMI.Network
                 }
                 catch( Exception ex)
                 {
-                    UMI.Log($"{ex}");
+                    UMISystem.Log($"{ex}");
                     UID = i;
                     TcpClient client = UMITCPListener.AcceptTcpClient();
                     Thread UMITCPHandlerThread = new Thread(new ParameterizedThreadStart(UMITCPHandler));
                     // Retrieve the client's IP address
                     IPAddress clientIP = ((IPEndPoint)client.Client.RemoteEndPoint).Address;
-                    UMI.Log("UMI::CLIENTCONNECT()::IPADDRESS->" + clientIP.ToString());
+                    UMISystem.Log("UMI::CLIENTCONNECT()::IPADDRESS->" + clientIP.ToString());
                     //Add Player 
                     players.Add(i, client);
                     // index client

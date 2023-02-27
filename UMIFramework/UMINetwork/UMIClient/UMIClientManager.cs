@@ -26,7 +26,7 @@ namespace UMI.Network.Client
             }
             else if (star != this)
             {
-                UMI.Log($"UMI::DESTROY()->INSTANCE");
+                UMISystem.Log($"UMI::DESTROY()->INSTANCE");
                 Destroy(this);
             }
             this.TCP = new UMITCP();
@@ -38,7 +38,6 @@ namespace UMI.Network.Client
         {
             UMIClientSend.DisconnectSend(this.UID);
             Disconnect();
-            
         }
         public void connectServer()
         {
@@ -69,8 +68,8 @@ namespace UMI.Network.Client
             {
                 if (!socket.Connected)
                 {
-                    UMI.Log("UMI::SERVERSTATUS()->DOWN");
-                    UMI.Log("UMI::SERVER_RESPON_STATUS()->LOG->CODE-400");
+                    UMISystem.Log("UMI::SERVERSTATUS()->DOWN");
+                    UMISystem.Log("UMI::SERVER_RESPON_STATUS()->LOG->CODE-400");
                     return;
                 }       
                 stream = socket.GetStream();
@@ -89,7 +88,7 @@ namespace UMI.Network.Client
                 }
                 catch (Exception ex)
                 {
-                    UMI.Log($"UMI::ERRSEND()->{ex}");
+                    UMISystem.Log($"UMI::ERRSEND()->{ex}");
                 }
             }
             private void ReceiveCallback(IAsyncResult result)
@@ -203,7 +202,7 @@ namespace UMI.Network.Client
                 }
                 catch (Exception ex)
                 {
-                    UMI.Log($"UMI::ERRSEND()->{ex}");
+                    UMISystem.Log($"UMI::ERRSEND()->{ex}");
                 }
             }
             private void ReceiveCallback(IAsyncResult result)
@@ -260,7 +259,7 @@ namespace UMI.Network.Client
                 this.isConnected = false;
                 this.TCP.socket.Close();
                 //udp.Socket.Close();
-                UMI.Log($"UMI::DISCONNECT()");
+                UMISystem.Log($"UMI::DISCONNECT()");
             }
         }
         // Receive from server

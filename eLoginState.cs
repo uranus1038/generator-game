@@ -5,7 +5,8 @@ using UnityEngine;
 public enum eLoginState 
 {
     Init , 
-    fadeIn ,
-    login , 
-
+    FadeIn ,
+    Login , 
+    vetifyUser,
+    LoginFail ,
 }

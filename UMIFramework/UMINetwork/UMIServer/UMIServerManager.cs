@@ -56,7 +56,7 @@ namespace UMI.Network.Server
                 {
                     UMIServer.clients[this.UID].Disconnect();
                     UMIServerSend.disconnectSend(this.UID);
-                    UMI.Log($"UMI::ERRSEND()->{ex}");
+                    UMISystem.Log($"UMI::ERRSEND()->{ex}");
                 }
             }
 
@@ -179,7 +179,7 @@ namespace UMI.Network.Server
         }
         public void Disconnect()
         {
-            UMI.Log($"UMI::DISCONNECT()->{TCP.socket.Client.RemoteEndPoint}");
+            UMISystem.Log($"UMI::DISCONNECT()->{TCP.socket.Client.RemoteEndPoint}");
             player = null; 
             TCP.Disconnect();
             UDP.Disconnect();
@@ -187,7 +187,7 @@ namespace UMI.Network.Server
 
         public void SendIntoGame(string playerName)
         {
-            UMI.Log("PASS_ERR");
+            UMISystem.Log("PASS_ERR");
             player = new UMIPlayer(this.UID, playerName, new Vector3(0, 0, 0));
             foreach (UMIServerManager client in UMIServer.clients.Values)
             {

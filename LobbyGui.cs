@@ -27,7 +27,7 @@ public class LobbyGui : MonoBehaviour
             {
                 this.eLobbyState_0 = eLobbyState.createRoom;
             }
-            if (GUI.Button(new Rect(0.5f * this.display_0 - 125f, 400f, 250f, 38f), UMINetworkManager.hDac[1].ToString()))
+            if (GUI.Button(new Rect(0.5f * this.display_0 - 125f, 400f, 250f, 38f), "Option"))
             {
                 UMIGame.LoadNextLevel(1);
             }

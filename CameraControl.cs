@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;  
+using UnityEngine;
+using UMI; 
 public class CameraControl : MonoBehaviour
 {
     public static CameraControl star;
@@ -33,7 +34,7 @@ public class CameraControl : MonoBehaviour
             }
         } catch
         {
-            UMI.UMI.Log("UMI::ERRSEND()->NONE_OBJECT_(boyChar)");
+            UMISystem.Log("UMI::ERRSEND()->NONE_OBJECT_(boyChar)");
             this.transform.position = this.transform.position;
         }
     }

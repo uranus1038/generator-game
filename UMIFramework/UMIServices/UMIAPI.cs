@@ -2,32 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using System; 
 
 namespace UMI.Network.API
 {
     public class UMIAPI : MonoBehaviour
     {
-        public static UMIAPI hInst;
-        private string UMIReqUser = "http://localhost:8000/api/login/submit";
+        private UMIData data = new UMIData(); 
+        public static Hashtable hdac = new Hashtable();
+        public static UMIAPI star;
+        public delegate void getUserCallback(string e);
         void Awake()
         {
-            hInst = this;
+            star = this;
         }
-        public IEnumerator UMIGetUser(string UID)
+        public IEnumerator UMIGetUser(string UID , string QUk8sYq_x , getUserCallback e  )
         {
             WWWForm UMIReq = new WWWForm();
             UMIReq.AddField("userName", UID);
-            using (UnityWebRequest www = UnityWebRequest.Post(this.UMIReqUser, UMIReq))
+            UMIReq.AddField("QUk8sYq_x", QUk8sYq_x);
+            using (UnityWebRequest www = UnityWebRequest.Post(this.data.UMIURL(0), UMIReq))
             {
                 yield return www.SendWebRequest();
 
                 if (www.result != UnityWebRequest.Result.Success)
                 {
-                    Debug.Log(www.error);
+                    UMISystem.L0g(www.error);
                 }
                 else
                 {
-                    Debug.Log(www.downloadHandler.text);
+                    e(www.downloadHandler.text);
                 }
 
             }

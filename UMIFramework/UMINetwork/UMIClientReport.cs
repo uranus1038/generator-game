@@ -5,7 +5,6 @@ using UnityEngine;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-
 namespace UMI.Network
 {
     public class UMIClientReport : MonoBehaviour
@@ -21,7 +20,7 @@ namespace UMI.Network
         {
             Thread UMIClient = new Thread(new ThreadStart(UMIClientRuntime));
             UMIClient.Start();
-            UMI.Log("UMI::SUCCESSED()::SERVER_CONNECT");
+            UMISystem.Log("UMI::SUCCESSED()::SERVER_CONNECT");
         }
         //Receive and Send
         private static void UMIClientRuntime()
@@ -39,11 +38,11 @@ namespace UMI.Network
 
                 byte[] recevie = new byte[1024];
                 stream.Read(recevie, 0, recevie.Length);
-                UMI.Log(Encoding.ASCII.GetString(recevie));
+                UMISystem.Log(Encoding.ASCII.GetString(recevie));
                 byte[] id = new byte[1024];
                 stream.Read(id, 0, id.Length);
                 UID = int.Parse(Encoding.ASCII.GetString(id));
-                UMI.Log(UID);
+                UMISystem.Log(UID);
                 string isConnect = Encoding.ASCII.GetString(recevie);
                 try
                 {
@@ -51,7 +50,7 @@ namespace UMI.Network
                 }
                 catch
                 {
-                    UMI.Log("UMI::ERR()::SERVER_DOWN");
+                    UMISystem.Log("UMI::ERR()::SERVER_DOWN");
                     UMIDisconnect();
                 }
 
@@ -59,7 +58,7 @@ namespace UMI.Network
             }
             catch (SocketException ex)
             {
-                UMI.Log("UMI::ERR()::SERVER_DOWN->" + ex);
+                UMISystem.Log("UMI::ERR()::SERVER_DOWN->" + ex);
             }
         }
 
