@@ -5,8 +5,16 @@ using UnityEngine;
 public enum eLoginState 
 {
     Init , 
-    FadeIn ,
+    fadeIn ,
     Login , 
+    Loading , 
     vetifyUser,
-    LoginFail ,
+    loginSuccessed , 
+    loginFail ,
+    notFound , 
+    serverDown ,
+    succesed , 
+    connecting , 
+    connected , 
+        
 }
