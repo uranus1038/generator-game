@@ -16,5 +16,6 @@ public enum eLoginState
     succesed , 
     connecting , 
     connected , 
+    join , 
         
 }
