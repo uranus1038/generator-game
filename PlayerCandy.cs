@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharactorCandy : MonoBehaviour
+public class PlayerCandy : MonoBehaviour
 {
-    public static CharactorCandy candy;
+    public static PlayerCandy candy;
     public string[] animBoy; 
     private void Awake()
     {

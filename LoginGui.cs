@@ -15,14 +15,18 @@ public class LoginGui : MonoBehaviour
     private Texture texture_0;
     private Texture texture_1;
     private Texture texture_2;
+    private Texture texture_3;
+    private Texture texture_4;
     // GUI
     private GUIStyle guistyle_0;
+    private GUIStyle guistyle_1;
+    private GUIStyle guistyle_2;
 
     private UMIJSON JSON = new UMIJSON();
     UMIJSON req;
     private void Awake()
     {
-        this.userName_0 = string.Empty;
+        this.userName_0 = PlayerPrefs.GetString("userName", string.Empty);
         this.QUk8sYq_x = string.Empty;
         this.Init();
         this.eLoginState_0 = eLoginState.Init;
@@ -34,13 +38,23 @@ public class LoginGui : MonoBehaviour
         this.texture_0 = (Texture)Resources.Load("GUI/Login/Black", typeof(Texture));
         this.texture_1 = (Texture)Resources.Load("GUI/Login/Login_background01", typeof(Texture));
         this.texture_2 = (Texture)Resources.Load("GUI/Login/Login_bar", typeof(Texture));
+        this.texture_3 = (Texture)Resources.Load("GUI/Login/Notice_bar", typeof(Texture));
+        this.texture_4 = (Texture)Resources.Load("GUI/Login/Chack_01", typeof(Texture));
 
         //GUI
         this.guistyle_0 = new GUIStyle();
         this.guistyle_0.font = (Font)Resources.Load("GUI/Fonts/Prompt-Bold", typeof(Font));
-        this.guistyle_0.normal.textColor = new Color(0.2f,0.5f,1f,1f);
+        this.guistyle_0.normal.textColor = new Color(0f, 0.1f, 0.2f, 0.8f);
         this.guistyle_0.fontSize = 18;
         //this.guistyle_0.alignment = TextAnchor.MiddleLeft;
+        this.guistyle_1 = new GUIStyle();
+        this.guistyle_1.hover.background = (Texture2D)((Texture)Resources.Load("GUI/Login/Login_button_h", typeof(Texture)));
+        //GUI
+        this.guistyle_2 = new GUIStyle();
+        this.guistyle_2.font = (Font)Resources.Load("GUI/Fonts/Prompt-Bold", typeof(Font));
+        this.guistyle_2.normal.textColor = new Color(0f, 0.1f, 0.2f, 0.8f);
+        this.guistyle_2.fontSize = 18;
+        this.guistyle_2.alignment = TextAnchor.MiddleCenter;
     }
 
     private void OnGUI()
@@ -56,7 +70,7 @@ public class LoginGui : MonoBehaviour
             this.eLoginState_0 = eLoginState.fadeIn;
             return;
         }
-        if(this.eLoginState_0 == eLoginState.fadeIn)
+        if (this.eLoginState_0 == eLoginState.fadeIn)
         {
             if (Time.time < this.delay_0 + 0.5f)
             {
@@ -78,21 +92,42 @@ public class LoginGui : MonoBehaviour
         {
             GUI.DrawTexture(new Rect(0.5f * this.display_0 - 222.25f, 713f, 444.5f, 212.5f), this.texture_2);
             // Text Input
-            this.userName_0 = GUI.TextField(new Rect(0.5f * this.display_0 - 98f, 772f, 288f, 30f), this.userName_0, 15 , this.guistyle_0);
+            this.userName_0 = GUI.TextField(new Rect(0.5f * this.display_0 - 98f, 772f, 288f, 30f), this.userName_0, 15, this.guistyle_0);
             // Password Input
-            this.QUk8sYq_x = GUI.PasswordField(new Rect(0.5f * this.display_0 - 98f, 812f, 288f, 30f), this.QUk8sYq_x, "*"[0], 15 , this.guistyle_0);
-            if (GUI.Button(new Rect(0.5f * this.display_0 - 156f, 864f, 108f, 37f), "Login"))
+            this.QUk8sYq_x = GUI.PasswordField(new Rect(0.5f * this.display_0 - 98f, 812f, 288f, 30f), this.QUk8sYq_x, "*"[0], 15, this.guistyle_0);
+            if (this.QUk8sYq_x.Length > 4 && this.userName_0 != string.Empty)
             {
-                this.delay_0 = Time.time;
-                StartCoroutine(UMIAPI.star.UMIGetUser(this.userName_0, this.QUk8sYq_x, UMICallback.getUserCallback));
-                this.eLoginState_0 = eLoginState.Loading;
+                if (GUI.Button(new Rect(0.5f * this.display_0 - 142f, 863f, 253f / 2f, 124f / 2f), string.Empty, this.guistyle_1))
+                {
+                    this.delay_0 = Time.time;
+                    StartCoroutine(UMIAPI.star.UMIGetUser(this.userName_0, this.QUk8sYq_x, UMICallback.getUserCallback));
+                    this.eLoginState_0 = eLoginState.Loading;
+                }
+            }
+
+            if (GUI.Button(new Rect(0.5f * this.display_0 - 0f, 858f, 30f, 28f), string.Empty,this.guistyle_0))
+            {
+                if (PlayerPrefs.GetInt("saveUser", 0) != 0)
+                {
+                    PlayerPrefs.SetInt("saveUser", 0);
+                    PlayerPrefs.SetString("userName", string.Empty);
+                }
+                else
+                {
+                    PlayerPrefs.SetInt("saveUser", 1);
+                }
+            }
+            if (PlayerPrefs.GetInt("saveUser", 0) != 0)
+            {
+                PlayerPrefs.SetString("userName", this.userName_0);
+                GUI.DrawTexture(new Rect(0.5f * this.display_0 +8f, 850f, 30f, 30f), this.texture_4);
             }
         }
         if (this.eLoginState_0 == eLoginState.Loading)
         {
             if (Time.time < this.delay_0 + 2f)
             {
-                GUI.TextField(new Rect(0.5f * this.display_0 - 125f, 400f, 250f, 38f), "Loading . . .");
+                this.RenderNoticeMessage("Loading . . .");
                 try
                 {
                     req = JSON.UMIRespon(UMIData.getStringPlayerData(8));
@@ -114,33 +149,29 @@ public class LoginGui : MonoBehaviour
             {
                 this.eLoginState_0 = eLoginState.serverDown;
                 this.delay_0 = Time.time;
-                return;
             }
             else
             if (req.status == "fail")
             {
-                this.eLoginState_0 = eLoginState.loginFail;
                 this.delay_0 = Time.time;
-                return;
+                this.eLoginState_0 = eLoginState.loginFail;
             }
             else if (req.status == "none")
             {
-                this.eLoginState_0 = eLoginState.notFound;
                 this.delay_0 = Time.time;
-                return;
+                this.eLoginState_0 = eLoginState.notFound;
             }
             else if (req.status == "successed")
             {
-                this.eLoginState_0 = eLoginState.succesed;
                 this.delay_0 = Time.time;
-                return;
+                this.eLoginState_0 = eLoginState.connecting;
             }
         }
         if (this.eLoginState_0 == eLoginState.loginFail)
         {
             if (Time.time < this.delay_0 + 1.5f)
             {
-                GUI.TextField(new Rect(0.5f * this.display_0 - 125f, 400f, 250f, 38f), "Login Fail . . .");
+                this.RenderNoticeMessage("Login Fail . . .");
                 return;
             }
             this.delay_0 = Time.time;
@@ -152,7 +183,7 @@ public class LoginGui : MonoBehaviour
         {
             if (Time.time < this.delay_0 + 1.5f)
             {
-                GUI.TextField(new Rect(0.5f * this.display_0 - 125f, 400f, 250f, 38f), "No player information .");
+                this.RenderNoticeMessage("No player information .");
                 return;
             }
             this.delay_0 = Time.time;
@@ -164,7 +195,7 @@ public class LoginGui : MonoBehaviour
         {
             if (Time.time < this.delay_0 + 1.5f)
             {
-                GUI.TextField(new Rect(0.5f * this.display_0 - 125f, 400f, 250f, 38f), "Server Down");
+                this.RenderNoticeMessage("Server Down");
                 return;
             }
             this.delay_0 = Time.time;
@@ -172,17 +203,11 @@ public class LoginGui : MonoBehaviour
             return;
 
         }
-        if (this.eLoginState_0 == eLoginState.succesed)
-        {
-            this.delay_0 = Time.time;
-            this.eLoginState_0 = eLoginState.connecting;
-            return;
-        }
         if (this.eLoginState_0 == eLoginState.connecting)
         {
             if (Time.time < this.delay_0 + 1.5f)
             {
-                GUI.TextField(new Rect(0.5f * this.display_0 - 125f, 400f, 250f, 38f), "Connecting..");
+                this.RenderNoticeMessage("Connecting..");
                 return;
             }
             this.delay_0 = Time.time;
@@ -194,7 +219,7 @@ public class LoginGui : MonoBehaviour
         {
             if (Time.time < this.delay_0 + 1.5f)
             {
-                GUI.TextField(new Rect(0.5f * this.display_0 - 125f, 400f, 250f, 38f), "Retrieving player data..");
+                this.RenderNoticeMessage("Retrieving player data..");
                 return;
             }
             UMIData.Add(1, req.data.namestar);
@@ -208,15 +233,21 @@ public class LoginGui : MonoBehaviour
         {
             if (Time.time < this.delay_0 + 1.5f)
             {
-                GUI.TextField(new Rect(0.5f * this.display_0 - 125f, 400f, 250f, 38f), "Entering Generator Of Aumi ...");
+                this.RenderNoticeMessage("Entering Generator Of Aumi ...");
                 return;
             }
             this.delay_0 = Time.time;
-            UMIGame.LoadNextLevel(2);
+            this.Connect();
             return;
         }
-
-
     }
-
+    private void RenderNoticeMessage(string message)
+    {
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 735f / 2.8f, 738f, 735f / 1.4f, 243f / 1.4f), this.texture_3);
+        GUI.Label(new Rect(0.5f * this.display_0 - 735f / 2.8f, 738f, 700f / 1.4f, 268f / 1.4f), message, this.guistyle_2);
+    }
+    private void Connect()
+    {
+        UMIGame.LoadNextLevel(2);
+    }
 }

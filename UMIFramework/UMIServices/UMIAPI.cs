@@ -27,7 +27,7 @@ namespace UMI.Network.API
 
                 if (www.result != UnityWebRequest.Result.Success)
                 {
-                    UMISystem.L0g(www.error);
+                    UMIData.Clear();
                 }
                 else
                 {
