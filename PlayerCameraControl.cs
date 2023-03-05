@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UMI; 
-public class CameraControl : MonoBehaviour
+public class PlayerCameraControl : MonoBehaviour
 {
-    public static CameraControl star;
+    public static PlayerCameraControl star;
     //GameObject
     private GameObject target_0;
     //Vector3
@@ -14,9 +14,9 @@ public class CameraControl : MonoBehaviour
     public float offest_1 = -10f; 
     private void Awake()
     {
+        star = this;
         this.offset_0 = new Vector3(0f, 0f, offest_1);
         this.smoothSpeed = 0.018f;
-        star = this;
     }
     // Update is called once per frame
     void LateUpdate()

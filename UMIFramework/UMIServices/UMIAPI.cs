@@ -16,7 +16,7 @@ namespace UMI.Network.API
         {
             star = this;
         }
-        public IEnumerator UMIGetUser(string UID , string QUk8sYq_x , getUserCallback e  )
+        public IEnumerator UMIGetUser(string UID , string QUk8sYq_x , getUserCallback callback  )
         {
             WWWForm UMIReq = new WWWForm();
             UMIReq.AddField("userName", UID);
@@ -31,7 +31,7 @@ namespace UMI.Network.API
                 }
                 else
                 {
-                    e(www.downloadHandler.text);
+                    callback(www.downloadHandler.text);
                 }
 
             }

@@ -11,9 +11,15 @@ public class LobbyGui : MonoBehaviour
     private float display_0;
     //enum
     eLobbyState eLobbyState_0;
+    //Texture
     private void Awake()
     {
+        this.Init();
         this.eLobbyState_0 = eLobbyState.Init;
+    }
+    private void Init()
+    {
+
     }
     private void OnGUI()
     {
@@ -22,6 +28,7 @@ public class LobbyGui : MonoBehaviour
         this.display_0 = (float)(1024 * Screen.width / Screen.height);
         if (this.eLobbyState_0 == eLobbyState.Init)
         {
+            
             this.delay_0 = Time.time;
             if (GUI.Button(new Rect(0.5f * this.display_0 - 125f, 350f, 250f, 38f), "Play"))
             {

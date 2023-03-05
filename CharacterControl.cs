@@ -696,25 +696,25 @@ public class CharacterControl : MonoBehaviour
     {
         if (Input.GetButton("left shift") && Input.GetButton("a"))
         {
-            CameraControl.star.offest_1 = offset_0;
+            PlayerCameraControl.star.offest_1 = offset_0;
             this.speed_1 = speed_1;
         }
         else if (Input.GetButton("left shift") && Input.GetButton("w"))
         {
-            CameraControl.star.offest_1 = offset_0;
+            PlayerCameraControl.star.offest_1 = offset_0;
             this.speed_1 = speed_1;
         }
         else if (Input.GetButton("left shift") && Input.GetButton("d"))
         {
-            CameraControl.star.offest_1 = offset_0;
+            PlayerCameraControl.star.offest_1 = offset_0;
             this.speed_1 = speed_1;
         }
         else if (Input.GetButton("left shift") && Input.GetButton("s"))
         {
-            CameraControl.star.offest_1 = offset_0;
+            PlayerCameraControl.star.offest_1 = offset_0;
             this.speed_1 = speed_1;
         }
-        else { CameraControl.star.offest_1 = -10f; this.speed_1 = 3f; }
+        else { PlayerCameraControl.star.offest_1 = -10f; this.speed_1 = 3f; }
 
     }
 
