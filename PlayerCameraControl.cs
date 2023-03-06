@@ -11,7 +11,7 @@ public class PlayerCameraControl : MonoBehaviour
     private Vector3 offset_0;
     //float
     protected float smoothSpeed;
-    public float offest_1 = -10f; 
+    public float offest_1 = -15f; 
     private void Awake()
     {
         star = this;

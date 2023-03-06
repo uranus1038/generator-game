@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Boy : BoyClass
-{ 
-    public float offset_0 ; 
-    public float speed_2 ; 
+{
+    protected float offset_0 = -16f;
+    protected float speed_2 = 4.2f;
     void Update()
     {
         this.OnPlayerController();

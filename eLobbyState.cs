@@ -4,9 +4,6 @@ using UnityEngine;
 
 public enum eLobbyState
 {
-    Init , 
-    createRoom  ,
-    renderRoom ,
-    notice ,
+   lobbyMenu , 
 
 }

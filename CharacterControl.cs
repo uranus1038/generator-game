@@ -714,7 +714,7 @@ public class CharacterControl : MonoBehaviour
             PlayerCameraControl.star.offest_1 = offset_0;
             this.speed_1 = speed_1;
         }
-        else { PlayerCameraControl.star.offest_1 = -10f; this.speed_1 = 3f; }
+        else { PlayerCameraControl.star.offest_1 = -15f; this.speed_1 = 3f; }
 
     }
 

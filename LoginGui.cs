@@ -130,8 +130,7 @@ public class LoginGui : MonoBehaviour
                 this.RenderNoticeMessage("Loading . . .");
                 try
                 {
-                    req = JSON.UMIRespon(UMIData.getStringPlayerData(8));
-                    UMISystem.L0g(req.status);
+                    this.OnConnect();
                 }
                 catch
                 {
@@ -183,7 +182,7 @@ public class LoginGui : MonoBehaviour
         {
             if (Time.time < this.delay_0 + 1.5f)
             {
-                this.RenderNoticeMessage("No player information .");
+                this.RenderNoticeMessage("No player information.");
                 return;
             }
             this.delay_0 = Time.time;
@@ -207,7 +206,7 @@ public class LoginGui : MonoBehaviour
         {
             if (Time.time < this.delay_0 + 1.5f)
             {
-                this.RenderNoticeMessage("Connecting..");
+                this.RenderNoticeMessage("Connecting . .");
                 return;
             }
             this.delay_0 = Time.time;
@@ -219,7 +218,7 @@ public class LoginGui : MonoBehaviour
         {
             if (Time.time < this.delay_0 + 1.5f)
             {
-                this.RenderNoticeMessage("Retrieving player data..");
+                this.RenderNoticeMessage("Retrieving player data . .");
                 return;
             }
             UMIData.Add(1, req.data.namestar);
@@ -233,11 +232,11 @@ public class LoginGui : MonoBehaviour
         {
             if (Time.time < this.delay_0 + 1.5f)
             {
-                this.RenderNoticeMessage("Entering Generator Of Aumi ...");
+                this.RenderNoticeMessage("Entering Generator Of Aumi . . .");
                 return;
             }
             this.delay_0 = Time.time;
-            this.Connect();
+            this.OnJoinGame();
             return;
         }
     }
@@ -246,8 +245,13 @@ public class LoginGui : MonoBehaviour
         GUI.DrawTexture(new Rect(0.5f * this.display_0 - 735f / 2.8f, 738f, 735f / 1.4f, 243f / 1.4f), this.texture_3);
         GUI.Label(new Rect(0.5f * this.display_0 - 735f / 2.8f, 738f, 700f / 1.4f, 268f / 1.4f), message, this.guistyle_2);
     }
-    private void Connect()
+    private void OnJoinGame()
     {
         UMIGame.LoadNextLevel(2);
+    }
+    private void OnConnect()
+    {
+        req = JSON.UMIRespon(UMIData.getStringPlayerData(8));
+        UMISystem.L0g(req.status);
     }
 }
