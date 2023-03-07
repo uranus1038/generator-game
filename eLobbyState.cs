@@ -5,5 +5,5 @@ using UnityEngine;
 public enum eLobbyState
 {
    lobbyMenu , 
-
+   Loading , 
 }

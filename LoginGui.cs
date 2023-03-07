@@ -221,8 +221,7 @@ public class LoginGui : MonoBehaviour
                 this.RenderNoticeMessage("Retrieving player data . .");
                 return;
             }
-            UMIData.Add(1, req.data.namestar);
-            UMIData.Add(2, req.data.gender);
+            this.getDataPlayer();
             this.delay_0 = Time.time;
             this.eLoginState_0 = eLoginState.join;
             return;
@@ -253,5 +252,10 @@ public class LoginGui : MonoBehaviour
     {
         req = JSON.UMIRespon(UMIData.getStringPlayerData(8));
         UMISystem.L0g(req.status);
+    }
+    private void getDataPlayer()
+    {
+        UMIData.Add(1, req.data.namestar);
+        UMIData.Add(2, req.data.gender);
     }
 }
