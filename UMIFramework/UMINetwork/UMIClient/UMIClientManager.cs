@@ -10,8 +10,8 @@ namespace UMI.Network.Client
     {
         public static UMIClientManager star;
         public static int dataBufferSize = 4096;
-        public string IP = "127.0.0.1";
-        public int port =8080;
+        private string IP = "127.0.0.1";
+        public int port ;
         public int UID = 0;
         public UMITCP TCP;
         public UMIUDP UDP;
@@ -39,9 +39,9 @@ namespace UMI.Network.Client
             UMIClientSend.DisconnectSend(this.UID);
             Disconnect();
         }
-        public void connectServer()
+        public void connectServer(string UMIIPAdress)
         {
-
+            this.IP = UMIIPAdress; 
             InitializeClientData();
             this.isConnected = true;
             this.TCP.Connect(); 
@@ -273,6 +273,7 @@ namespace UMI.Network.Client
            { (int)YUMIServerPackets.resPlayerPosition ,UMIClientHandle.playerPosition2D},
            { (int)YUMIServerPackets.resDisconnect ,UMIClientHandle.disconnectGetRespon},
            { (int)YUMIServerPackets.resAnimation ,UMIClientHandle.playerAnimation},
+           { (int)YUMIServerPackets.resSpawnPlayerLobby ,UMIClientHandle.spawnPlayerLobby}
         };
         }
     }

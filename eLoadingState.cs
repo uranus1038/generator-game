@@ -5,4 +5,7 @@ public enum eLoadingState
   fadeIn ,
   fadeOut,
     cloudFadeIn,
+    Shiro ,
+    Kuro , 
+   shiroTimer , 
 }

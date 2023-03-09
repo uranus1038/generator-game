@@ -14,7 +14,7 @@ namespace UMI.Network
         private void Start()
         {
             UMISystem.Log("UMI::LOG()->START_LOBBY");
-            UMIClientManager.star.connectServer();
+            UMIClientManager.star.connectServer("127.0.0.1");
         }
     }
 }

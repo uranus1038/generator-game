@@ -20,6 +20,12 @@ namespace UMI.Network.Client
             Vector3 position = packet.ReadVector3();
             Quaternion rotation = packet.ReadQuaternion();
             UMIGameManager.star.spawnPlayer(UID, userName, position, rotation);
+        } public static void spawnPlayerLobby(UMIPacket packet)
+        {
+            int UID = packet.ReadInt();
+            string userName = packet.ReadString();
+            string gender = packet.ReadString();
+            Room.star.spawnLobby(UID, userName, gender);
         }
         public static void playerPosition2D(UMIPacket packet)
         {
@@ -50,5 +56,6 @@ namespace UMI.Network.Client
             }
           
         }
+        
     }
 }

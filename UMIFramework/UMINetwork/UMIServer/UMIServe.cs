@@ -4,8 +4,8 @@ namespace UMI.Network.Server
 {
     class UMIServe : MonoBehaviour
     {
-        public int maxPlayer ;
-        public int portV; 
+        [SerializeField] protected int maxPlayer ;
+        [SerializeField] protected int portV;
         public static UMIServe star;
         private void Awake()
         {

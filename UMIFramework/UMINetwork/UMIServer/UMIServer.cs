@@ -134,7 +134,7 @@ namespace UMI.Network.Server
 
                 }catch
                 {
-                    UMISystem.Log(i);
+                    UMISystem.Log(i + "ERR");
                 }
             }
             packetHandle = new Dictionary<int, PacketHandler>()
@@ -144,7 +144,8 @@ namespace UMI.Network.Server
                 {   (int)YUMIClientPackets.reqPlayerMovement , UMIServerHandle.playerMovement2D},
                 {   (int)YUMIClientPackets.reqDisconnect , UMIServerHandle.disconnectReceive} ,
                 {   (int)YUMIClientPackets.reqSpawnPlayer , UMIServerHandle.spawnPlayer} , 
-                {   (int)YUMIClientPackets.reqAnimation , UMIServerHandle.playerAnimation}
+                {   (int)YUMIClientPackets.reqAnimation , UMIServerHandle.playerAnimation} ,
+                {   (int)YUMIClientPackets.getConnectLobby , UMIServerHandle.connectLobby} 
 
             };
             UMISystem.Log("UMI::DATA_SERVER()->LOG->initializeServer");

@@ -187,7 +187,6 @@ namespace UMI.Network.Server
 
         public void SendIntoGame(string playerName)
         {
-            UMISystem.Log("PASS_ERR");
             player = new UMIPlayer(this.UID, playerName, new Vector3(0, 0, 0));
             foreach (UMIServerManager client in UMIServer.clients.Values)
             {

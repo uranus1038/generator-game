@@ -6,6 +6,8 @@ namespace UMI.Manager
 {
     public class UMIGame : MonoBehaviour
     {
+        public static bool Serve = true; 
+        public static bool Join = true; 
         public static void LoadNextLevel(int num)
         {
             

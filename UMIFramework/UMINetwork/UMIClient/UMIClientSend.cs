@@ -31,6 +31,16 @@ namespace UMI.Network.Client
                 SendTCPData(packet);
             }
         }
+        public static void requastConnectLobby()
+        {
+            using (UMIPacket packet = new UMIPacket((int)YUMIClientPackets.getConnectLobby))
+            {
+                packet.Write(UMIClientManager.star.UID);
+                packet.Write(UMI.Network.API.UMIData.getStringPlayerData(1));
+                packet.Write(UMI.Network.API.UMIData.getStringPlayerData(2));
+                SendTCPData(packet);
+            }
+        }
         public static void reqPlayerMoveMent(Vector3 position)
         {
             using (UMIPacket packet = new UMIPacket((int)YUMIClientPackets.reqPlayerMovement))

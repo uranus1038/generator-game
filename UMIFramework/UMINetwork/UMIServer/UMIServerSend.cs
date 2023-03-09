@@ -75,6 +75,15 @@ namespace UMI.Network.Server
                 SendTCPData(toClient, packet);
             }
         }
+        public static void spawnPlayerLobby(int toClient, string userName , string gender)
+        {
+            using (UMIPacket packet = new UMIPacket((int)YUMIServerPackets.resSpawnPlayerLobby))
+            {
+                packet.Write(userName);
+                packet.Write(gender);
+                SendTCPData(toClient, packet);
+            }
+        }
         public static void playerPosition2D(UMIPlayer player)
         {
             using (UMIPacket packet = new UMIPacket((int)YUMIServerPackets.resPlayerPosition))

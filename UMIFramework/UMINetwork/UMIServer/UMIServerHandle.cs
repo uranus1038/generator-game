@@ -16,6 +16,19 @@ namespace UMI.Network.Server
                 UMISystem.Log($"Player {UID} id : {client}");
             }
         }
+        public static void connectLobby(int client, UMIPacket packet)
+        {
+            int UID = packet.ReadInt();
+            string userName = packet.ReadString();
+            string gender = packet.ReadString();
+            UMIServerSend.spawnPlayerLobby(UID, userName, gender); 
+
+            UMISystem.Log($"UMI::CONNEC()->LOG->connected successfully {UMIServer.clients[client].TCP.socket.Client.RemoteEndPoint} and is now player {UID}");
+            if (client != UID)
+            {
+                UMISystem.Log($"Player {UID} id : {client}");
+            }
+        }
         public static void spawnPlayer(int client, UMIPacket packet)
         {
             int UID = packet.ReadInt();
