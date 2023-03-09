@@ -4,7 +4,7 @@ public class CandyDemo : MonoBehaviour
     public static CandyDemo star;
     // Resources
     protected string playerObject_0;
-    protected string playerObject_1;
+    protected string playerObject_1playerObject_1;
     protected string playerObject_2;
     private GameObject player_0;
     private void Awake()

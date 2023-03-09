@@ -58,9 +58,8 @@ namespace UMI.Network.Client
  
             public void Connect()
             {
-               
+                UMI.Manager.UMIGame.Connecting = true;
                 socket = new TcpClient { ReceiveBufferSize = dataBufferSize, SendBufferSize = dataBufferSize };
-
                 receiveBuffer = new byte[dataBufferSize];
                 socket.BeginConnect(star.IP, star.port, ConnectCallback, socket);
             }
@@ -70,6 +69,7 @@ namespace UMI.Network.Client
                 {
                     UMISystem.Log("UMI::SERVERSTATUS()->DOWN");
                     UMISystem.Log("UMI::SERVER_RESPON_STATUS()->LOG->CODE-400");
+                    UMI.Manager.UMIGame.Connecting = false; 
                     return;
                 }       
                 stream = socket.GetStream();

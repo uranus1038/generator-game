@@ -10,8 +10,10 @@ namespace UMI.Network.Client
             int UID = packet.ReadInt();
             UMISystem.Log($"UMI::SERVER_RESPON()->{MAG}");
             UMIClientManager.star.UID = UID;
-            if(UMI.Manager.UMIGame.connectLobby)
+            UMI.Manager.UMIGame.Connected = false;
+            if (UMI.Manager.UMIGame.connectLobby)
             {
+                UMISystem.L0g("Connect"); 
                 UMIClientSend.requastConnectLobby();
                 UMI.Manager.UMIGame.connectLobby = false; 
             }

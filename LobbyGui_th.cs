@@ -13,6 +13,7 @@ public class LobbyGui_th
             case 04: result = "ย้อนกลับ"; break;
             case 05: result = "กำลังโหลดข้อมูล"; break;
             case 06: result = "กำลังเชื่อต่อ"; break;
+            case 07: result = "ไม่พบเซิฟเวอร์"; break;
             default: return result; 
         }
         return result; 

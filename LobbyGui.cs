@@ -188,18 +188,81 @@ public class LobbyGui : MonoBehaviour
             GUI.DrawTexture(new Rect(0.5f * this.display_0 + 80f, 210f, 1016f / 2f, 995f / 2f), this.texture_11);
             if (GUI.Button(new Rect(0.5f * this.display_0 + 98f, 660f, 334f / 2f, 206f / 2f), Language.getMessage("LobbyGui", 03), this.style_4))
             {
+                UMI.Manager.UMIGame.Serve = true;
                 this.delay_0 = Time.time;
                 this.eLobbyRoom_0 = eLobbyRoomState.isCreateRoom;
+            }
+            if (GUI.Button(new Rect(0.5f * this.display_0 + 380f, 660f, 334f / 2f, 206f / 2f), Language.getMessage("LobbyGui", 03), this.style_4))
+            {
+                UMI.Manager.UMIGame.connectLobby = true;
+                UMI.Manager.UMIGame.Join = true;
+                this.delay_0 = Time.time;
+                this.eLobbyRoom_0 = eLobbyRoomState.isJoin;
             }
             if (GUI.Button(new Rect(0.5f * this.display_0 + 520f, 800f, 334f / 2f, 206f / 2f), Language.getMessage("LobbyGui", 04), this.style_4))
             {
                 this.delay_0 = Time.time;
                 this.eLobbyRoom_0 = eLobbyRoomState.isBack;
             }
-
-
         }
-        if(this.eLobbyRoom_0 == eLobbyRoomState.isCreateRoom)
+        if (this.eLobbyRoom_0 == eLobbyRoomState.isJoin)
+        {
+            if (Time.time < this.delay_0 + 1.5f)
+            {
+                this.RenderCreateRoomConnect();
+                this.RenderNoticeMessage(Language.getMessage("LobbyGui", 05));
+                return; 
+            }
+            this.delay_0 = Time.time;
+            this.eLobbyRoom_0 = eLobbyRoomState.Join;
+            return;
+        }
+        if (this.eLobbyRoom_0 == eLobbyRoomState.Join)
+        {
+            
+            if (Time.time < this.delay_0 + 1.5f)
+            {
+                if (UMIGame.Join)
+                {
+                    UMIClientManager.star.connectServer("127.0.0.1");
+                    UMIGame.Join = false;
+                }
+                this.RenderCreateRoomConnect();
+                this.RenderNoticeMessage(Language.getMessage("LobbyGui", 06));
+                return; 
+            }
+            if(UMIGame.Connecting)
+            {
+                this.RenderCreateRoomConnect();
+                this.RenderNoticeMessage(Language.getMessage("LobbyGui", 06));
+                if(!UMIGame.Connected)
+                {
+                    this.delay_0 = Time.time;
+                    this.eLobbyRoom_0 = eLobbyRoomState.Room;
+                    UMIGame.Connected = true; 
+                    return;
+                }
+            }
+            else
+            {
+                this.delay_0 = Time.time;
+                this.eLobbyRoom_0 = eLobbyRoomState.notFound;
+                return;
+            }
+        }
+        if (this.eLobbyRoom_0 == eLobbyRoomState.notFound)
+        {
+            if (Time.time < this.delay_0 + 1.5f)
+            {
+                this.RenderCreateRoomConnect();
+                this.RenderNoticeMessage(Language.getMessage("LobbyGui", 07));
+                return; 
+            }
+            this.delay_0 = Time.time;
+            this.eLobbyRoom_0 = eLobbyRoomState.createRoom;
+            return;
+        }
+        if (this.eLobbyRoom_0 == eLobbyRoomState.isCreateRoom)
         {  
             if (Time.time < this.delay_0 + 1.5f)
             {
@@ -209,7 +272,7 @@ public class LobbyGui : MonoBehaviour
                     UMIGame.Serve = false;
                 }
                 this.RenderCreateRoomConnect();
-                this.RenderNoticeMessage(Language.getMessage("LobbyGui",06));
+                this.RenderNoticeMessage(Language.getMessage("LobbyGui",05));
                 return;
             }
             this.delay_0 = Time.time;
@@ -221,7 +284,7 @@ public class LobbyGui : MonoBehaviour
             if (Time.time < this.delay_0 + 1.5f)
             {
                 this.RenderCreateRoomConnect();
-                this.RenderNoticeMessage(Language.getMessage("LobbyGui", 05));
+                this.RenderNoticeMessage(Language.getMessage("LobbyGui", 06));
                 return;
             }
             this.delay_0 = Time.time;
@@ -397,8 +460,8 @@ public class LobbyGui : MonoBehaviour
     }
     private void RenderNoticeMessage(string message)
     {
-        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 735f / 2.8f, 738f, 735f / 1.4f, 243f / 1.4f), this.texture_14);
-        GUI.Label(new Rect(0.5f * this.display_0 - 735f / 2.8f, 738f, 700f / 1.4f, 268f / 1.4f), message, this.style_5);
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 645f / 2.8f, 1024/2.5f, 735f / 1.4f, 243f / 1.4f), this.texture_14);
+        GUI.Label(new Rect(0.5f * this.display_0 - 645f / 2.8f, 1024f/2.5f, 700f / 1.4f, 268f / 1.4f), message, this.style_5);
     }
     private void RenderCreateRoomConnect()
     {

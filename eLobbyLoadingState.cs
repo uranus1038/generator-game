@@ -6,6 +6,6 @@ public enum eLobbyLoadingState
     Normal , 
     Loading,
     fadeOut , 
-    isWaite, 
+    isWait, 
     createLobby , 
 }

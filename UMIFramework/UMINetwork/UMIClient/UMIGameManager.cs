@@ -49,8 +49,6 @@ namespace UMI.Network.Client
             player_0.GetComponent<UMIPlayerManager>().userName = userName;
             players.Add(UID, player_0.GetComponent<UMIPlayerManager>());
 
-
-
         }
 
 

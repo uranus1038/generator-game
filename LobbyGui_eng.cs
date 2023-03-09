@@ -14,6 +14,7 @@ public class LobbyGui_eng
             case 04: result = "Back"; break;
             case 05: result = "Loading Data "; break;
             case 06: result = "Connecting"; break;
+            case 07: result = "Server not found"; break;
             default: return result;
         }
         return result;
