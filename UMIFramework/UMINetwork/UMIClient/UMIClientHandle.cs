@@ -10,7 +10,11 @@ namespace UMI.Network.Client
             int UID = packet.ReadInt();
             UMISystem.Log($"UMI::SERVER_RESPON()->{MAG}");
             UMIClientManager.star.UID = UID;
-            UMIClientSend.requastConnect();
+            if(UMI.Manager.UMIGame.connectLobby)
+            {
+                UMIClientSend.requastConnectLobby();
+                UMI.Manager.UMIGame.connectLobby = false; 
+            }
             UMIClientManager.star.UDP.Connect(((IPEndPoint)UMIClientManager.star.TCP.socket.Client.LocalEndPoint).Port);
         }
         public static void spawnPlayer(UMIPacket packet)

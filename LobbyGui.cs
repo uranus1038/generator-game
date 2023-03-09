@@ -33,9 +33,6 @@ public class LobbyGui : MonoBehaviour
     private Texture texture_13;
     private Texture texture_14;
     private Texture texture_15;
-    private Texture texture_16;
-
-
     // GUI
     private GUIStyle style_0;
     private GUIStyle style_1;
@@ -104,6 +101,7 @@ public class LobbyGui : MonoBehaviour
         this.texture_10 = (Texture)Resources.Load("GUI/Lobby/Lobby_book_bg01", typeof(Texture));
         this.texture_11 = (Texture)Resources.Load("GUI/Lobby/Note01", typeof(Texture));
         this.texture_14 = (Texture)Resources.Load("GUI/Lobby/Notice_bar", typeof(Texture));
+        this.texture_15 = (Texture)Resources.Load("GUI/Lobby/Friend_box_wait", typeof(Texture));
         this.style_4 = new GUIStyle();
         this.style_4.normal.background = (Texture2D)((Texture)Resources.Load("GUI/Lobby/Button01", typeof(Texture)));
         this.style_4.hover.background = (Texture2D)((Texture)Resources.Load("GUI/Lobby/Button01_h", typeof(Texture)));
@@ -281,9 +279,13 @@ public class LobbyGui : MonoBehaviour
         GUI.DrawTexture(new Rect(0.5f * this.display_0 - 960f, 0f, 1920f, 1024f), this.texture_7);
         GUI.DrawTexture(new Rect(0.5f * this.display_0 - 2989f / 4f, 100f, 2989F / 2f, 1673F / 2f),
              this.texture_10);
-        if(UMIGame.Join)
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 638f, 180f, 508f / 2f, 629f / 2f), this.texture_15);
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 338f, 220f, 508f / 2f, 629f / 2f), this.texture_15);
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 + 88f, 220f, 508f / 2f, 629f / 2f), this.texture_15);
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 + 388f, 180f, 508f / 2f, 629f / 2f), this.texture_15);
+        if (UMIGame.Join)
         {
-            UMIClientSend.requastConnectLobby();
+            UMIClientManager.star.connectServer("127.0.0.1");
             UMIGame.Join = false;
         }
     }

@@ -37,17 +37,14 @@ public class Room : MonoBehaviour
     }
     public void spawnLobby(int slot, string userName , string  gender)
     {
-        UMI.UMISystem.L0g("Success");
         try
         {
-           
-            UMI.UMISystem.L0g(gender);
             this.playerObject_0.Add(gender);
             this.playerObject_1.Add(gender);    
             this.players.Add(slot, true);
         }catch
         {
-            UMI.UMISystem.L0g("NULL");
+            UMI.UMISystem.L0g("CALLBACK_SERVER");
             
         }
         
@@ -59,17 +56,17 @@ public class Room : MonoBehaviour
         this.display_0 = (float)(1024 * Screen.width / Screen.height);
         try
         {
-            if (players[1] == true)
+            if (players[1])
             {
                 if (playerObject_0[0].ToString() == "male")
                 {
                     GUI.DrawTexture(new Rect(0.5f * this.display_0 - 638f, 180f, 508f / 2f, 629f / 2f), this.texture_0);
-                    GUI.DrawTexture(new Rect(0.5f * this.display_0 - 638f, 200f, 508f / 2f, 700f / 2f), this.texture_2);
+                    GUI.DrawTexture(new Rect(0.5f * this.display_0 - 638f, 200f, 508f / 2f, 708f / 2f), this.texture_2);
                 }
-                else if (playerObject_0[0].ToString() == "female")
+                else
                 {
                     GUI.DrawTexture(new Rect(0.5f * this.display_0 - 638f, 180f, 508f / 2f, 629f / 2f), this.texture_0);
-                    GUI.DrawTexture(new Rect(0.5f * this.display_0 - 638f, 200f, 508f / 2f, 700f / 2f), this.texture_3);
+                    GUI.DrawTexture(new Rect(0.5f * this.display_0 - 638f, 200f, 508f / 2f, 708f / 2f), this.texture_3);
                 }
             }
             else
@@ -82,12 +79,12 @@ public class Room : MonoBehaviour
                 {
 
                     GUI.DrawTexture(new Rect(0.5f * this.display_0 - 338f, 220f, 508f / 2f, 629f / 2f), this.texture_0);
-                    GUI.DrawTexture(new Rect(0.5f * this.display_0 - 338f, 200f, 508f / 2f, 700f / 2f), this.texture_2);
+                    GUI.DrawTexture(new Rect(0.5f * this.display_0 - 338f, 200f, 508f / 2f, 708f / 2f), this.texture_2);
                 }
-                else if (playerObject_0[1].ToString() == "female")
+                else 
                 {
                     GUI.DrawTexture(new Rect(0.5f * this.display_0 - 338f, 220f, 508f / 2f, 629f / 2f), this.texture_0);
-                    GUI.DrawTexture(new Rect(0.5f * this.display_0 - 338f, 200f, 508f / 2f, 700f / 2f), this.texture_3);
+                    GUI.DrawTexture(new Rect(0.5f * this.display_0 - 338f, 200f, 508f / 2f, 708f / 2f), this.texture_3);
                 }
             }
             else
@@ -99,12 +96,12 @@ public class Room : MonoBehaviour
                 if (playerObject_0[2].ToString() == "male")
                 {
                     GUI.DrawTexture(new Rect(0.5f * this.display_0 + 88f, 180f, 508f / 2f, 629f / 2f), this.texture_0);
-                    GUI.DrawTexture(new Rect(0.5f * this.display_0 + 88f, 200f, 508f / 2f, 700f / 2f), this.texture_2);
+                    GUI.DrawTexture(new Rect(0.5f * this.display_0 + 88f, 200f, 508f / 2f, 708f / 2f), this.texture_2);
                 }
-                else if (playerObject_0[2].ToString() == "female")
+                else 
                 {
                     GUI.DrawTexture(new Rect(0.5f * this.display_0 + 88f, 180f, 508f / 2f, 629f / 2f), this.texture_0);
-                    GUI.DrawTexture(new Rect(0.5f * this.display_0 + 88f, 200f, 508f / 2f, 700f / 2f), this.texture_3);
+                    GUI.DrawTexture(new Rect(0.5f * this.display_0 + 88f, 200f, 508f / 2f, 708f / 2f), this.texture_3);
                 }
             }
             else
@@ -116,12 +113,12 @@ public class Room : MonoBehaviour
                 if (playerObject_0[3].ToString() == "male")
                 {
                     GUI.DrawTexture(new Rect(0.5f * this.display_0 + 338f, 180f, 508f / 2f, 629f / 2f), this.texture_0);
-                    GUI.DrawTexture(new Rect(0.5f * this.display_0 + 338f, 200f, 508f / 2f, 700f / 2f), this.texture_2);
+                    GUI.DrawTexture(new Rect(0.5f * this.display_0 + 338f, 200f, 508f / 2f, 708f / 2f), this.texture_2);
                 }
-                else if (playerObject_0[3].ToString() == "female")
+                else 
                 {
                     GUI.DrawTexture(new Rect(0.5f * this.display_0 + 338f, 180f, 508f / 2f, 629f / 2f), this.texture_0);
-                    GUI.DrawTexture(new Rect(0.5f * this.display_0 + 338f, 200f, 508f / 2f, 700f / 2f), this.texture_3);
+                    GUI.DrawTexture(new Rect(0.5f * this.display_0 + 338f, 200f, 508f / 2f, 708f / 2f), this.texture_3);
                 }
             }
             else
@@ -131,7 +128,7 @@ public class Room : MonoBehaviour
         }catch
 
         {
-            UMI.UMISystem.L0g("NULL");
+            
         }
       
 

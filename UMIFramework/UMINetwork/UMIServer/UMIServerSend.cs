@@ -79,6 +79,7 @@ namespace UMI.Network.Server
         {
             using (UMIPacket packet = new UMIPacket((int)YUMIServerPackets.resSpawnPlayerLobby))
             {
+                packet.Write(toClient);
                 packet.Write(userName);
                 packet.Write(gender);
                 SendTCPData(toClient, packet);

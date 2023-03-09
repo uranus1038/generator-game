@@ -44,7 +44,7 @@ namespace UMI.Network.Client
             this.IP = UMIIPAdress; 
             InitializeClientData();
             this.isConnected = true;
-            this.TCP.Connect(); 
+            this.TCP.Connect();
         }
         // TCP
         public class UMITCP

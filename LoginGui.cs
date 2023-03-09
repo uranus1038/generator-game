@@ -241,8 +241,8 @@ public class LoginGui : MonoBehaviour
     }
     private void RenderNoticeMessage(string message)
     {
-        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 735f / 2.8f, 738f, 735f / 1.4f, 243f / 1.4f), this.texture_3);
-        GUI.Label(new Rect(0.5f * this.display_0 - 735f / 2.8f, 738f, 700f / 1.4f, 268f / 1.4f), message, this.guistyle_2);
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 735f / 2.8f, 1024f/2, 735f / 1.4f, 243f / 1.4f), this.texture_3);
+        GUI.Label(new Rect(0.5f * this.display_0 - 735f / 2.8f, 1024f/2, 700f / 1.4f, 268f / 1.4f), message, this.guistyle_2);
     }
 
     private void OnJoinGame()

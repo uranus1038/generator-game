@@ -8,6 +8,7 @@ namespace UMI.Manager
     {
         public static bool Serve = true; 
         public static bool Join = true; 
+        public static bool connectLobby= true; 
         public static void LoadNextLevel(int num)
         {
             
