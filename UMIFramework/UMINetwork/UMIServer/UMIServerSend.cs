@@ -1,4 +1,4 @@
-﻿using System;
+﻿using UMI.Manager.Data; 
 namespace UMI.Network.Server
 {
     public class UMIServerSend
@@ -75,13 +75,13 @@ namespace UMI.Network.Server
                 SendTCPData(toClient, packet);
             }
         }
-        public static void spawnPlayerLobby(int toClient, string userName , string gender)
+        public static void spawnPlayerLobby(int toClient, UMIPlayerData Data)
         {
             using (UMIPacket packet = new UMIPacket((int)YUMIServerPackets.resSpawnPlayerLobby))
             {
-                packet.Write(toClient);
-                packet.Write(userName);
-                packet.Write(gender);
+                packet.Write(Data.UID);
+                packet.Write(Data.userName);
+                packet.Write(Data.gender);
                 SendTCPData(toClient, packet);
             }
         }

@@ -17,10 +17,11 @@ namespace UMI.Network.Server
         }
         public static void connectLobby(int client, UMIPacket packet)
         {
+            UMISystem.L0g("Coneect lobby");
             int UID = packet.ReadInt();
             string userName = packet.ReadString();
             string gender = packet.ReadString();
-            UMIServerSend.spawnPlayerLobby(client, userName, gender); 
+            UMIServer.clients[UID].SendLobby(userName,gender);
             UMISystem.Log($"UMI::CONNEC()->LOG->connected successfully {UMIServer.clients[client].TCP.socket.Client.RemoteEndPoint} and is now player {UID}");
             if (client != UID)
             {

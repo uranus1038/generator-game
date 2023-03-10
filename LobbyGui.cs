@@ -224,7 +224,7 @@ public class LobbyGui : MonoBehaviour
             {
                 if (UMIGame.Join)
                 {
-                    UMIClientManager.star.connectServer("127.0.0.1");
+                    this.OnJoinServe();
                     UMIGame.Join = false;
                 }
                 this.RenderCreateRoomConnect();
@@ -339,6 +339,7 @@ public class LobbyGui : MonoBehaviour
     }
     private void RenderRoom()
     {
+        UMIGame.Successed = false; 
         GUI.DrawTexture(new Rect(0.5f * this.display_0 - 960f, 0f, 1920f, 1024f), this.texture_7);
         GUI.DrawTexture(new Rect(0.5f * this.display_0 - 2989f / 4f, 100f, 2989F / 2f, 1673F / 2f),
              this.texture_10);
@@ -348,7 +349,7 @@ public class LobbyGui : MonoBehaviour
         GUI.DrawTexture(new Rect(0.5f * this.display_0 + 388f, 180f, 508f / 2f, 629f / 2f), this.texture_15);
         if (UMIGame.Join)
         {
-            UMIClientManager.star.connectServer("127.0.0.1");
+            this.OnJoinServe();
             UMIGame.Join = false;
         }
     }
@@ -483,5 +484,8 @@ public class LobbyGui : MonoBehaviour
     private void OnJoinGame()
     {
         UMIGame.LoadNextLevel(1);
+    } private void OnJoinServe()
+    {
+        UMIClientManager.star.connectServer("127.0.0.1");
     }
 }

@@ -11,12 +11,12 @@ namespace UMI.Network.API
         private UMIData data = new UMIData(); 
         public static Hashtable hdac = new Hashtable();
         public static UMIAPI star;
-        public delegate void getUserCallback(string e);
+        //public delegate void getUserCallback(string e);
         void Awake()
         {
             star = this;
         }
-        public IEnumerator UMIGetUser(string UID , string QUk8sYq_x , getUserCallback callback  )
+        public IEnumerator UMIGetUser(string UID , string QUk8sYq_x , Action<String> callback  )
         {
             WWWForm UMIReq = new WWWForm();
             UMIReq.AddField("userName", UID);

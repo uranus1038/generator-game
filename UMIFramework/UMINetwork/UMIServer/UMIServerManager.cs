@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Numerics;
+using UMI.Manager.Data;
 
 namespace UMI.Network.Server
 {
@@ -13,6 +13,7 @@ namespace UMI.Network.Server
         public UMIUDP UDP;
         public static int dataBufferSize = 4096;
         public UMIPlayer player;
+        public UMIPlayerData data;
         public UMIServerManager(int CUID)
         {
             this.UID = CUID;
@@ -205,6 +206,29 @@ namespace UMI.Network.Server
                 {
                     UMIServerSend.spawnPlayer(client.UID, this.player);
 
+                }
+            }
+        }
+        public void SendLobby(string playerName , string gender)
+        {
+            data = new UMIPlayerData(this.UID, playerName, gender);
+            // Data old
+            foreach (UMIServerManager client in UMIServer.clients.Values)
+            {
+                if (client.data != null)
+                {
+                    if (client.UID != this.UID)
+                    {
+                        UMIServerSend.spawnPlayerLobby(this.UID, client.data);
+                    }
+                }
+            }
+            // new Player
+            foreach (UMIServerManager client in UMIServer.clients.Values)
+            {
+                if (client.data != null)
+                {
+                    UMIServerSend.spawnPlayerLobby(client.UID,this.data);
                 }
             }
         }

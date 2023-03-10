@@ -35,6 +35,7 @@ namespace UMI.Network.Client
         {
             using (UMIPacket packet = new UMIPacket((int)YUMIClientPackets.getConnectLobby))
             {
+                UMISystem.L0g("SEND");
                 packet.Write(UMIClientManager.star.UID);
                 packet.Write(UMI.Network.API.UMIData.getStringPlayerData(1));
                 packet.Write(UMI.Network.API.UMIData.getStringPlayerData(2));
