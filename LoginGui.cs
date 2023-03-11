@@ -106,12 +106,14 @@ public class LoginGui : MonoBehaviour
                 if (GUI.Button(new Rect(0.5f * this.display_0 - 142f, 863f, 253f / 2f, 124f / 2f), string.Empty, this.guistyle_1))
                 {
                     this.delay_0 = Time.time;
+                    UMIGame.loginFail = true;
+                    UMIGame.loginConnect = true;
                     StartCoroutine(UMIAPI.star.UMIGetUser(this.userName_0, this.QUk8sYq_x, UMICallback.getUserCallback));
                     this.eLoginState_0 = eLoginState.Loading;
                 }
             }
 
-            if (GUI.Button(new Rect(0.5f * this.display_0 - 0f, 858f, 30f, 28f), string.Empty,this.guistyle_0))
+            if (GUI.Button(new Rect(0.5f * this.display_0 - 0f, 858f, 30f, 28f), string.Empty, this.guistyle_0))
             {
                 if (PlayerPrefs.GetInt("saveUser", 0) != 0)
                 {
@@ -126,14 +128,14 @@ public class LoginGui : MonoBehaviour
             if (PlayerPrefs.GetInt("saveUser", 0) != 0)
             {
                 PlayerPrefs.SetString("userName", this.userName_0);
-                GUI.DrawTexture(new Rect(0.5f * this.display_0 +8f, 850f, 30f, 30f), this.texture_4);
+                GUI.DrawTexture(new Rect(0.5f * this.display_0 + 8f, 850f, 30f, 30f), this.texture_4);
             }
         }
         if (this.eLoginState_0 == eLoginState.Loading)
         {
-            if (Time.time < this.delay_0 + 2f)
+            this.RenderNoticeMessage("Loading . . .");
+            if (Time.time < this.delay_0 + 0.5f)
             {
-                this.RenderNoticeMessage("Loading . . .");
                 try
                 {
                     this.OnConnect();
@@ -144,21 +146,23 @@ public class LoginGui : MonoBehaviour
                 }
                 return;
             }
-            this.delay_0 = Time.deltaTime;
-            this.eLoginState_0 = eLoginState.vetifyUser;
-            return;
+            if (!UMIGame.loginConnect)
+            {
+                this.delay_0 = Time.deltaTime;
+                this.eLoginState_0 = eLoginState.vetifyUser;
+                return;
+            }
+            if (!UMIGame.loginFail)
+            {
+                this.delay_0 = Time.deltaTime;
+                this.eLoginState_0 = eLoginState.Down;
+                return;
+            }
         }
         if (this.eLoginState_0 == eLoginState.vetifyUser)
         {
-            if (UMIData.getStringPlayerData(8) == null)
-            {
-                this.eLoginState_0 = eLoginState.serverDown;
-                this.delay_0 = Time.time;
-            }
-            else
             if (req.status == "fail")
             {
-                this.delay_0 = Time.time;
                 this.eLoginState_0 = eLoginState.loginFail;
             }
             else if (req.status == "none")
@@ -172,9 +176,17 @@ public class LoginGui : MonoBehaviour
                 this.eLoginState_0 = eLoginState.connecting;
             }
         }
+        if (this.eLoginState_0 == eLoginState.Down)
+        {
+            if (!UMIGame.loginFail)
+            {
+                this.delay_0 = Time.time;
+                this.eLoginState_0 = eLoginState.serverDown;
+            }
+        }
         if (this.eLoginState_0 == eLoginState.loginFail)
         {
-            if (Time.time < this.delay_0 + 1.5f)
+            if (Time.time < this.delay_0 + 0.5f)
             {
                 this.RenderNoticeMessage("Login Fail . . .");
                 return;
@@ -186,7 +198,7 @@ public class LoginGui : MonoBehaviour
         }
         if (this.eLoginState_0 == eLoginState.notFound)
         {
-            if (Time.time < this.delay_0 + 1.5f)
+            if (Time.time < this.delay_0 + 0.5f)
             {
                 this.RenderNoticeMessage("No player information.");
                 return;
@@ -198,7 +210,7 @@ public class LoginGui : MonoBehaviour
         }
         if (this.eLoginState_0 == eLoginState.serverDown)
         {
-            if (Time.time < this.delay_0 + 1.5f)
+            if (Time.time < this.delay_0 + 0.5f)
             {
                 this.RenderNoticeMessage("Server Down");
                 return;
@@ -210,7 +222,7 @@ public class LoginGui : MonoBehaviour
         }
         if (this.eLoginState_0 == eLoginState.connecting)
         {
-            if (Time.time < this.delay_0 + 1.5f)
+            if (Time.time < this.delay_0 + 0.5f)
             {
                 this.RenderNoticeMessage("Connecting . .");
                 return;
@@ -222,7 +234,7 @@ public class LoginGui : MonoBehaviour
         }
         if (this.eLoginState_0 == eLoginState.connected)
         {
-            if (Time.time < this.delay_0 + 1.5f)
+            if (Time.time < this.delay_0 + 0.5f)
             {
                 this.RenderNoticeMessage("Retrieving player data . .");
                 return;
@@ -235,7 +247,7 @@ public class LoginGui : MonoBehaviour
         }
         if (this.eLoginState_0 == eLoginState.join)
         {
-            if (Time.time < this.delay_0 + 1.5f)
+            if (Time.time < this.delay_0 + 0.5f)
             {
                 this.RenderNoticeMessage("Entering Generator Of Aumi . . .");
                 return;
@@ -247,8 +259,8 @@ public class LoginGui : MonoBehaviour
     }
     private void RenderNoticeMessage(string message)
     {
-        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 735f / 2.8f, 738f, 735f / 1.4f, 243f / 1.4f), this.texture_3);
-        GUI.Label(new Rect(0.5f * this.display_0 - 735f / 2.8f, 738f, 700f / 1.4f, 268f / 1.4f), message, this.guistyle_2);
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 645f / 2.8f, 738f, 735f / 1.4f, 243f / 1.4f), this.texture_3);
+        GUI.Label(new Rect(0.5f * this.display_0 - 645f / 2.8f, 738f, 700f / 1.4f, 268f / 1.4f), message, this.guistyle_2);
     }
 
     private void OnJoinGame()

@@ -49,6 +49,7 @@ public class LobbyGui : MonoBehaviour
         this.eLobbyRoom_0 = eLobbyRoomState.Start;
         this.InitaMenu();
         this.InitCreateRoom();
+        this.InitRoom();
     }
     private void Start()
     {
@@ -111,7 +112,11 @@ public class LobbyGui : MonoBehaviour
         this.style_4.font = (Font)Resources.Load("GUI/Fonts/Prompt-Bold", typeof(Font));
 
     }
-
+    private void InitRoom()
+    {
+        this.texture_12 = (Texture)Resources.Load("GUI/Lobby/sky00", typeof(Texture));
+        this.texture_13 = (Texture)Resources.Load("GUI/Lobby/sky00", typeof(Texture));
+    }
     private void OnGUI()
     {
         GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, new Vector3((float)Screen.height / 1024f, (float)Screen.height / 1024f, 1f));
@@ -339,7 +344,12 @@ public class LobbyGui : MonoBehaviour
     }
     private void RenderRoom()
     {
-        UMIGame.Successed = false; 
+        UMIGame.Successed = false;
+        if (UMIGame.Join)
+        {
+            this.OnJoinServe();
+            UMIGame.Join = false;
+        }
         GUI.DrawTexture(new Rect(0.5f * this.display_0 - 960f, 0f, 1920f, 1024f), this.texture_7);
         GUI.DrawTexture(new Rect(0.5f * this.display_0 - 2989f / 4f, 100f, 2989F / 2f, 1673F / 2f),
              this.texture_10);
@@ -347,11 +357,6 @@ public class LobbyGui : MonoBehaviour
         GUI.DrawTexture(new Rect(0.5f * this.display_0 - 338f, 220f, 508f / 2f, 629f / 2f), this.texture_15);
         GUI.DrawTexture(new Rect(0.5f * this.display_0 + 88f, 220f, 508f / 2f, 629f / 2f), this.texture_15);
         GUI.DrawTexture(new Rect(0.5f * this.display_0 + 388f, 180f, 508f / 2f, 629f / 2f), this.texture_15);
-        if (UMIGame.Join)
-        {
-            this.OnJoinServe();
-            UMIGame.Join = false;
-        }
     }
     private void RenderLoading()
     {
@@ -487,5 +492,9 @@ public class LobbyGui : MonoBehaviour
     } private void OnJoinServe()
     {
         UMIClientManager.star.connectServer("127.0.0.1");
+    }
+    private void OnJoinServe(string IPAddress)
+    {
+        UMIClientManager.star.connectServer(IPAddress);
     }
 }

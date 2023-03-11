@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using System; 
+using System;
+using UMI.Manager; 
 
 namespace UMI.Network.API
 {
@@ -28,6 +29,7 @@ namespace UMI.Network.API
                 if (www.result != UnityWebRequest.Result.Success)
                 {
                     UMIData.Clear();
+                    UMIGame.loginFail = false; 
                 }
                 else
                 {

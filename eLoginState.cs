@@ -12,7 +12,7 @@ public enum eLoginState
     loginSuccessed , 
     loginFail ,
     notFound , 
-    serverDown ,
+    serverDown , Down, 
     succesed , 
     connecting , 
     connected , 
