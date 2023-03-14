@@ -13,5 +13,6 @@ public enum eLobbyRoomState
     isJoin,
     Join,
     notFound ,
+    createMutiplay , 
 
 }

@@ -33,6 +33,9 @@ public class LobbyGui : MonoBehaviour
     private Texture texture_13;
     private Texture texture_14;
     private Texture texture_15;
+    private Texture texture_16;
+    private Texture texture_17;
+
     // GUI
     private GUIStyle style_0;
     private GUIStyle style_1;
@@ -40,6 +43,11 @@ public class LobbyGui : MonoBehaviour
     private GUIStyle style_3;
     private GUIStyle style_4;
     private GUIStyle style_5;
+    private GUIStyle style_6;
+    private GUIStyle style_7;
+    private GUIStyle style_8;
+    private GUIStyle style_9;
+    private GUIStyle style_10;
     private void Awake()
     {
         this.LoadingGui = GetComponent<LoadingGui>();
@@ -66,19 +74,19 @@ public class LobbyGui : MonoBehaviour
         this.texture_2 = (Texture)Resources.Load("GUI/Lobby/Lobby_background02", typeof(Texture));
         this.style_0 = new GUIStyle();
         this.style_0.hover.background = (Texture2D)((Texture)Resources.Load("GUI/Lobby/Play_button", typeof(Texture)));
-        this.style_0.hover.textColor = new Color(0f, 0.1f, 0.2f, 0.8f);
+        this.style_0.normal.textColor = new Color(0f, 0.1f, 0.2f, 0.8f);
         this.style_0.fontSize = 32;
         this.style_0.alignment = TextAnchor.MiddleCenter;
         this.style_0.font = (Font)Resources.Load("GUI/Fonts/Prompt-Bold", typeof(Font));
         this.style_1 = new GUIStyle();
         this.style_1.hover.background = (Texture2D)((Texture)Resources.Load("GUI/Lobby/Option_button", typeof(Texture)));
-        this.style_1.hover.textColor = new Color(0f, 0.1f, 0.2f, 0.8f);
+        this.style_1.normal.textColor = new Color(0f, 0.1f, 0.2f, 0.8f);
         this.style_1.fontSize = 32;
         this.style_1.alignment = TextAnchor.MiddleCenter;
         this.style_1.font = (Font)Resources.Load("GUI/Fonts/Prompt-Bold", typeof(Font));
         this.style_2 = new GUIStyle();
         this.style_2.hover.background = (Texture2D)((Texture)Resources.Load("GUI/Lobby/Quit_button", typeof(Texture)));
-        this.style_2.hover.textColor = new Color(0f, 0.1f, 0.2f, 0.8f);
+        this.style_2.normal.textColor = new Color(0f, 0.1f, 0.2f, 0.8f);
         this.style_2.fontSize = 32;
         this.style_2.alignment = TextAnchor.MiddleCenter;
         this.style_2.font = (Font)Resources.Load("GUI/Fonts/Prompt-Bold", typeof(Font));
@@ -106,7 +114,7 @@ public class LobbyGui : MonoBehaviour
         this.style_4 = new GUIStyle();
         this.style_4.normal.background = (Texture2D)((Texture)Resources.Load("GUI/Lobby/Button01", typeof(Texture)));
         this.style_4.hover.background = (Texture2D)((Texture)Resources.Load("GUI/Lobby/Button01_h", typeof(Texture)));
-        this.style_4.hover.textColor = new Color(0f, 0.1f, 0.2f, 0.8f);
+        this.style_4.normal.textColor = new Color(0f, 0.1f, 0.2f, 0.8f);
         this.style_4.fontSize = 23;
         this.style_4.alignment = TextAnchor.MiddleCenter;
         this.style_4.font = (Font)Resources.Load("GUI/Fonts/Prompt-Bold", typeof(Font));
@@ -114,8 +122,24 @@ public class LobbyGui : MonoBehaviour
     }
     private void InitRoom()
     {
-        this.texture_12 = (Texture)Resources.Load("GUI/Lobby/sky00", typeof(Texture));
-        this.texture_13 = (Texture)Resources.Load("GUI/Lobby/sky00", typeof(Texture));
+        this.texture_12 = (Texture)Resources.Load("GUI/Lobby/img-01", typeof(Texture));
+        this.texture_13 = (Texture)Resources.Load("GUI/Lobby/img-02", typeof(Texture));
+        this.texture_16 = (Texture)Resources.Load("GUI/Lobby/img-03", typeof(Texture));
+        this.texture_17 = (Texture)Resources.Load("GUI/Lobby/img-04", typeof(Texture));
+        this.style_6 = new GUIStyle();
+        this.style_6.normal.background = (Texture2D)(Texture)Resources.Load("GUI/Lobby/img-01", typeof(Texture));
+        this.style_6.hover.background = (Texture2D)(Texture)Resources.Load("GUI/Lobby/img-02", typeof(Texture));
+        this.style_7 = new GUIStyle();
+        this.style_7.normal.background = (Texture2D)(Texture)Resources.Load("GUI/Lobby/img-02", typeof(Texture));
+        this.style_8 = new GUIStyle();
+        this.style_8.normal.background = (Texture2D)(Texture)Resources.Load("GUI/Lobby/img-03", typeof(Texture));
+        this.style_8.hover.background = (Texture2D)(Texture)Resources.Load("GUI/Lobby/img-04", typeof(Texture));
+        this.style_9 = new GUIStyle();
+        this.style_9.normal.background = (Texture2D)(Texture)Resources.Load("GUI/Lobby/img-04", typeof(Texture));
+        this.style_10 = new GUIStyle();
+        this.style_10.font = (Font)Resources.Load("GUI/Fonts/Prompt-Bold", typeof(Font));
+        this.style_10.fontSize = 23;
+        this.style_10.normal.textColor = new Color(0f, 0.1f, 0.2f, 0.8f);
     }
     private void OnGUI()
     {
@@ -190,6 +214,9 @@ public class LobbyGui : MonoBehaviour
             GUI.DrawTexture(new Rect(0.5f * this.display_0 - 960f, 0f, 1920f, 1024f), this.texture_7);
             GUI.DrawTexture(new Rect(0.5f * this.display_0 - 2989f / 4f, 100f, 2989F / 2f, 1673F / 2f),
                  this.texture_10);
+            GUI.DrawTexture(new Rect(0.5f * this.display_0 - 630f, 160f, 880f / 2.5f, 880f / 2.5f), this.texture_17);
+            if (GUI.Button(new Rect(0.5f * this.display_0 - 250f, 300f, 180f, 80f), "สร้างห้อง", this.style_10)) { }
+            if (GUI.Button(new Rect(0.5f * this.display_0 - 250f, 658f, 180f, 80f), "เล่นหลายคน", this.style_10)) { }
             GUI.DrawTexture(new Rect(0.5f * this.display_0 + 80f, 210f, 1016f / 2f, 995f / 2f), this.texture_11);
             if (GUI.Button(new Rect(0.5f * this.display_0 + 98f, 660f, 334f / 2f, 206f / 2f), Language.getMessage("LobbyGui", 03), this.style_4))
             {
@@ -197,13 +224,53 @@ public class LobbyGui : MonoBehaviour
                 this.delay_0 = Time.time;
                 this.eLobbyRoom_0 = eLobbyRoomState.isCreateRoom;
             }
-            if (GUI.Button(new Rect(0.5f * this.display_0 + 380f, 660f, 334f / 2f, 206f / 2f), Language.getMessage("LobbyGui", 03), this.style_4))
+            if (GUI.Button(new Rect(0.5f * this.display_0 - 630f, 520f, 880f / 2.5f, 880f / 2.5f), string.Empty, this.style_6))
             {
-                UMI.Manager.UMIGame.connectLobby = true;
-                UMI.Manager.UMIGame.Join = true;
-                this.delay_0 = Time.time;
-                this.eLobbyRoom_0 = eLobbyRoomState.isJoin;
+                this.eLobbyRoom_0 = eLobbyRoomState.createMutiplay;
             }
+            //if (GUI.Button(new Rect(0.5f * this.display_0 - 630f, 160f, 880f / 2.5f, 880f / 2.5f), string.Empty,this.style_6))
+            //{
+
+            //}
+                //if (GUI.Button(new Rect(0.5f * this.display_0 + 380f, 660f, 334f / 2f, 206f / 2f), Language.getMessage("LobbyGui", 03), this.style_4))
+                //{
+                //    UMI.Manager.UMIGame.connectLobby = true;
+                //    UMI.Manager.UMIGame.Join = true;
+                //    this.delay_0 = Time.time;
+                //    this.eLobbyRoom_0 = eLobbyRoomState.isJoin;
+                //}
+                if (GUI.Button(new Rect(0.5f * this.display_0 + 520f, 800f, 334f / 2f, 206f / 2f), Language.getMessage("LobbyGui", 04), this.style_4))
+            {
+                this.delay_0 = Time.time;
+                this.eLobbyRoom_0 = eLobbyRoomState.isBack;
+            }
+        }
+        if (this.eLobbyRoom_0 == eLobbyRoomState.createMutiplay)
+        {
+            GUI.DrawTexture(new Rect(0.5f * this.display_0 - 960f, 0f, 1920f, 1024f), this.texture_7);
+            GUI.DrawTexture(new Rect(0.5f * this.display_0 - 2989f / 4f, 100f, 2989F / 2f, 1673F / 2f),
+                 this.texture_10);
+            GUI.DrawTexture(new Rect(0.5f * this.display_0 - 630f, 520f, 880f / 2.5f, 880f / 2.5f), this.texture_13);
+            if (GUI.Button(new Rect(0.5f * this.display_0 - 250f, 300f, 180f, 80f), "สร้างห้อง", this.style_10)) { }
+            if (GUI.Button(new Rect(0.5f * this.display_0 - 250f, 658f, 180f, 80f), "เล่นหลายคน", this.style_10)) { }
+            GUI.DrawTexture(new Rect(0.5f * this.display_0 + 80f, 210f, 1016f / 2f, 995f / 2f), this.texture_11);
+            if (GUI.Button(new Rect(0.5f * this.display_0 + 98f, 660f, 334f / 2f, 206f / 2f), Language.getMessage("LobbyGui", 03), this.style_4))
+            {
+                UMI.Manager.UMIGame.Serve = true;
+                this.delay_0 = Time.time;
+                this.eLobbyRoom_0 = eLobbyRoomState.isCreateRoom;
+            }
+            if (GUI.Button(new Rect(0.5f * this.display_0 - 630f, 160f, 880f / 2.5f, 880f / 2.5f), string.Empty, this.style_8))
+            {
+                this.eLobbyRoom_0 = eLobbyRoomState.createRoom;
+            }
+            //if (GUI.Button(new Rect(0.5f * this.display_0 + 380f, 660f, 334f / 2f, 206f / 2f), Language.getMessage("LobbyGui", 03), this.style_4))
+            //{
+            //    UMI.Manager.UMIGame.connectLobby = true;
+            //    UMI.Manager.UMIGame.Join = true;
+            //    this.delay_0 = Time.time;
+            //    this.eLobbyRoom_0 = eLobbyRoomState.isJoin;
+            //}
             if (GUI.Button(new Rect(0.5f * this.display_0 + 520f, 800f, 334f / 2f, 206f / 2f), Language.getMessage("LobbyGui", 04), this.style_4))
             {
                 this.delay_0 = Time.time;
@@ -341,6 +408,10 @@ public class LobbyGui : MonoBehaviour
             this.eLobbyRoom_0 = eLobbyRoomState.Start;
             return; 
         }
+    }
+    private void RenderCreateJoin()
+    {
+
     }
     private void RenderRoom()
     {

@@ -161,28 +161,40 @@ public class LoginGui : MonoBehaviour
         }
         if (this.eLoginState_0 == eLoginState.vetifyUser)
         {
-            if (req.status == "fail")
+            try
             {
-                this.eLoginState_0 = eLoginState.loginFail;
+                if (req.status == "fail")
+                {
+                    this.delay_0 = Time.time;
+                    this.eLoginState_0 = eLoginState.loginFail;
+                }
+                else if (req.status == "none")
+                {
+                    this.delay_0 = Time.time;
+                    this.eLoginState_0 = eLoginState.notFound;
+                }
+                else if (req.status == "successed")
+                {
+                    this.delay_0 = Time.time;
+                    this.eLoginState_0 = eLoginState.connecting;
+                }
+                else
+                {
+                    this.delay_0 = Time.deltaTime;
+                    this.eLoginState_0 = eLoginState.Down;
+                }
             }
-            else if (req.status == "none")
+            catch
             {
-                this.delay_0 = Time.time;
-                this.eLoginState_0 = eLoginState.notFound;
+                this.delay_0 = Time.deltaTime;
+                this.eLoginState_0 = eLoginState.Down;
             }
-            else if (req.status == "successed")
-            {
-                this.delay_0 = Time.time;
-                this.eLoginState_0 = eLoginState.connecting;
-            }
+
         }
         if (this.eLoginState_0 == eLoginState.Down)
         {
-            if (!UMIGame.loginFail)
-            {
-                this.delay_0 = Time.time;
-                this.eLoginState_0 = eLoginState.serverDown;
-            }
+            this.delay_0 = Time.time;
+            this.eLoginState_0 = eLoginState.serverDown;
         }
         if (this.eLoginState_0 == eLoginState.loginFail)
         {
