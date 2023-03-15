@@ -58,7 +58,7 @@ public class Room : MonoBehaviour
         {
             if (players[1])
             {
-                if (playerObject_0[0].ToString() == "male")
+                if (playerObject_0[1].ToString() == "male")
                 {
                     GUI.DrawTexture(new Rect(0.5f * this.display_0 - 638f, 180f, 508f / 2f, 629f / 2f), this.texture_0);
                     GUI.DrawTexture(new Rect(0.5f * this.display_0 - 638f, 190f, 508f / 2f, 728f / 2f), this.texture_2);
@@ -76,7 +76,7 @@ public class Room : MonoBehaviour
             if (players[2])
             {
                 UMI.UMISystem.L0g("true");
-                if (playerObject_0[1].ToString() == "male")
+                if (playerObject_0[2].ToString() == "male")
                 {
                     UMI.UMISystem.L0g("true");
                     GUI.DrawTexture(new Rect(0.5f * this.display_0 - 338f, 220f, 508f / 2f, 629f / 2f), this.texture_0);
@@ -94,7 +94,7 @@ public class Room : MonoBehaviour
             }
             if (players[3])
             {
-                if (playerObject_0[2].ToString() == "male")
+                if (playerObject_0[3].ToString() == "male")
                 {
                     GUI.DrawTexture(new Rect(0.5f * this.display_0 + 88f, 180f, 508f / 2f, 629f / 2f), this.texture_0);
                     GUI.DrawTexture(new Rect(0.5f * this.display_0 + 88f, 190f, 508f / 2f, 728f / 2f), this.texture_2);
@@ -111,7 +111,7 @@ public class Room : MonoBehaviour
             }
             if (players[4])
             {
-                if (playerObject_0[3].ToString() == "male")
+                if (playerObject_0[4].ToString() == "male")
                 {
                     GUI.DrawTexture(new Rect(0.5f * this.display_0 + 338f, 180f, 508f / 2f, 629f / 2f), this.texture_0);
                     GUI.DrawTexture(new Rect(0.5f * this.display_0 + 338f, 190f, 508f / 2f, 728f / 2f), this.texture_2);

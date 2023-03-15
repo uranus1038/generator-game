@@ -4,7 +4,7 @@ public class LobbyGui_eng
 {
     public static string getMessage(int nMessage)
     {
-        string result = null;
+        string result = string.Empty;
         switch (nMessage)
         {
             case 00: result = "PLAY"; break;
@@ -15,6 +15,24 @@ public class LobbyGui_eng
             case 05: result = "Loading Data "; break;
             case 06: result = "Connecting"; break;
             case 07: result = "Server not found"; break;
+            case 08: result = "Create Room"; break;
+            case 09: result = "Mutiplayer"; break;
+            case 10: result = "Join"; break;
+            case 11:
+                if (UMI.Network.API.UMIData.getStringPlayerData(2) == "male")
+                {
+                    result = "Character gender : male";
+                }
+                else
+                {
+                    result = "Character gender : female";
+                }
+                ; break;
+            case 12: result = "Mode : Normal"; break;
+            case 13: result = "Type : Adventure , Puzzle"; break;
+            case 14: result = "Support connect ip fowarding ,"; break;
+            case 15: result = "LAN , VPN , HAMACHI"; break;
+            case 16: result = "IP"; break;
             default: return result;
         }
         return result;

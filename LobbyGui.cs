@@ -6,6 +6,7 @@ using UMI.Manager;
 using UMI.Network.API;
 public class LobbyGui : MonoBehaviour
 {
+    private string IPAddress;
     private LoadingGui LoadingGui;
     //flot 
     private float delay_0;
@@ -35,6 +36,11 @@ public class LobbyGui : MonoBehaviour
     private Texture texture_15;
     private Texture texture_16;
     private Texture texture_17;
+    private Texture texture_18;
+    private Texture texture_19;
+    private Texture texture_20;
+    private Texture texture_21;
+    private Texture texture_22;
 
     // GUI
     private GUIStyle style_0;
@@ -48,8 +54,12 @@ public class LobbyGui : MonoBehaviour
     private GUIStyle style_8;
     private GUIStyle style_9;
     private GUIStyle style_10;
+    private GUIStyle style_11;
+    private GUIStyle style_12;
+    private GUIStyle style_13;
     private void Awake()
     {
+        this.IPAddress = "127.0.0.8";
         this.LoadingGui = GetComponent<LoadingGui>();
         this.eLobbyState_0 = eLobbyState.lobbyMenu;
         this.eLobbyMenuState_0 = eLobbyMenuState.Init;
@@ -111,6 +121,9 @@ public class LobbyGui : MonoBehaviour
         this.texture_11 = (Texture)Resources.Load("GUI/Lobby/Note01", typeof(Texture));
         this.texture_14 = (Texture)Resources.Load("GUI/Lobby/Notice_bar", typeof(Texture));
         this.texture_15 = (Texture)Resources.Load("GUI/Lobby/Friend_box_wait", typeof(Texture));
+        this.texture_20 = (Texture)Resources.Load("GUI/Lobby/Flag", typeof(Texture));
+        this.texture_21 = (Texture)Resources.Load("GameAssets/Characters/2DCharacter/boyCharacter", typeof(Texture));
+        this.texture_22 = (Texture)Resources.Load("GameAssets/Characters/2DCharacter/girlCharacter", typeof(Texture));
         this.style_4 = new GUIStyle();
         this.style_4.normal.background = (Texture2D)((Texture)Resources.Load("GUI/Lobby/Button01", typeof(Texture)));
         this.style_4.hover.background = (Texture2D)((Texture)Resources.Load("GUI/Lobby/Button01_h", typeof(Texture)));
@@ -126,6 +139,8 @@ public class LobbyGui : MonoBehaviour
         this.texture_13 = (Texture)Resources.Load("GUI/Lobby/img-02", typeof(Texture));
         this.texture_16 = (Texture)Resources.Load("GUI/Lobby/img-03", typeof(Texture));
         this.texture_17 = (Texture)Resources.Load("GUI/Lobby/img-04", typeof(Texture));
+        this.texture_18 = (Texture)Resources.Load("GUI/Lobby/White_border", typeof(Texture));
+        this.texture_19 = (Texture)Resources.Load("GUI/Lobby/Connect_bar", typeof(Texture));
         this.style_6 = new GUIStyle();
         this.style_6.normal.background = (Texture2D)(Texture)Resources.Load("GUI/Lobby/img-01", typeof(Texture));
         this.style_6.hover.background = (Texture2D)(Texture)Resources.Load("GUI/Lobby/img-02", typeof(Texture));
@@ -140,6 +155,18 @@ public class LobbyGui : MonoBehaviour
         this.style_10.font = (Font)Resources.Load("GUI/Fonts/Prompt-Bold", typeof(Font));
         this.style_10.fontSize = 23;
         this.style_10.normal.textColor = new Color(0f, 0.1f, 0.2f, 0.8f);
+        this.style_11 = new GUIStyle();
+        this.style_11.font = (Font)Resources.Load("GUI/Fonts/Prompt-Bold", typeof(Font));
+        this.style_11.fontSize = 28;
+        this.style_11.normal.textColor = new Color(0f, 0.1f, 0.2f, 0.8f);
+        this.style_12 = new GUIStyle();
+        this.style_12.font = (Font)Resources.Load("GUI/Fonts/Prompt-Bold", typeof(Font));
+        this.style_12.fontSize = 23;
+        this.style_12.normal.textColor = new Color(0f, 0.1f, 0.2f, 0.6f);
+        this.style_13 = new GUIStyle();
+        this.style_13.font = (Font)Resources.Load("GUI/Fonts/Prompt-Bold", typeof(Font));
+        this.style_13.fontSize = 16;
+        this.style_13.normal.textColor = new Color(0f, 0.1f, 0.2f, 0.8f);
     }
     private void OnGUI()
     {
@@ -215,11 +242,21 @@ public class LobbyGui : MonoBehaviour
             GUI.DrawTexture(new Rect(0.5f * this.display_0 - 2989f / 4f, 100f, 2989F / 2f, 1673F / 2f),
                  this.texture_10);
             GUI.DrawTexture(new Rect(0.5f * this.display_0 - 630f, 160f, 880f / 2.5f, 880f / 2.5f), this.texture_17);
-            if (GUI.Button(new Rect(0.5f * this.display_0 - 250f, 300f, 180f, 80f), "สร้างห้อง", this.style_10)) { }
-            if (GUI.Button(new Rect(0.5f * this.display_0 - 250f, 658f, 180f, 80f), "เล่นหลายคน", this.style_10)) { }
-            GUI.DrawTexture(new Rect(0.5f * this.display_0 + 80f, 210f, 1016f / 2f, 995f / 2f), this.texture_11);
+            if (GUI.Button(new Rect(0.5f * this.display_0 - 250f, 300f, 180f, 80f), Language.getMessage("LobbyGui", 08), this.style_12)) { }
+            if (GUI.Button(new Rect(0.5f * this.display_0 - 250f, 658f, 180f, 80f), Language.getMessage("LobbyGui", 09), this.style_12)) { }
+            GUI.DrawTexture(new Rect(0.5f * this.display_0 + 80f, 210f, 1016f / 2f, 995f / 2f), this.texture_18);
+            GUI.DrawTexture(new Rect(0.5f * this.display_0 + 442f, 100f, 515f / 2f, 1269f / 2f), this.texture_20);
+            if(UMIData.getStringPlayerData(2) == "male")
+                GUI.DrawTexture(new Rect(0.5f * this.display_0 + 450f, 250f, 508f / 2f, 728f / 2f), this.texture_21);
+            else
+                GUI.DrawTexture(new Rect(0.5f * this.display_0 + 450f, 250f, 508f / 2f, 728f / 2f), this.texture_22);
+            if (GUI.Button(new Rect(0.5f * this.display_0 + 100f, 220f, 180f, 80f), UMIData.getStringPlayerData(1), this.style_11)) { }
+            if (GUI.Button(new Rect(0.5f * this.display_0 + 100f, 270f, 180f, 80f), Language.getMessage("LobbyGui", 11), this.style_10)) { }
+            if (GUI.Button(new Rect(0.5f * this.display_0 + 100f, 310f, 180f, 80f), Language.getMessage("LobbyGui", 12), this.style_10)) { }
+            if (GUI.Button(new Rect(0.5f * this.display_0 + 100f, 350f, 180f, 80f), Language.getMessage("LobbyGui", 13), this.style_10)) { }
             if (GUI.Button(new Rect(0.5f * this.display_0 + 98f, 660f, 334f / 2f, 206f / 2f), Language.getMessage("LobbyGui", 03), this.style_4))
             {
+                UMIGame.Join = true;
                 UMI.Manager.UMIGame.Serve = true;
                 this.delay_0 = Time.time;
                 this.eLobbyRoom_0 = eLobbyRoomState.isCreateRoom;
@@ -228,18 +265,7 @@ public class LobbyGui : MonoBehaviour
             {
                 this.eLobbyRoom_0 = eLobbyRoomState.createMutiplay;
             }
-            //if (GUI.Button(new Rect(0.5f * this.display_0 - 630f, 160f, 880f / 2.5f, 880f / 2.5f), string.Empty,this.style_6))
-            //{
-
-            //}
-                //if (GUI.Button(new Rect(0.5f * this.display_0 + 380f, 660f, 334f / 2f, 206f / 2f), Language.getMessage("LobbyGui", 03), this.style_4))
-                //{
-                //    UMI.Manager.UMIGame.connectLobby = true;
-                //    UMI.Manager.UMIGame.Join = true;
-                //    this.delay_0 = Time.time;
-                //    this.eLobbyRoom_0 = eLobbyRoomState.isJoin;
-                //}
-                if (GUI.Button(new Rect(0.5f * this.display_0 + 520f, 800f, 334f / 2f, 206f / 2f), Language.getMessage("LobbyGui", 04), this.style_4))
+            if (GUI.Button(new Rect(0.5f * this.display_0 + 520f, 800f, 334f / 2f, 206f / 2f), Language.getMessage("LobbyGui", 04), this.style_4))
             {
                 this.delay_0 = Time.time;
                 this.eLobbyRoom_0 = eLobbyRoomState.isBack;
@@ -247,43 +273,15 @@ public class LobbyGui : MonoBehaviour
         }
         if (this.eLobbyRoom_0 == eLobbyRoomState.createMutiplay)
         {
-            GUI.DrawTexture(new Rect(0.5f * this.display_0 - 960f, 0f, 1920f, 1024f), this.texture_7);
-            GUI.DrawTexture(new Rect(0.5f * this.display_0 - 2989f / 4f, 100f, 2989F / 2f, 1673F / 2f),
-                 this.texture_10);
-            GUI.DrawTexture(new Rect(0.5f * this.display_0 - 630f, 520f, 880f / 2.5f, 880f / 2.5f), this.texture_13);
-            if (GUI.Button(new Rect(0.5f * this.display_0 - 250f, 300f, 180f, 80f), "สร้างห้อง", this.style_10)) { }
-            if (GUI.Button(new Rect(0.5f * this.display_0 - 250f, 658f, 180f, 80f), "เล่นหลายคน", this.style_10)) { }
-            GUI.DrawTexture(new Rect(0.5f * this.display_0 + 80f, 210f, 1016f / 2f, 995f / 2f), this.texture_11);
-            if (GUI.Button(new Rect(0.5f * this.display_0 + 98f, 660f, 334f / 2f, 206f / 2f), Language.getMessage("LobbyGui", 03), this.style_4))
-            {
-                UMI.Manager.UMIGame.Serve = true;
-                this.delay_0 = Time.time;
-                this.eLobbyRoom_0 = eLobbyRoomState.isCreateRoom;
-            }
-            if (GUI.Button(new Rect(0.5f * this.display_0 - 630f, 160f, 880f / 2.5f, 880f / 2.5f), string.Empty, this.style_8))
-            {
-                this.eLobbyRoom_0 = eLobbyRoomState.createRoom;
-            }
-            //if (GUI.Button(new Rect(0.5f * this.display_0 + 380f, 660f, 334f / 2f, 206f / 2f), Language.getMessage("LobbyGui", 03), this.style_4))
-            //{
-            //    UMI.Manager.UMIGame.connectLobby = true;
-            //    UMI.Manager.UMIGame.Join = true;
-            //    this.delay_0 = Time.time;
-            //    this.eLobbyRoom_0 = eLobbyRoomState.isJoin;
-            //}
-            if (GUI.Button(new Rect(0.5f * this.display_0 + 520f, 800f, 334f / 2f, 206f / 2f), Language.getMessage("LobbyGui", 04), this.style_4))
-            {
-                this.delay_0 = Time.time;
-                this.eLobbyRoom_0 = eLobbyRoomState.isBack;
-            }
+            this.RenderCreateJoin();
         }
         if (this.eLobbyRoom_0 == eLobbyRoomState.isJoin)
         {
             if (Time.time < this.delay_0 + 1.5f)
             {
-                this.RenderCreateRoomConnect();
+                this.RenderJoinRoomConnect();
                 this.RenderNoticeMessage(Language.getMessage("LobbyGui", 05));
-                return; 
+                return;
             }
             this.delay_0 = Time.time;
             this.eLobbyRoom_0 = eLobbyRoomState.Join;
@@ -291,27 +289,27 @@ public class LobbyGui : MonoBehaviour
         }
         if (this.eLobbyRoom_0 == eLobbyRoomState.Join)
         {
-            
+
             if (Time.time < this.delay_0 + 1.5f)
             {
                 if (UMIGame.Join)
                 {
-                    this.OnJoinServe();
+                    this.OnJoinServe(this.IPAddress);
                     UMIGame.Join = false;
                 }
-                this.RenderCreateRoomConnect();
+                this.RenderJoinRoomConnect();
                 this.RenderNoticeMessage(Language.getMessage("LobbyGui", 06));
-                return; 
+                return;
             }
-            if(UMIGame.Connecting)
+            if (UMIGame.Connecting)
             {
-                this.RenderCreateRoomConnect();
+                this.RenderJoinRoomConnect();
                 this.RenderNoticeMessage(Language.getMessage("LobbyGui", 06));
-                if(!UMIGame.Connected)
+                if (!UMIGame.Connected)
                 {
                     this.delay_0 = Time.time;
                     this.eLobbyRoom_0 = eLobbyRoomState.Room;
-                    UMIGame.Connected = true; 
+                    UMIGame.Connected = true;
                     return;
                 }
             }
@@ -326,16 +324,16 @@ public class LobbyGui : MonoBehaviour
         {
             if (Time.time < this.delay_0 + 1.5f)
             {
-                this.RenderCreateRoomConnect();
+                this.RenderJoinRoomConnect();
                 this.RenderNoticeMessage(Language.getMessage("LobbyGui", 07));
-                return; 
+                return;
             }
             this.delay_0 = Time.time;
-            this.eLobbyRoom_0 = eLobbyRoomState.createRoom;
+            this.eLobbyRoom_0 = eLobbyRoomState.createMutiplay;
             return;
         }
         if (this.eLobbyRoom_0 == eLobbyRoomState.isCreateRoom)
-        {  
+        {
             if (Time.time < this.delay_0 + 1.5f)
             {
                 if (UMIGame.Serve)
@@ -344,14 +342,14 @@ public class LobbyGui : MonoBehaviour
                     UMIGame.Serve = false;
                 }
                 this.RenderCreateRoomConnect();
-                this.RenderNoticeMessage(Language.getMessage("LobbyGui",05));
+                this.RenderNoticeMessage(Language.getMessage("LobbyGui", 05));
                 return;
             }
             this.delay_0 = Time.time;
             this.eLobbyRoom_0 = eLobbyRoomState.isRoom;
             return;
         }
-        if(this.eLobbyRoom_0 == eLobbyRoomState.isRoom)
+        if (this.eLobbyRoom_0 == eLobbyRoomState.isRoom)
         {
             if (Time.time < this.delay_0 + 1.5f)
             {
@@ -387,7 +385,7 @@ public class LobbyGui : MonoBehaviour
             GUI.DrawTexture(new Rect(0.5f * this.display_0 - 960f, 0f, 1920f, 1024f), this.texture_8);
             if (Time.time < this.delay_0 + 1f)
             {
-                GUI.DrawTexture(new Rect(0.5f * this.display_0 - 1638f / 4f, Mathf.SmoothStep( 100, -1620f / 2f, (Time.time - this.delay_0) / 1f), 1638f / 2f, 1620f / 2f),
+                GUI.DrawTexture(new Rect(0.5f * this.display_0 - 1638f / 4f, Mathf.SmoothStep(100, -1620f / 2f, (Time.time - this.delay_0) / 1f), 1638f / 2f, 1620f / 2f),
                    this.texture_9);
                 return;
             }
@@ -395,7 +393,7 @@ public class LobbyGui : MonoBehaviour
             this.eLobbyRoom_0 = eLobbyRoomState.fadeBack;
             return;
         }
-        if(this.eLobbyRoom_0 == eLobbyRoomState.fadeBack)
+        if (this.eLobbyRoom_0 == eLobbyRoomState.fadeBack)
         {
             GUI.DrawTexture(new Rect(0.5f * this.display_0 - 960f, 0f, 1920f, 1024f), this.texture_8);
             if (Time.time < delay_0 + 1f)
@@ -406,12 +404,36 @@ public class LobbyGui : MonoBehaviour
             this.delay_0 = Time.time;
             this.eLobbyState_0 = eLobbyState.lobbyMenu;
             this.eLobbyRoom_0 = eLobbyRoomState.Start;
-            return; 
+            return;
         }
     }
     private void RenderCreateJoin()
     {
-
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 960f, 0f, 1920f, 1024f), this.texture_7);
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 2989f / 4f, 100f, 2989F / 2f, 1673F / 2f),
+             this.texture_10);
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 630f, 520f, 880f / 2.5f, 880f / 2.5f), this.texture_13);
+        if (GUI.Button(new Rect(0.5f * this.display_0 - 250f, 300f, 180f, 80f), Language.getMessage("LobbyGui", 08), this.style_12)) { }
+        if (GUI.Button(new Rect(0.5f * this.display_0 - 250f, 658f, 180f, 80f), Language.getMessage("LobbyGui", 09), this.style_12)) { }
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 + 80f, 350f, 1066f / 2f, 583f / 2f), this.texture_19);
+        this.IPAddress = GUI.TextField(new Rect(0.5f * this.display_0 +245f, 410f, 288f, 30f), IPAddress, 50,this.style_12);
+        if (GUI.Button(new Rect(0.5f * this.display_0 + 210f, 410f, 180f, 80f), Language.getMessage("LobbyGui", 16), this.style_11)) { }
+        if (GUI.Button(new Rect(0.5f * this.display_0 + 245f, 560f, 180f, 80f), Language.getMessage("LobbyGui", 14), this.style_13)) { }
+        if (GUI.Button(new Rect(0.5f * this.display_0 + 245f, 590f, 180f, 80f), Language.getMessage("LobbyGui", 15), this.style_13)) { }
+        if (GUI.Button(new Rect(0.5f * this.display_0 + 60f, 542f, 334f / 2f, 206f / 2f), Language.getMessage("LobbyGui", 10), this.style_4))
+        {
+            UMI.Manager.UMIGame.connectLobby = true;
+            UMI.Manager.UMIGame.Join = true;
+            this.delay_0 = Time.time;
+            this.eLobbyRoom_0 = eLobbyRoomState.isJoin;
+        }
+        if (GUI.Button(new Rect(0.5f * this.display_0 - 630f, 160f, 880f / 2.5f, 880f / 2.5f), string.Empty, this.style_8))
+            this.eLobbyRoom_0 = eLobbyRoomState.createRoom;
+        if (GUI.Button(new Rect(0.5f * this.display_0 + 520f, 800f, 334f / 2f, 206f / 2f), Language.getMessage("LobbyGui", 04), this.style_4))
+        {
+            this.delay_0 = Time.time;
+            this.eLobbyRoom_0 = eLobbyRoomState.isBack;
+        }
     }
     private void RenderRoom()
     {
@@ -481,7 +503,7 @@ public class LobbyGui : MonoBehaviour
             }
             this.delay_0 = Time.time;
             this.eLobbyState_0 = eLobbyState.createRoom;
-            this.eLobbyLoading_0 = eLobbyLoadingState.Start; 
+            this.eLobbyLoading_0 = eLobbyLoadingState.Start;
             return;
         }
 
@@ -522,7 +544,7 @@ public class LobbyGui : MonoBehaviour
         {
             this.delay_0 = Time.time;
             this.eLobbyState_0 = eLobbyState.Loading;
-            this.eLobbyMenuState_0 = eLobbyMenuState.Init; 
+            this.eLobbyMenuState_0 = eLobbyMenuState.Init;
         }
         if (GUI.Button(new Rect(0.5f * this.display_0 - 136f, 446f, 535f / 2f, 396f / 2f),
             Language.getMessage("LobbyGui", 01), this.style_1))
@@ -537,8 +559,8 @@ public class LobbyGui : MonoBehaviour
     }
     private void RenderNoticeMessage(string message)
     {
-        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 645f / 2.8f, 1024/2.5f, 735f / 1.4f, 243f / 1.4f), this.texture_14);
-        GUI.Label(new Rect(0.5f * this.display_0 - 645f / 2.8f, 1024f/2.5f, 700f / 1.4f, 268f / 1.4f), message, this.style_5);
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 645f / 2.8f, 1024 / 2.5f, 735f / 1.4f, 243f / 1.4f), this.texture_14);
+        GUI.Label(new Rect(0.5f * this.display_0 - 645f / 2.8f, 1024f / 2.5f, 700f / 1.4f, 268f / 1.4f), message, this.style_5);
     }
     private void RenderCreateRoomConnect()
     {
@@ -546,21 +568,61 @@ public class LobbyGui : MonoBehaviour
         GUI.DrawTexture(new Rect(0.5f * this.display_0 - 960f, 0f, 1920f, 1024f), this.texture_7);
         GUI.DrawTexture(new Rect(0.5f * this.display_0 - 2989f / 4f, 100f, 2989F / 2f, 1673F / 2f),
              this.texture_10);
-        GUI.DrawTexture(new Rect(0.5f * this.display_0 + 80f, 210f, 1016f / 2f, 995f / 2f), this.texture_11);
+        //this.LoadingGui.fadeShiro();
+        if (GUI.Button(new Rect(0.5f * this.display_0 - 250f, 300f, 180f, 80f), Language.getMessage("LobbyGui", 08), this.style_12)) { }
+        if (GUI.Button(new Rect(0.5f * this.display_0 - 250f, 658f, 180f, 80f), Language.getMessage("LobbyGui", 09), this.style_12)) { }
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 + 80f, 210f, 1016f / 2f, 995f / 2f), this.texture_18);
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 + 442f, 100f, 515f / 2f, 1269f / 2f), this.texture_20);
+        if (UMIData.getStringPlayerData(2) == "male")
+            GUI.DrawTexture(new Rect(0.5f * this.display_0 + 450f, 250f, 508f / 2f, 728f / 2f), this.texture_21);
+        else
+            GUI.DrawTexture(new Rect(0.5f * this.display_0 + 450f, 250f, 508f / 2f, 728f / 2f), this.texture_22);
+        if (GUI.Button(new Rect(0.5f * this.display_0 + 100f, 220f, 180f, 80f), UMIData.getStringPlayerData(1), this.style_11)) { }
+        if (GUI.Button(new Rect(0.5f * this.display_0 + 100f, 270f, 180f, 80f), Language.getMessage("LobbyGui", 11), this.style_10)) { }
+        if (GUI.Button(new Rect(0.5f * this.display_0 + 100f, 310f, 180f, 80f), Language.getMessage("LobbyGui", 12), this.style_10)) { }
+        if (GUI.Button(new Rect(0.5f * this.display_0 + 100f, 350f, 180f, 80f), Language.getMessage("LobbyGui", 13), this.style_10)) { }
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 630f, 160f, 880f / 2.5f, 880f / 2.5f), this.texture_17);
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 630f, 520f, 880f / 2.5f, 880f / 2.5f), this.texture_12);
         if (GUI.Button(new Rect(0.5f * this.display_0 + 98f, 660f, 334f / 2f, 206f / 2f), Language.getMessage("LobbyGui", 03), this.style_4))
+        {
+
+        }
+        if (GUI.Button(new Rect(0.5f * this.display_0 + 520f, 800f, 334f / 2f, 206f / 2f), Language.getMessage("LobbyGui", 04), this.style_4))
+        {
+
+        }
+
+    }
+    private void RenderJoinRoomConnect()
+    {
+        this.LoadingGui.fadeShiro();
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 960f, 0f, 1920f, 1024f), this.texture_7);
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 2989f / 4f, 100f, 2989F / 2f, 1673F / 2f),
+             this.texture_10);
+        //this.LoadingGui.fadeShiro();
+        if (GUI.Button(new Rect(0.5f * this.display_0 - 250f, 300f, 180f, 80f), Language.getMessage("LobbyGui", 08), this.style_12)) { }
+        if (GUI.Button(new Rect(0.5f * this.display_0 - 250f, 658f, 180f, 80f), Language.getMessage("LobbyGui", 09), this.style_12)) { }
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 + 80f, 350f, 1066f / 2f, 583f / 2f), this.texture_19);
+        this.IPAddress = GUI.TextField(new Rect(0.5f * this.display_0 + 245f, 410f, 288f, 30f), IPAddress, 50, this.style_12);
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 630f, 160f, 880f / 2.5f, 880f / 2.5f), this.texture_16);
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 630f, 520f, 880f / 2.5f, 880f / 2.5f), this.texture_13);
+        if (GUI.Button(new Rect(0.5f * this.display_0 + 210f, 410f, 180f, 80f), Language.getMessage("LobbyGui", 16), this.style_11)) { }
+        if (GUI.Button(new Rect(0.5f * this.display_0 + 245f, 560f, 180f, 80f), Language.getMessage("LobbyGui", 14), this.style_13)) { }
+        if (GUI.Button(new Rect(0.5f * this.display_0 + 245f, 590f, 180f, 80f), Language.getMessage("LobbyGui", 15), this.style_13)) { }
+        if (GUI.Button(new Rect(0.5f * this.display_0 + 60f, 542f, 334f / 2f, 206f / 2f), Language.getMessage("LobbyGui", 10), this.style_4))
         {
             
         }
         if (GUI.Button(new Rect(0.5f * this.display_0 + 520f, 800f, 334f / 2f, 206f / 2f), Language.getMessage("LobbyGui", 04), this.style_4))
         {
-            
-        }
 
+        }
     }
     private void OnJoinGame()
     {
         UMIGame.LoadNextLevel(1);
-    } private void OnJoinServe()
+    }
+    private void OnJoinServe()
     {
         UMIClientManager.star.connectServer("127.0.0.1");
     }
