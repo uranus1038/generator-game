@@ -41,6 +41,10 @@ public class LobbyGui : MonoBehaviour
     private Texture texture_20;
     private Texture texture_21;
     private Texture texture_22;
+    private Texture texture_23;
+    private Texture texture_24;
+    private Texture texture_25;
+    private Texture texture_26;
 
     // GUI
     private GUIStyle style_0;
@@ -141,6 +145,10 @@ public class LobbyGui : MonoBehaviour
         this.texture_17 = (Texture)Resources.Load("GUI/Lobby/img-04", typeof(Texture));
         this.texture_18 = (Texture)Resources.Load("GUI/Lobby/White_border", typeof(Texture));
         this.texture_19 = (Texture)Resources.Load("GUI/Lobby/Connect_bar", typeof(Texture));
+        this.texture_23 = (Texture)Resources.Load("GUI/Room/Room_book", typeof(Texture));
+        this.texture_24 = (Texture)Resources.Load("GUI/Room/number_2", typeof(Texture));
+        this.texture_25 = (Texture)Resources.Load("GUI/Room/number_3", typeof(Texture));
+        this.texture_26 = (Texture)Resources.Load("GUI/Room/number_4", typeof(Texture));
         this.style_6 = new GUIStyle();
         this.style_6.normal.background = (Texture2D)(Texture)Resources.Load("GUI/Lobby/img-01", typeof(Texture));
         this.style_6.hover.background = (Texture2D)(Texture)Resources.Load("GUI/Lobby/img-02", typeof(Texture));
@@ -445,11 +453,10 @@ public class LobbyGui : MonoBehaviour
         }
         GUI.DrawTexture(new Rect(0.5f * this.display_0 - 960f, 0f, 1920f, 1024f), this.texture_7);
         GUI.DrawTexture(new Rect(0.5f * this.display_0 - 2989f / 4f, 100f, 2989F / 2f, 1673F / 2f),
-             this.texture_10);
-        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 638f, 180f, 508f / 2f, 629f / 2f), this.texture_15);
-        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 338f, 220f, 508f / 2f, 629f / 2f), this.texture_15);
-        GUI.DrawTexture(new Rect(0.5f * this.display_0 + 88f, 220f, 508f / 2f, 629f / 2f), this.texture_15);
-        GUI.DrawTexture(new Rect(0.5f * this.display_0 + 388f, 180f, 508f / 2f, 629f / 2f), this.texture_15);
+             this.texture_23);
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 630f, 343f, 238f / 3f, 238f / 3f), this.texture_24);
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 630f, 436f, 238f / 3f, 238f / 3f), this.texture_25);
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 630f, 529f, 238f / 3f, 238f / 3f), this.texture_26);
     }
     private void RenderLoading()
     {
