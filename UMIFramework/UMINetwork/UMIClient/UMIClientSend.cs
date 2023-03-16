@@ -69,14 +69,6 @@ namespace UMI.Network.Client
                 SendTCPData(packet);
             }
         }
-        public static void reqCreatePlayer()
-        {
-            using (UMIPacket packet = new UMIPacket((int)YUMIClientPackets.reqSpawnPlayer))
-            {
-                packet.Write(UMIClientManager.star.UID);
-                packet.Write("GODU");
-                SendTCPData(packet);
-            }
-        }
+
     }
 }

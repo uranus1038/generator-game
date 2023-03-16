@@ -62,6 +62,11 @@ namespace UMI.Network.Client
             }
           
         }
-        
+
+        public static void cancelPlayerRespon(UMIPacket packet)
+        {
+          
+        }
+
     }
 }

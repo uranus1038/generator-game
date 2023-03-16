@@ -67,6 +67,14 @@ namespace UMI.Network.Server
             }
             UMISystem.Log($"UMI::STATUSSERVER()->{client.Client.RemoteEndPoint}.FULL");
         }
+        public static void resetNetwork()
+        {
+            UMITCPListener.Stop();
+            UMITCPListener.Server.Close();
+            UMIUDPListener.Close();
+            clients.Clear();
+            UMI.Manager.UMIGame.Successed = true;
+        }
 
         private static void UDPReceiveCallback(IAsyncResult result)
         {
@@ -145,8 +153,8 @@ namespace UMI.Network.Server
                 {   (int)YUMIClientPackets.reqDisconnect , UMIServerHandle.disconnectReceive} ,
                 {   (int)YUMIClientPackets.reqSpawnPlayer , UMIServerHandle.spawnPlayer} , 
                 {   (int)YUMIClientPackets.reqAnimation , UMIServerHandle.playerAnimation} ,
-                {   (int)YUMIClientPackets.getConnectLobby , UMIServerHandle.connectLobby} 
-
+                {   (int)YUMIClientPackets.getConnectLobby , UMIServerHandle.connectLobby} ,
+                {   (int)YUMIClientPackets.reqCancelPlayer , UMIServerHandle.cancelPlayer} 
             };
             UMISystem.Log("UMI::DATA_SERVER()->LOG->initializeServer");
         }

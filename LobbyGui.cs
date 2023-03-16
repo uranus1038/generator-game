@@ -266,6 +266,7 @@ public class LobbyGui : MonoBehaviour
             {
                 UMIGame.Join = true;
                 UMI.Manager.UMIGame.Serve = true;
+                UMI.Manager.UMIGame.Leave = true;
                 this.delay_0 = Time.time;
                 this.eLobbyRoom_0 = eLobbyRoomState.isCreateRoom;
             }
@@ -445,11 +446,18 @@ public class LobbyGui : MonoBehaviour
     }
     private void RenderRoom()
     {
-        UMIGame.Successed = false;
         if (UMIGame.Join)
         {
+            UMIGame.Successed = false;
             this.OnJoinServe();
             UMIGame.Join = false;
+            return; 
+        }
+        if(!UMIGame.Leave)
+        {
+            this.delay_0 = Time.time;
+            this.eLobbyRoom_0 = eLobbyRoomState.createRoom;
+            return; 
         }
         GUI.DrawTexture(new Rect(0.5f * this.display_0 - 960f, 0f, 1920f, 1024f), this.texture_7);
         GUI.DrawTexture(new Rect(0.5f * this.display_0 - 2989f / 4f, 100f, 2989F / 2f, 1673F / 2f),

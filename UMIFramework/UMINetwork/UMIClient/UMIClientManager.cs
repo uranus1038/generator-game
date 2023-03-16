@@ -49,7 +49,7 @@ namespace UMI.Network.Client
         // TCP
         public class UMITCP
         {
-            
+            public static UMITCP TCP; 
             public TcpClient socket;
             private UMIPacket receiveData;
             private NetworkStream stream;
@@ -88,7 +88,7 @@ namespace UMI.Network.Client
                 }
                 catch (Exception ex)
                 {
-                    UMISystem.Log($"UMI::ERRSEND()->{ex}");
+                    UMISystem.L0g($"SEND_DATA()->ERR_CLIENT");
                 }
             }
             private void ReceiveCallback(IAsyncResult result)
@@ -159,7 +159,7 @@ namespace UMI.Network.Client
                 return false;
             }
 
-            private void Disconnect()
+            public  void Disconnect()
             {
                 star.Disconnect();
                 this.stream = null;
@@ -172,6 +172,7 @@ namespace UMI.Network.Client
         // UDP
         public class UMIUDP
         {
+            public static UMIUDP UDP;
             public UdpClient socket;
             public IPEndPoint endPoint;
             public UMIUDP()
@@ -183,7 +184,6 @@ namespace UMI.Network.Client
                 socket = new UdpClient(localPort);
                 socket.Connect(endPoint);
                 socket.BeginReceive(ReceiveCallback, null);
-
                 using (UMIPacket packet = new UMIPacket())
                 {
                     SendData(packet);
@@ -242,7 +242,7 @@ namespace UMI.Network.Client
                     }
                 });
             }
-            private void Disconnect()
+            public void Disconnect()
             {
                 star.Disconnect();
                 this.endPoint = null;
@@ -273,7 +273,8 @@ namespace UMI.Network.Client
            { (int)YUMIServerPackets.resPlayerPosition ,UMIClientHandle.playerPosition2D},
            { (int)YUMIServerPackets.resDisconnect ,UMIClientHandle.disconnectGetRespon},
            { (int)YUMIServerPackets.resAnimation ,UMIClientHandle.playerAnimation},
-           { (int)YUMIServerPackets.resSpawnPlayerLobby ,UMIClientHandle.spawnPlayerLobby}
+           { (int)YUMIServerPackets.resSpawnPlayerLobby ,UMIClientHandle.spawnPlayerLobby} ,
+           { (int)YUMIServerPackets.resCancelPlayer ,UMIClientHandle.cancelPlayerRespon}
         };
         }
     }

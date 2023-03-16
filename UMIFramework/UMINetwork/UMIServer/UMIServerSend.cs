@@ -112,6 +112,15 @@ namespace UMI.Network.Server
             }
         }
 
+        public static void cancelPlayerSend(int client)
+        {
+            using (UMIPacket packet = new UMIPacket((int)YUMIServerPackets.resCancelPlayer))
+            {
+                packet.Write(client);
+                SendUDPDataX(client, packet);
+            }
+        }
+
 
 
 

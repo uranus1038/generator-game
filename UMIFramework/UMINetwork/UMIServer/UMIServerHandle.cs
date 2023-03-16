@@ -57,6 +57,11 @@ namespace UMI.Network.Server
             UMIServerSend.playerAnimation(fClient, actor);
         }
 
+        public static void cancelPlayer(int fClient, UMIPacket packet)
+        {
+           
+        }
+
 
     }
 }

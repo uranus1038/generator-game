@@ -4,7 +4,7 @@ using System.Net.Sockets;
 using System.Numerics;
 using UMI.Manager.Data;
 
-namespace UMI.Network.Server
+namespace UMI.Network.Server 
 {
     class UMIServerManager 
     { 
@@ -20,7 +20,8 @@ namespace UMI.Network.Server
             this.TCP = new UMITCP(UID);
             this.UDP = new UMIUDP(UID);
         }
-        public class UMITCP { 
+        public class UMITCP {
+            public static UMITCP TCP; 
             public TcpClient socket;
             public UMIPacket receiveData;
             private readonly int UID;
@@ -142,6 +143,7 @@ namespace UMI.Network.Server
 
         public class UMIUDP
         {
+            public static UMIUDP UDP; 
             public IPEndPoint endPoint;
 
             private int UID;
@@ -180,7 +182,6 @@ namespace UMI.Network.Server
         }
         public void Disconnect()
         {
-            UMISystem.Log($"UMI::DISCONNECT()->{TCP.socket.Client.RemoteEndPoint}");
             player = null; 
             TCP.Disconnect();
             UDP.Disconnect();

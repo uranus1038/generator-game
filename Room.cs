@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UMI.Network.Client;
 using UMI.Manager;
-using UMI.Network.API; 
+using UMI.Network.API;
+using UMI.Network.Server;
 public class Room : MonoBehaviour
 {
     public static Room star;
@@ -18,13 +19,14 @@ public class Room : MonoBehaviour
     private GUIStyle style_0;
     private GUIStyle style_1;
     private GUIStyle style_2;
+    private GUIStyle style_3;
     // Resources
-    List<string> playerObject_0 = new List<string>();
-    List<string> playerObject_1 = new List<string>();
+    private List<string> playerObject_0;
+    private List<string> playerObject_1;
     private Dictionary<int, bool> players;
 
     private void Awake()
-    { 
+    {
         this.Init();
         if (star == null)
         {
@@ -54,16 +56,41 @@ public class Room : MonoBehaviour
         this.style_2.font = (Font)Resources.Load("GUI/Fonts/Prompt-Bold", typeof(Font));
         this.style_2.fontSize = 26;
         this.style_2.normal.textColor = new Color(2f, 2f, 2f, 0.8f);
+        this.style_3 = new GUIStyle();
+        this.style_3.normal.background = (Texture2D)((Texture)Resources.Load("GUI/Lobby/Button01", typeof(Texture)));
+        this.style_3.hover.background = (Texture2D)((Texture)Resources.Load("GUI/Lobby/Button01_h", typeof(Texture)));
+        this.style_3.normal.textColor = new Color(0f, 0.1f, 0.2f, 0.8f);
+        this.style_3.fontSize = 23;
+        this.style_3.alignment = TextAnchor.MiddleCenter;
+        this.style_3.font = (Font)Resources.Load("GUI/Fonts/Prompt-Bold", typeof(Font));
+        this.setInit();
+
+    }   
+    private void setInit()
+    {
+        this.players = new Dictionary<int, bool>() { { 1, false }, { 2, false }, { 3, false }, { 4, false } };
         this.playerObject_0 = new List<string>() { "0", "1", "2", "3", "4" };
         this.playerObject_1 = new List<string>() { "0", "1", "2", "3", "4" };
-        this.players = new Dictionary<int, bool>() { { 1, false }, { 2, false }, { 3, false }, { 4, false } };
-
+    }
+    private void hClose()
+    {
+        UMIGame.Leave = false;
+        UMIGame.Successed = true;
+        UMIServer.resetNetwork();
+        UMI.UMISystem.L0g("ResetRoom!");
+    }
+    private void resetGame()
+    {
+        UMIGame.Serve = true;
+        UMIGame.connectLobby = true;
+        UMIGame.Connecting = true;
+        UMIGame.Connected = true;
+        UMIGame.Successed = true;
+        this.setInit();
+        UMI.UMISystem.L0g("ResetGame!");
     }
     public void spawnLobby(int slot, string userName, string gender)
     {
-
-        UMI.UMISystem.Log(slot);
-        UMI.UMISystem.Log(gender);
         this.playerObject_0[slot] = gender;
         this.playerObject_1[slot] = userName;
         this.players[slot] = true;
@@ -76,7 +103,7 @@ public class Room : MonoBehaviour
         if (!UMIGame.Successed)
         {
             this.UID = UMIClientManager.star.UID;
-            if (UMIData.getStringPlayerData(2)=="male")
+            if (UMIData.getStringPlayerData(2) == "male")
             {
                 GUI.DrawTexture(new Rect(0.5f * this.display_0 + 220f, 160f, 508f / 2f, 728f / 2f), this.texture_2);
             }
@@ -84,14 +111,20 @@ public class Room : MonoBehaviour
             {
                 GUI.DrawTexture(new Rect(0.5f * this.display_0 + 220f, 160f, 508f / 2f, 728f / 2f), this.texture_3);
             }
+            if (GUI.Button(new Rect(0.5f * this.display_0 + 520f, 800f, 334f / 2f, 206f / 2f), Language.getMessage("LobbyGui", 04), this.style_3))
+            {
+                this.hClose();
+                this.resetGame();
+                return; 
+            }
             if (players[1])
             {
                 if (GUI.Button(new Rect(0.5f * this.display_0 - 530f, 288f, 238f / 3f, 238f / 3f), playerObject_1[1].ToString(), this.style_0)) { }
                 if (GUI.Button(new Rect(0.5f * this.display_0 - 180f, 288f, 238f / 3f, 238f / 3f), "[Header]", this.style_2)) { }
                 if (playerObject_0[1].ToString() == "male")
                 {
-                    
-                    GUI.DrawTexture(new Rect(0.5f * this.display_0 - 630f, 248f, 238f/3f,238f/3f), this.texture_4);
+
+                    GUI.DrawTexture(new Rect(0.5f * this.display_0 - 630f, 248f, 238f / 3f, 238f / 3f), this.texture_4);
                 }
                 else
                 {
@@ -155,6 +188,7 @@ public class Room : MonoBehaviour
                     GUI.DrawTexture(new Rect(0.5f * this.display_0 - 630f, 529f, 238f / 3f, 238f / 3f), this.texture_5);
                 }
             }
+            return; 
 
         }
     }

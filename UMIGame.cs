@@ -12,6 +12,9 @@ namespace UMI.Manager
         public static bool Connecting = true;
         public static bool Connected = true;
         public static bool Successed = true;
+        public static bool Leave = true; 
+
+
         public static bool loginConnect = true;
         public static bool loginFail = true;
         public static void LoadNextLevel(int num)
