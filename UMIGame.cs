@@ -6,6 +6,7 @@ namespace UMI.Manager
 {
     public class UMIGame : MonoBehaviour
     {
+        public static bool isFull = true;
         public static bool Serve = true;
         public static bool Join = true;
         public static bool connectLobby = true;

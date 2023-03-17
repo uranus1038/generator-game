@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using UnityEngine;
@@ -8,7 +8,12 @@ namespace UMI.Network.Server
 {
     class UMIServer : MonoBehaviour
     {
-        public static UMIServer star; 
+        public static UMIServer star;
+        public static int maxPlayer { get; private set; }
+        public static int port { get; private set; }
+        public static Dictionary<int, UMIServerManager> clients = new Dictionary<int, UMIServerManager>();
+        public delegate void PacketHandler(int client, UMIPacket packet);
+        public static Dictionary<int, PacketHandler> packetHandle;
         public void Awake()
         {
             if (star == null)
@@ -21,16 +26,37 @@ namespace UMI.Network.Server
                 Destroy(this);
             }
         }
-        public static int maxPlayer { get; private set; }
-        public static int port { get; private set; }
-        public static Dictionary<int, UMIServerManager> clients = new Dictionary<int, UMIServerManager>();
-        public delegate void PacketHandler(int client, UMIPacket packet);
-        public static Dictionary<int, PacketHandler> packetHandle;
-
+  
 
         public static UdpClient UMIUDPListener;
         public static TcpListener UMITCPListener;
-       
+        private static void initializeServerData()
+        {
+            for (int i = 1; i <= maxPlayer; i++)
+            {
+                try
+                {
+                    clients.Add(i, new UMIServerManager(i));
+                }
+                catch
+                {
+                    UMISystem.Log(i + "ERR");
+                }
+            }
+            packetHandle = new Dictionary<int, PacketHandler>()
+            {
+                //receive
+                {   (int)YUMIClientPackets.getRespon , UMIServerHandle.connectReq },
+                {   (int)YUMIClientPackets.reqPlayerMovement , UMIServerHandle.playerMovement2D},
+                {   (int)YUMIClientPackets.reqDisconnect , UMIServerHandle.disconnectReceive} ,
+                {   (int)YUMIClientPackets.reqSpawnPlayer , UMIServerHandle.spawnPlayer} ,
+                {   (int)YUMIClientPackets.reqAnimation , UMIServerHandle.playerAnimation} ,
+                {   (int)YUMIClientPackets.getConnectLobby , UMIServerHandle.connectLobby} ,
+                {   (int)YUMIClientPackets.reqCancelPlayer , UMIServerHandle.cancelPlayer} ,
+                {   (int)YUMIClientPackets.reqLeaveRoom , UMIServerHandle.leaveRoom} ,
+            };
+            UMISystem.Log("UMI::DATA_SERVER()->LOG->initializeServer");
+        }
         public static void Start(int maxPlayerV, int portV)
         {
             maxPlayer = maxPlayerV;
@@ -55,10 +81,8 @@ namespace UMI.Network.Server
             TcpClient client = UMITCPListener.EndAcceptTcpClient(result);
             UMITCPListener.BeginAcceptTcpClient(new AsyncCallback(TCPConnectCallback), null);
             UMISystem.Log($"UMI::CONNECTFROMIPADRESS()->{client.Client.RemoteEndPoint}");
-
-            for (int i = 1; i <= maxPlayer; i++)
+            for (int i = 4; i <= maxPlayer; i++)
             {
-
                 if (clients[i].TCP.socket == null)
                 {
                     clients[i].TCP.Connect(client);
@@ -66,14 +90,15 @@ namespace UMI.Network.Server
                 }
             }
             UMISystem.Log($"UMI::STATUSSERVER()->{client.Client.RemoteEndPoint}.FULL");
+            
         }
         public static void resetNetwork()
         {
+            UMIServerSend.leaveRoom(1);
+            clients.Clear();
             UMITCPListener.Stop();
             UMITCPListener.Server.Close();
             UMIUDPListener.Close();
-            clients.Clear();
-            UMI.Manager.UMIGame.Successed = true;
         }
 
         private static void UDPReceiveCallback(IAsyncResult result)
@@ -91,6 +116,7 @@ namespace UMI.Network.Server
                 using (UMIPacket packet = new UMIPacket(data))
                 {
                     int CID = packet.ReadInt();
+
                     if (CID == 0)
                     {
                         UMISystem.Log("UMI::ERRMESSAGE()->CODE_0");
@@ -106,13 +132,10 @@ namespace UMI.Network.Server
                         clients[CID].UDP.HandleData(packet);
                     }
                 }
-
             }
             catch (Exception ex)
             {
                 UMISystem.Log($"UMI::ERRSENDUDP()->{ex}");
-
-
             }
 
 
@@ -131,33 +154,7 @@ namespace UMI.Network.Server
                 UMISystem.Log($"UMI::ERRSENDUDP()->{ex}");
             }
         }
-        private static void initializeServerData()
 
-        {
-            for (int i = 1; i <= maxPlayer; i++)
-            {
-                try
-                {
-                    clients.Add(i, new UMIServerManager(i));
-
-                }catch
-                {
-                    UMISystem.Log(i + "ERR");
-                }
-            }
-            packetHandle = new Dictionary<int, PacketHandler>()
-            {
-                //receive
-                {   (int)YUMIClientPackets.getRespon , UMIServerHandle.connectReq },
-                {   (int)YUMIClientPackets.reqPlayerMovement , UMIServerHandle.playerMovement2D},
-                {   (int)YUMIClientPackets.reqDisconnect , UMIServerHandle.disconnectReceive} ,
-                {   (int)YUMIClientPackets.reqSpawnPlayer , UMIServerHandle.spawnPlayer} , 
-                {   (int)YUMIClientPackets.reqAnimation , UMIServerHandle.playerAnimation} ,
-                {   (int)YUMIClientPackets.getConnectLobby , UMIServerHandle.connectLobby} ,
-                {   (int)YUMIClientPackets.reqCancelPlayer , UMIServerHandle.cancelPlayer} 
-            };
-            UMISystem.Log("UMI::DATA_SERVER()->LOG->initializeServer");
-        }
 
 
     }

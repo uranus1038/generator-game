@@ -8,7 +8,9 @@ public enum YUMIServerPackets
     resDisconnect,
     resAnimation ,
     resSpawnPlayerLobby,
-    resCancelPlayer
+    resCancelPlayer , 
+    resLeaveRoom , 
+    resIsFull , 
 }
 
 // Receive from client
@@ -20,6 +22,8 @@ public enum YUMIClientPackets
     reqSpawnPlayer  ,
     reqAnimation  , 
     getConnectLobby ,
-    reqCancelPlayer
+    reqCancelPlayer , 
+    reqLeaveRoom , 
+    reqIsFUll , 
 
 }

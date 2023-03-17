@@ -32,6 +32,14 @@ public class LobbyGui_th
             case 14: result = "รองรับการเชื่อมต่อแบบ ip fowarding ,"; break;
             case 15: result = "LAN , VPN , HAMACHI"; break;
             case 16: result = "IP"; break;
+            case 17: result = "คุณถูกเชิญออกจากปาตี้!"; break;
+            case 18: result = "ถูกตัดออกจากเซิฟเวอร์"; break;
+            case 19: result = "พร้อม"; break;
+            case 20: result = "รอ"; break;
+            case 21: result = "ยกเลิก"; break;
+            case 22: result = "เริ่มเกม"; break;
+            case 23: result = "พร้อม"; break;
+            case 24: result = "เซิฟเวอร์เต็ม"; break;
             default: return result;
         }
         return result;

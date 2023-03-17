@@ -6,17 +6,17 @@ namespace UMI.Network.Client
     public class UMIClientSend : MonoBehaviour
     {
         #region UMIFUNC SEND TCP & UDP
-        private static void SendTCPData(UMIPacket packet)
+        private static void sendTCPData(UMIPacket packet)
         {
             packet.WriteLength();
             UMIClientManager.star.TCP.SendData(packet);
         }
-        private static void SendUDPData(UMIPacket packet)
+        private static void sendUDPData(UMIPacket packet)
         {
             packet.WriteLength();
             UMIClientManager.star.UDP.SendData(packet);
         }
-        private static void SendUDPData(int UID,UMIPacket packet)
+        private static void sendUDPData(int UID,UMIPacket packet)
         {
             packet.WriteLength();
             UMIClientManager.star.UDP.SendData(packet);
@@ -28,7 +28,7 @@ namespace UMI.Network.Client
             {
                 packet.Write(UMIClientManager.star.UID);
                 packet.Write("GODU");
-                SendTCPData(packet);
+                sendTCPData(packet);
             }
         }
         public static void requastConnectLobby()
@@ -39,7 +39,7 @@ namespace UMI.Network.Client
                 packet.Write(UMIClientManager.star.UID);
                 packet.Write(UMI.Network.API.UMIData.getStringPlayerData(1));
                 packet.Write(UMI.Network.API.UMIData.getStringPlayerData(2));
-                SendTCPData(packet);
+                sendTCPData(packet);
             }
         }
         public static void reqPlayerMoveMent(Vector3 position)
@@ -48,7 +48,7 @@ namespace UMI.Network.Client
             {   
                 packet.Write(position);
                 // _Packet.Write(GameManager.players[Client.instance.my_Id].transform.rotation);
-                SendUDPData(packet);
+                sendUDPData(packet);
             }
         }
         public static void reqAnimation(int actor)
@@ -57,7 +57,7 @@ namespace UMI.Network.Client
             {
                 packet.Write(actor);
                 // _Packet.Write(GameManager.players[Client.instance.my_Id].transform.rotation);
-                SendUDPData(packet);
+                sendUDPData(packet);
             }
         }
         public static void DisconnectSend(int id)
@@ -66,7 +66,15 @@ namespace UMI.Network.Client
             {
                 packet.Write(id);
                 // _Packet.Write(GameManager.players[Client.instance.my_Id].transform.rotation);
-                SendTCPData(packet);
+                sendTCPData(packet);
+            }
+        }
+        public static void leaveRoom(int id)
+        {
+            using (UMIPacket packet = new UMIPacket((int)YUMIClientPackets.reqLeaveRoom))
+            {
+                packet.Write(id);
+                sendTCPData(packet);
             }
         }
 

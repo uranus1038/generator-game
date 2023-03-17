@@ -15,7 +15,7 @@ namespace UMI.Network.Server
             UMIServer.clients[toClient].UDP.SendData(packet);
         }
         //Send tcp data to all users
-        private static void SendTCPDataX(UMIPacket packet)
+        private static void sendTCPDataALL(UMIPacket packet)
         {
             packet.WriteLength();
             for (int i = 1; i <= UMIServer.maxPlayer; i++)
@@ -23,7 +23,7 @@ namespace UMI.Network.Server
                 UMIServer.clients[i].TCP.SendData(packet);
             }
         }
-        private static void SendTCPDataX(int exceptClient, UMIPacket packet)
+        private static void sendTCPDataExceptClient(int exceptClient, UMIPacket packet)
         {
             packet.WriteLength();
             for (int i = 1; i <= UMIServer.maxPlayer; i++)
@@ -35,7 +35,7 @@ namespace UMI.Network.Server
             }
         }
         //Send udp data to all users
-        private static void SendUDPDataX(UMIPacket packet)
+        private static void sendUDPDataALL(UMIPacket packet)
         {
             packet.WriteLength();
             for (int i = 1; i <= UMIServer.maxPlayer; i++)
@@ -43,7 +43,7 @@ namespace UMI.Network.Server
                 UMIServer.clients[i].UDP.SendData(packet);
             }
         }
-        private static void SendUDPDataX(int exceptClient, UMIPacket packet)
+        private static void sendUDPDataExceptClient(int exceptClient, UMIPacket packet)
         {
             packet.WriteLength();
             for (int i = 1; i <= UMIServer.maxPlayer; i++)
@@ -91,7 +91,7 @@ namespace UMI.Network.Server
             {
                 packet.Write(player.UID);
                 packet.Write(player.position);
-                SendUDPDataX(player.UID,packet);
+                sendUDPDataExceptClient(player.UID,packet);
             }
         }
         public static void playerAnimation(int UID,int actor)
@@ -100,7 +100,7 @@ namespace UMI.Network.Server
             {
                 packet.Write(UID);
                 packet.Write(actor);
-                SendUDPDataX(UID, packet);
+                sendUDPDataExceptClient(UID, packet);
             }
         }
         public static void disconnectSend(int client)
@@ -108,7 +108,7 @@ namespace UMI.Network.Server
             using (UMIPacket packet = new UMIPacket((int)YUMIServerPackets.resDisconnect))
             {
                 packet.Write(client);
-                SendUDPDataX(client, packet);
+                sendUDPDataExceptClient(client, packet);
             }
         }
 
@@ -117,12 +117,26 @@ namespace UMI.Network.Server
             using (UMIPacket packet = new UMIPacket((int)YUMIServerPackets.resCancelPlayer))
             {
                 packet.Write(client);
-                SendUDPDataX(client, packet);
+                sendTCPDataExceptClient(client, packet);
             }
         }
-
-
-
+        public static void leaveRoom(int client)
+        {
+            using (UMIPacket packet = new UMIPacket((int)YUMIServerPackets.resLeaveRoom))
+            {
+                packet.Write(client);
+                sendTCPDataExceptClient(client, packet);
+            }
+        }
+        public static void serverFull(int client)
+        {
+            using (UMIPacket packet = new UMIPacket((int)YUMIServerPackets.resIsFull))
+            {
+                UMISystem.L0g("send");
+                packet.Write(client);
+                sendTCPDataALL(packet);
+            }
+        }
 
 
     }

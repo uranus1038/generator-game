@@ -95,7 +95,7 @@ namespace UMI.Network
             UMITCPSend(stream, UMIClient);
         }
 
-        //Send
+        //Send  
 
         private static void UMITCPSend(NetworkStream stream, TcpClient client)
         {

@@ -18,6 +18,23 @@ namespace UMI.Network.Client
         private bool isConnected = false;
         private delegate void packetHandler(UMIPacket packet);
         private static Dictionary<int, packetHandler> packetHandlers;
+        // Receive from server
+        private void InitializeClientData()
+        {
+            packetHandlers = new Dictionary<int, packetHandler>()
+        {
+                //Receive respon 
+           { (int)YUMIServerPackets.resServer ,UMIClientHandle.connectRespon},
+           { (int)YUMIServerPackets.resSpawnPlayer ,UMIClientHandle.spawnPlayer},
+           { (int)YUMIServerPackets.resPlayerPosition ,UMIClientHandle.playerPosition2D},
+           { (int)YUMIServerPackets.resDisconnect ,UMIClientHandle.disconnectGetRespon},
+           { (int)YUMIServerPackets.resAnimation ,UMIClientHandle.playerAnimation},
+           { (int)YUMIServerPackets.resSpawnPlayerLobby ,UMIClientHandle.spawnPlayerLobby} ,
+           { (int)YUMIServerPackets.resCancelPlayer ,UMIClientHandle.cancelPlayerRespon} ,
+           { (int)YUMIServerPackets.resLeaveRoom ,UMIClientHandle.leaveRoom} ,
+           { (int)YUMIServerPackets.resIsFull ,UMIClientHandle.isMax} ,
+        };
+        }
         private void Awake()
         {
             if (star == null)
@@ -70,8 +87,9 @@ namespace UMI.Network.Client
                     UMISystem.Log("UMI::SERVERSTATUS()->DOWN");
                     UMISystem.Log("UMI::SERVER_RESPON_STATUS()->LOG->CODE-400");
                     UMI.Manager.UMIGame.Connecting = false; 
+                    UMI.Manager.UMIGame.Connected = true; 
                     return;
-                }       
+                }
                 stream = socket.GetStream();
                 receiveData = new UMIPacket();
                 stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
@@ -262,20 +280,6 @@ namespace UMI.Network.Client
                 UMISystem.Log($"UMI::DISCONNECT()");
             }
         }
-        // Receive from server
-        private void InitializeClientData()
-        {
-            packetHandlers = new Dictionary<int, packetHandler>()
-        {
-                //Receive respon 
-           { (int)YUMIServerPackets.resServer ,UMIClientHandle.connectRespon},
-           { (int)YUMIServerPackets.resSpawnPlayer ,UMIClientHandle.spawnPlayer},
-           { (int)YUMIServerPackets.resPlayerPosition ,UMIClientHandle.playerPosition2D},
-           { (int)YUMIServerPackets.resDisconnect ,UMIClientHandle.disconnectGetRespon},
-           { (int)YUMIServerPackets.resAnimation ,UMIClientHandle.playerAnimation},
-           { (int)YUMIServerPackets.resSpawnPlayerLobby ,UMIClientHandle.spawnPlayerLobby} ,
-           { (int)YUMIServerPackets.resCancelPlayer ,UMIClientHandle.cancelPlayerRespon}
-        };
-        }
+       
     }
 }

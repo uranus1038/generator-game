@@ -33,6 +33,14 @@ public class LobbyGui_eng
             case 14: result = "Support connect ip fowarding ,"; break;
             case 15: result = "LAN , VPN , HAMACHI"; break;
             case 16: result = "IP"; break;
+            case 17: result = "You are kicked from party!"; break;
+            case 18: result = "Server Disconnect"; break;
+            case 19: result = "Ready"; break;
+            case 20: result = "Wait"; break;
+            case 21: result = "CANCEL"; break;
+            case 22: result = "START"; break;
+            case 23: result = "READY"; break;
+            case 24: result = "Server is full"; break;
             default: return result;
         }
         return result;

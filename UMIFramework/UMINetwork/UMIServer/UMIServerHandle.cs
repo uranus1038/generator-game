@@ -9,7 +9,7 @@ namespace UMI.Network.Server
             int UID = packet.ReadInt();
             string userName = packet.ReadString();
             //UMIServer.clients[UID].SendIntoGame(userName);    
-            UMISystem.Log($"UMI::CONNEC()->LOG->connected successfully {UMIServer.clients[client].TCP.socket.Client.RemoteEndPoint} and is now player {UID}");
+            UMISystem.Log($"UMI::CONNECT()->LOG->connected successfully {UMIServer.clients[client].TCP.socket.Client.RemoteEndPoint} and is now player {UID}");
             if (client != UID)
             {
                 UMISystem.Log($"Player {UID} id : {client}");
@@ -22,7 +22,7 @@ namespace UMI.Network.Server
             string userName = packet.ReadString();
             string gender = packet.ReadString();
             UMIServer.clients[UID].SendLobby(userName,gender);
-            UMISystem.Log($"UMI::CONNEC()->LOG->connected successfully {UMIServer.clients[client].TCP.socket.Client.RemoteEndPoint} and is now player {UID}");
+            UMISystem.Log($"UMI::CONNECT()->LOG->connected successfully {UMIServer.clients[client].TCP.socket.Client.RemoteEndPoint} and is now player {UID}");
             if (client != UID)
             {
                 UMISystem.Log($"Player {UID} id : {client}");
@@ -61,6 +61,21 @@ namespace UMI.Network.Server
         {
            
         }
+
+        public static void leaveRoom(int fClient, UMIPacket packet)
+        {
+            try
+            {
+                int clientUID = packet.ReadInt();
+                UMIServer.clients[clientUID].Disconnect();
+                UMIServerSend.leaveRoom(clientUID);
+            }
+            catch
+            {
+                UMISystem.L0g("Player leave the room");
+            }
+        }
+
 
 
     }

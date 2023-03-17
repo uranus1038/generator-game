@@ -7,7 +7,7 @@ using UMI.Manager.Data;
 namespace UMI.Network.Server 
 {
     class UMIServerManager 
-    { 
+    {
         public int UID;
         public UMITCP TCP;
         public UMIUDP UDP;
@@ -21,7 +21,6 @@ namespace UMI.Network.Server
             this.UDP = new UMIUDP(UID);
         }
         public class UMITCP {
-            public static UMITCP TCP; 
             public TcpClient socket;
             public UMIPacket receiveData;
             private readonly int UID;
@@ -35,10 +34,22 @@ namespace UMI.Network.Server
             }
             public void Connect(TcpClient socket)
             {
+                UMISystem.L0g("Connect");
                 this.socket = socket;
                 socket.ReceiveBufferSize = dataBufferSize;
                 socket.SendBufferSize = dataBufferSize;
-
+                stream = this.socket.GetStream();
+                receiveBuffer = new byte[dataBufferSize];
+                stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
+                receiveData = new UMIPacket();
+                UMIServerSend.serverOn(this.UID, "SERVER_RESPON_STATUS()->LOG->CODE-200");
+            }
+            public void isFull(TcpClient socket)
+            {
+                UMISystem.L0g("Connect");
+                this.socket = socket;
+                socket.ReceiveBufferSize = dataBufferSize;
+                socket.SendBufferSize = dataBufferSize;
                 stream = this.socket.GetStream();
                 receiveBuffer = new byte[dataBufferSize];
                 stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
@@ -51,13 +62,15 @@ namespace UMI.Network.Server
                 {
                     if (this.socket != null)
                     {
+                        UMISystem.L0g("send 2");
                         this.stream.BeginWrite(packet.ToArray(), 0, packet.Length(), null, null);
-                    }
+                    }    
                 }
                 catch (Exception ex)
                 {
                     UMIServer.clients[this.UID].Disconnect();
                     UMIServerSend.disconnectSend(this.UID);
+                    UMIServerSend.leaveRoom(this.UID);
                     UMISystem.Log($"UMI::ERRSEND()->{ex}");
                 }
             }
@@ -72,6 +85,7 @@ namespace UMI.Network.Server
                         //Console.WriteLine(_byte_Length);
                         UMIServer.clients[this.UID].Disconnect();
                         UMIServerSend.disconnectSend(this.UID);
+                        UMIServerSend.leaveRoom(this.UID);
                         return;
                     }
                     byte[] data = new byte[byteLength];
@@ -85,6 +99,7 @@ namespace UMI.Network.Server
                 {
                     Console.WriteLine("UMI::ERRSEND()->"+ex);
                     UMIServerSend.disconnectSend(this.UID);
+                    UMIServerSend.leaveRoom(this.UID);
                     this.Disconnect();
                 }
             }
@@ -132,8 +147,8 @@ namespace UMI.Network.Server
 
             public void Disconnect()
             {
-                this.socket.Close();
-                this.stream = null;
+                this.socket = null;
+                this.stream = null; 
                 this.receiveBuffer = null;
                 this.receiveData = null;
                 this.socket = null;
@@ -143,7 +158,6 @@ namespace UMI.Network.Server
 
         public class UMIUDP
         {
-            public static UMIUDP UDP; 
             public IPEndPoint endPoint;
 
             private int UID;
@@ -182,7 +196,8 @@ namespace UMI.Network.Server
         }
         public void Disconnect()
         {
-            player = null; 
+            player = null;
+            data = null; 
             TCP.Disconnect();
             UDP.Disconnect();
         }
