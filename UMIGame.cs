@@ -14,6 +14,7 @@ namespace UMI.Manager
         public static bool Connected = true;
         public static bool Successed = true;
         public static bool Leave = true; 
+        public static bool isHeader = true; 
 
 
         public static bool loginConnect = true;

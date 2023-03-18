@@ -80,11 +80,13 @@ namespace UMI.Network.Server
         {
             int clientUID = packet.ReadInt();
             UMIServerSend.readyPlayerSend(clientUID);
+            UMIServer.clients[clientUID].data.isReadyPlayer(false);
         }
         public static void readyCancel(int fClient, UMIPacket packet)
         {
             int clientUID = packet.ReadInt();
             UMIServerSend.readyCancelSend(clientUID);
+            UMIServer.clients[clientUID].data.isReadyPlayer(true);
         }
 
 

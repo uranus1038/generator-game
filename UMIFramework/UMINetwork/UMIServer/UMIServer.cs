@@ -70,8 +70,6 @@ namespace UMI.Network.Server
             UMITCPListener = new TcpListener(IPAddress.Any, port);
             UMITCPListener.Start();
             UMITCPListener.BeginAcceptTcpClient(new AsyncCallback(TCPConnectCallback), null);
-
-
             UMIUDPListener = new UdpClient(port);
             UMIUDPListener.BeginReceive(UDPReceiveCallback, null);
 
@@ -83,15 +81,19 @@ namespace UMI.Network.Server
             TcpClient client = UMITCPListener.EndAcceptTcpClient(result);
             UMITCPListener.BeginAcceptTcpClient(new AsyncCallback(TCPConnectCallback), null);
             UMISystem.Log($"UMI::CONNECTFROMIPADRESS()->{client.Client.RemoteEndPoint}");
-            for (int i = 1; i <= maxPlayer; i++)
+            if(!UMI.Manager.UMIGame.isHeader)
             {
-                if (clients[i].TCP.socket == null)
+                for (int i = 4; i <= maxPlayer; i++)
                 {
-                    clients[i].TCP.Connect(client);
-                    return;
+                    if (clients[i].TCP.socket == null)
+                    {
+                        clients[i].TCP.Connect(client);
+                        return;
+                    }
                 }
+                UMISystem.Log($"UMI::STATUSSERVER()->{client.Client.RemoteEndPoint}.FULL");
             }
-            UMISystem.Log($"UMI::STATUSSERVER()->{client.Client.RemoteEndPoint}.FULL");
+          
             
         }
         public static void resetNetwork()

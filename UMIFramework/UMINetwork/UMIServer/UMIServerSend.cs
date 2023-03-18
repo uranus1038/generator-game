@@ -82,6 +82,7 @@ namespace UMI.Network.Server
                 packet.Write(Data.UID);
                 packet.Write(Data.userName);
                 packet.Write(Data.gender);
+                packet.Write(Data.isReady);
                 SendTCPData(toClient, packet);
             }
         }

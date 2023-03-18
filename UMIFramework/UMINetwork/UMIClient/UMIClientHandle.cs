@@ -33,7 +33,8 @@ namespace UMI.Network.Client
             int UID = packet.ReadInt();
             string userName = packet.ReadString();
             string gender = packet.ReadString();
-            Room.star.spawnLobby(UID, userName, gender);
+            bool isReady = packet.ReadBool();
+            Room.star.spawnLobby(UID, userName, gender , isReady);
         }
         public static void playerPosition2D(UMIPacket packet)
         {

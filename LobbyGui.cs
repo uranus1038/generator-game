@@ -265,6 +265,7 @@ public class LobbyGui : MonoBehaviour
             if (GUI.Button(new Rect(0.5f * this.display_0 + 98f, 660f, 334f / 2f, 206f / 2f), Language.getMessage("LobbyGui", 03), this.style_4))
             {
                 UMIGame.Join = true;
+                UMIGame.isHeader = true;
                 UMI.Manager.UMIGame.Serve = true;
                 UMI.Manager.UMIGame.Leave = true;
                 this.delay_0 = Time.time;
@@ -322,11 +323,20 @@ public class LobbyGui : MonoBehaviour
                     UMIGame.Connected = true;
                     UMIGame.Successed = false;
                 }
-                if (UMI.Manager.UMIGame.isFull && UMIClientManager.star.TCP.socket.Connected)
+               try
                 {
-                    UMI.UMISystem.L0g("serverIsfull");
+                    if (UMI.Manager.UMIGame.isFull && UMIClientManager.star.TCP.socket.Connected)
+                    {
+                        UMI.UMISystem.L0g("serverIsfull");
+                        this.delay_0 = Time.time;
+                        this.eLobbyRoom_0 = eLobbyRoomState.isFull;
+                    }
+                }
+                catch
+                {
                     this.delay_0 = Time.time;
-                    this.eLobbyRoom_0 = eLobbyRoomState.isFull;
+                    this.eLobbyRoom_0 = eLobbyRoomState.notFound;
+                    return;
                 }
                 if(UMIClientManager.star.TCP.socket == null)
                 {
@@ -475,8 +485,9 @@ public class LobbyGui : MonoBehaviour
     {
         if (UMIGame.Join)
         {
-            UMIGame.Successed = false;
+            UMIGame.isHeader = false;
             this.OnJoinServe();
+            UMIGame.Successed = false;
             UMIGame.Join = false;
             return;
         }

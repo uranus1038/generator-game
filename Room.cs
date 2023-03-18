@@ -87,6 +87,8 @@ public class Room : MonoBehaviour
         this.style_7.font = (Font)Resources.Load("GUI/Fonts/Prompt-Bold", typeof(Font));
         this.style_7.fontSize = 22;
         this.style_7.normal.textColor = new Color(0.5f, 0f, 0f, 0.8f);
+        this.nReady = 1;
+        this.nPlayer = 0;
         this.setInit();
 
     }
@@ -96,8 +98,6 @@ public class Room : MonoBehaviour
         this.playerObject_0 = new List<string>() { "0", "1", "2", "3", "4" };
         this.playerObject_1 = new List<string>() { "0", "1", "2", "3", "4" };
         this.isReady = new Dictionary<int, bool>() { { 1, true } , { 2, true }, { 3, true }, { 4, true } };
-        this.nReady = 1;
-        this.nPlayer = 0;
     }
     public void OnDisconnectServer()
     {
@@ -155,6 +155,8 @@ public class Room : MonoBehaviour
     }
     private void OnStartGame()
     {
+        UMI.UMISystem.L0g(this.nPlayer);
+        UMI.UMISystem.L0g(this.nReady);
         if (this.nPlayer == this.nReady)
         {
             this.OnJoinGame();
@@ -182,29 +184,16 @@ public class Room : MonoBehaviour
     public void roomManager(int clientUID)
     {
         this.players[clientUID] = false;
-        this.nPlayer -= 1;
-        if(!this.isReady[clientUID])
-        {
-            this.nReady -= 1;
-            this.isReady[clientUID] = true;
-        }
-        if(this.nPlayer <1)
-        {
-            this.nPlayer = 1;
-        }
-        if (this.nReady < 1)
-        {
-            this.nReady = 1;
-        }
         UMI.UMISystem.L0g(this.nPlayer);
         UMI.UMISystem.L0g(this.nReady);
     }
-    public void spawnLobby(int slot, string userName, string gender)
+    public void spawnLobby(int slot, string userName, string gender , bool isReady)
     {
         this.nPlayer += 1;
         this.playerObject_0[slot] = gender;
         this.playerObject_1[slot] = userName;
         this.players[slot] = true;
+        this.isReady[slot] = isReady;
         UMI.UMISystem.L0g("spawn");
     }
     private void OnGUI()
@@ -212,36 +201,6 @@ public class Room : MonoBehaviour
         GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, new Vector3((float)Screen.height / 1024f, (float)Screen.height / 1024f, 1f));
         GUI.depth = 2;
         this.display_0 = (float)(1024 * Screen.width / Screen.height);
-        switch (this.eRoomState_0)
-        {
-            case eRoomState.playerOut:
-                if (Time.time < this.delay_0 + 2f)
-                {
-                    this.RenderNoticeMessage(Language.getMessage("LobbyGui", 17));
-                    return;
-                }
-                this.delay_0 = Time.time;
-                this.eRoomState_0 = eRoomState.Init;
-                break;
-            case eRoomState.serverDisconnect:
-                if (Time.time < this.delay_0 + 2f)
-                {
-                    this.RenderNoticeMessage(Language.getMessage("LobbyGui", 18));
-                    return;
-                }
-                this.delay_0 = Time.time;
-                this.eRoomState_0 = eRoomState.Init;
-                break;
-            case eRoomState.playerAllReady:
-                this.RenderNoticeMessage(Language.getMessage("LobbyGui", 25));
-                if (Time.time - this.delay_0 > 1f)
-                {
-                    this.delay_0 = Time.time;
-                    this.eRoomState_0 = eRoomState.Init;
-                    return;
-                }
-                break;
-        }
         if (!UMIGame.Successed)
         {
             this.UID = UMIClientManager.star.UID;
@@ -257,6 +216,7 @@ public class Room : MonoBehaviour
             {
                 if (GUI.Button(new Rect(0.5f * this.display_0 + 520f, 800f, 334f / 2f, 206f / 2f), Language.getMessage("LobbyGui", 04), this.style_3))
                 {
+                    UMIGame.isHeader = true; 
                     this.hClose();
                     this.resetGame();
                     this.delay_0 = Time.time;
@@ -371,7 +331,7 @@ public class Room : MonoBehaviour
                 {
                     if (GUI.Button(new Rect(0.5f * this.display_0 - 130f, 476f, 104F / 2F, 99F / 2F), string.Empty, this.style_1))
                     {
-
+                        this.OnCancelPlayer(3);
                     }
                     if (isReady[3])
                     {
@@ -421,7 +381,7 @@ public class Room : MonoBehaviour
                 {
                     if (GUI.Button(new Rect(0.5f * this.display_0 - 130f, 569f, 104F / 2F, 99F / 2F), string.Empty, this.style_1))
                     {
-
+                        this.OnCancelPlayer(4);
                     }
                     if (isReady[3])
                     {
@@ -464,6 +424,37 @@ public class Room : MonoBehaviour
                     GUI.DrawTexture(new Rect(0.5f * this.display_0 - 630f, 529f, 238f / 3f, 238f / 3f), this.texture_5);
                 }
             }
+
+        }
+        switch (this.eRoomState_0)
+        {
+            case eRoomState.playerOut:
+                if (Time.time < this.delay_0 + 2f)
+                {
+                    this.RenderNoticeMessage(Language.getMessage("LobbyGui", 17));
+                    return;
+                }
+                this.delay_0 = Time.time;
+                this.eRoomState_0 = eRoomState.Init;
+                break;
+            case eRoomState.serverDisconnect:
+                if (Time.time < this.delay_0 + 2f)
+                {
+                    this.RenderNoticeMessage(Language.getMessage("LobbyGui", 18));
+                    return;
+                }
+                this.delay_0 = Time.time;
+                this.eRoomState_0 = eRoomState.Init;
+                break;
+            case eRoomState.playerAllReady:
+                this.RenderNoticeMessage(Language.getMessage("LobbyGui", 25));
+                if (Time.time - this.delay_0 > 1f)
+                {
+                    this.delay_0 = Time.time;
+                    this.eRoomState_0 = eRoomState.Init;
+                    return;
+                }
+                break;
         }
     }
     private void RenderNoticeMessage(string message)

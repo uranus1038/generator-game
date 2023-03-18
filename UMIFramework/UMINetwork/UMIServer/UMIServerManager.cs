@@ -214,7 +214,7 @@ namespace UMI.Network.Server
         }
         public void SendLobby(string playerName , string gender)
         {
-            data = new UMIPlayerData(this.UID, playerName, gender);
+            data = new UMIPlayerData(this.UID, playerName, gender , true);
             // Data old
             foreach (UMIServerManager client in UMIServer.clients.Values)
             {

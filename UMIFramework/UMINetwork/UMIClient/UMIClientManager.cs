@@ -278,7 +278,7 @@ namespace UMI.Network.Client
 
                 this.isConnected = false;
                 this.TCP.socket.Close();
-                //udp.Socket.Close();
+                this.UDP.socket.Close();
                 UMISystem.Log($"UMI::DISCONNECT()");
             }
         }
