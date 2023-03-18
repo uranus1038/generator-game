@@ -54,6 +54,8 @@ namespace UMI.Network.Server
                 {   (int)YUMIClientPackets.getConnectLobby , UMIServerHandle.connectLobby} ,
                 {   (int)YUMIClientPackets.reqCancelPlayer , UMIServerHandle.cancelPlayer} ,
                 {   (int)YUMIClientPackets.reqLeaveRoom , UMIServerHandle.leaveRoom} ,
+                {   (int)YUMIClientPackets.reqReady , UMIServerHandle.readyPlayer} ,
+                {   (int)YUMIClientPackets.reqCancelReady , UMIServerHandle.readyCancel} ,
             };
             UMISystem.Log("UMI::DATA_SERVER()->LOG->initializeServer");
         }
@@ -81,7 +83,7 @@ namespace UMI.Network.Server
             TcpClient client = UMITCPListener.EndAcceptTcpClient(result);
             UMITCPListener.BeginAcceptTcpClient(new AsyncCallback(TCPConnectCallback), null);
             UMISystem.Log($"UMI::CONNECTFROMIPADRESS()->{client.Client.RemoteEndPoint}");
-            for (int i = 4; i <= maxPlayer; i++)
+            for (int i = 1; i <= maxPlayer; i++)
             {
                 if (clients[i].TCP.socket == null)
                 {

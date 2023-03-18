@@ -32,7 +32,9 @@ namespace UMI.Network.Client
            { (int)YUMIServerPackets.resSpawnPlayerLobby ,UMIClientHandle.spawnPlayerLobby} ,
            { (int)YUMIServerPackets.resCancelPlayer ,UMIClientHandle.cancelPlayerRespon} ,
            { (int)YUMIServerPackets.resLeaveRoom ,UMIClientHandle.leaveRoom} ,
-           { (int)YUMIServerPackets.resIsFull ,UMIClientHandle.isMax} ,
+           { (int)YUMIServerPackets.resReady ,UMIClientHandle.readyPlayerRespon} ,
+           { (int)YUMIServerPackets.resCancelReady ,UMIClientHandle.cancelReadyRespon} ,
+        
         };
         }
         private void Awake()
@@ -87,7 +89,7 @@ namespace UMI.Network.Client
                     UMISystem.Log("UMI::SERVERSTATUS()->DOWN");
                     UMISystem.Log("UMI::SERVER_RESPON_STATUS()->LOG->CODE-400");
                     UMI.Manager.UMIGame.Connecting = false; 
-                    UMI.Manager.UMIGame.Connected = true; 
+                    
                     return;
                 }
                 stream = socket.GetStream();

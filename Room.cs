@@ -9,9 +9,8 @@ public class Room : MonoBehaviour
 {
     public static Room star;
     private int UID;
-    private int numPlayer;
-    private int validPlayer;
-    private bool isReady;
+    private int nPlayer;
+    private int nReady;
     protected float display_0;
     protected float delay_0;
     private Texture texture_0;
@@ -33,6 +32,7 @@ public class Room : MonoBehaviour
     private List<string> playerObject_0;
     private List<string> playerObject_1;
     private Dictionary<int, bool> players;
+    private Dictionary<int, bool> isReady;
     //enum
     eRoomState eRoomState_0;
     private void Awake()
@@ -95,7 +95,9 @@ public class Room : MonoBehaviour
         this.players = new Dictionary<int, bool>() { { 1, true }, { 2, false }, { 3, false }, { 4, false } };
         this.playerObject_0 = new List<string>() { "0", "1", "2", "3", "4" };
         this.playerObject_1 = new List<string>() { "0", "1", "2", "3", "4" };
-        this.isReady = true;
+        this.isReady = new Dictionary<int, bool>() { { 1, true } , { 2, true }, { 3, true }, { 4, true } };
+        this.nReady = 1;
+        this.nPlayer = 0;
     }
     public void OnDisconnectServer()
     {
@@ -109,13 +111,27 @@ public class Room : MonoBehaviour
         }
 
     }
+    public void OnCancelPlayer(int UID , string msg)
+    {
+        if (UID == UMIClientManager.star.UID)
+        {
+            this.OnLeaveRoom();
+            this.resetGame();
+            this.delay_0 = Time.time;
+            this.eRoomState_0 = eRoomState.playerOut;
+        }
+    }
+    private void OnCancelPlayer(int UID)
+    {
+        UMIClientSend.cancelPlayer(UID);
+    }
     private void hClose()
     {
         UMIServer.resetNetwork();
     }
     private void resetGame()
     {
-        UMIClientManager.star.TCP.socket.Close();
+        UMIClientManager.star.TCP.socket = null; 
         UMIGame.Serve = true;
         UMIGame.connectLobby = true;
         UMIGame.Connecting = true;
@@ -129,18 +145,67 @@ public class Room : MonoBehaviour
     {
         UMIClientSend.leaveRoom(UMIClientManager.star.UID);
     }
+    private void OnSubmitReady()
+    {
+        UMIClientSend.submitReadyPlayer(UMIClientManager.star.UID);
+    }
+    private void OnCancelReady()
+    {
+        UMIClientSend.submitCancelReady(UMIClientManager.star.UID);
+    }
+    private void OnStartGame()
+    {
+        if (this.nPlayer == this.nReady)
+        {
+            this.OnJoinGame();
+            UMI.UMISystem.L0g("Game Start");
+        }else
+        {
+            this.delay_0 = Time.time;
+            this.eRoomState_0 = eRoomState.playerAllReady;
+        }
+    }
+    public void OnCancel(int fClient)
+    {
+        this.nReady -= 1;
+        this.isReady[fClient] = true; 
+    }
+    public void OnReady(int fClient)
+    {
+        this.isReady[fClient] = false;
+        this.nReady += 1;
+    }
+    private void OnJoinGame()
+    {
+
+    }
     public void roomManager(int clientUID)
     {
         this.players[clientUID] = false;
+        this.nPlayer -= 1;
+        if(!this.isReady[clientUID])
+        {
+            this.nReady -= 1;
+            this.isReady[clientUID] = true;
+        }
+        if(this.nPlayer <1)
+        {
+            this.nPlayer = 1;
+        }
+        if (this.nReady < 1)
+        {
+            this.nReady = 1;
+        }
+        UMI.UMISystem.L0g(this.nPlayer);
+        UMI.UMISystem.L0g(this.nReady);
     }
     public void spawnLobby(int slot, string userName, string gender)
     {
-        this.numPlayer += 1;
+        this.nPlayer += 1;
         this.playerObject_0[slot] = gender;
         this.playerObject_1[slot] = userName;
         this.players[slot] = true;
         UMI.UMISystem.L0g("spawn");
-
     }
     private void OnGUI()
     {
@@ -167,6 +232,15 @@ public class Room : MonoBehaviour
                 this.delay_0 = Time.time;
                 this.eRoomState_0 = eRoomState.Init;
                 break;
+            case eRoomState.playerAllReady:
+                this.RenderNoticeMessage(Language.getMessage("LobbyGui", 25));
+                if (Time.time - this.delay_0 > 1f)
+                {
+                    this.delay_0 = Time.time;
+                    this.eRoomState_0 = eRoomState.Init;
+                    return;
+                }
+                break;
         }
         if (!UMIGame.Successed)
         {
@@ -190,7 +264,7 @@ public class Room : MonoBehaviour
                 }
                 if (GUI.Button(new Rect(0.5f * this.display_0 - 395f, 670f, 130f, 130f), Language.getMessage("LobbyGui", 22), this.style_5))
                 {
-
+                    this.OnStartGame();
                 }
             }
             else
@@ -202,18 +276,20 @@ public class Room : MonoBehaviour
                     this.delay_0 = Time.time;
                     return;
                 }
-                if (isReady)
+                if (isReady[1])
                 {
                     if (GUI.Button(new Rect(0.5f * this.display_0 - 395f, 670f, 130f, 130f), Language.getMessage("LobbyGui", 23), this.style_5))
                     {
-                        this.isReady = false;
+                        this.isReady[1] = false;
+                        this.OnSubmitReady();
                     }
                 }
                 else
                 {
                     if (GUI.Button(new Rect(0.5f * this.display_0 - 395f, 670f, 130f, 130f), Language.getMessage("LobbyGui", 21), this.style_5))
                     {
-                        this.isReady = true;
+                        this.isReady[1] = true;
+                        this.OnCancelReady();
                     }
                 }
             }
@@ -244,9 +320,10 @@ public class Room : MonoBehaviour
                 {
                     if (GUI.Button(new Rect(0.5f * this.display_0 - 130f, 383f, 104F / 2F, 99F / 2F), string.Empty, this.style_1))
                     {
-
+                        UMI.UMISystem.L0g("cancel player");
+                        this.OnCancelPlayer(2);
                     }
-                    if (isReady)
+                    if (isReady[2])
                     {
                         if (GUI.Button(new Rect(0.5f * this.display_0 - 230f, 383f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 20), this.style_7))
                         {
@@ -263,7 +340,7 @@ public class Room : MonoBehaviour
                 }
                 else
                 {
-                    if (isReady)
+                    if (isReady[2])
                     {
                         if (GUI.Button(new Rect(0.5f * this.display_0 - 150f, 383f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 20), this.style_7))
                         {
@@ -296,6 +373,37 @@ public class Room : MonoBehaviour
                     {
 
                     }
+                    if (isReady[3])
+                    {
+                        if (GUI.Button(new Rect(0.5f * this.display_0 - 230f, 476f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 20), this.style_7))
+                        {
+
+                        }
+                    }
+                    else
+                    {
+                        if (GUI.Button(new Rect(0.5f * this.display_0 - 230f, 476f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 19), this.style_6))
+                        {
+
+                        }
+                    }
+                }
+                else
+                {
+                    if (isReady[3])
+                    {
+                        if (GUI.Button(new Rect(0.5f * this.display_0 - 150f, 476f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 20), this.style_7))
+                        {
+
+                        }
+                    }
+                    else
+                    {
+                        if (GUI.Button(new Rect(0.5f * this.display_0 - 150f, 476f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 19), this.style_6))
+                        {
+
+                        }
+                    }
                 }
                 if (playerObject_0[3].ToString() == "male")
                 {
@@ -315,6 +423,37 @@ public class Room : MonoBehaviour
                     {
 
                     }
+                    if (isReady[3])
+                    {
+                        if (GUI.Button(new Rect(0.5f * this.display_0 - 230f, 569f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 20), this.style_7))
+                        {
+
+                        }
+                    }
+                    else
+                    {
+                        if (GUI.Button(new Rect(0.5f * this.display_0 - 230f, 569f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 19), this.style_6))
+                        {
+
+                        }
+                    }
+                }
+                else
+                {
+                    if (isReady[3])
+                    {
+                        if (GUI.Button(new Rect(0.5f * this.display_0 - 150f, 569f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 20), this.style_7))
+                        {
+
+                        }
+                    }
+                    else
+                    {
+                        if (GUI.Button(new Rect(0.5f * this.display_0 - 150f, 569f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 19), this.style_6))
+                        {
+
+                        }
+                    }
                 }
                 if (playerObject_0[4].ToString() == "male")
                 {
@@ -325,8 +464,6 @@ public class Room : MonoBehaviour
                     GUI.DrawTexture(new Rect(0.5f * this.display_0 - 630f, 529f, 238f / 3f, 238f / 3f), this.texture_5);
                 }
             }
-            return;
-
         }
     }
     private void RenderNoticeMessage(string message)

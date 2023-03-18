@@ -40,6 +40,7 @@ public class LobbyGui_th
             case 22: result = "เริ่มเกม"; break;
             case 23: result = "พร้อม"; break;
             case 24: result = "เซิฟเวอร์เต็ม"; break;
+            case 25: result = "ผู้เล่นยังไม่พร้อม"; break;
             default: return result;
         }
         return result;

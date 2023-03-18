@@ -10,8 +10,8 @@ namespace UMI.Network.Client
             int UID = packet.ReadInt();
             UMISystem.Log($"UMI::SERVER_RESPON()->{MAG}");
             UMIClientManager.star.UID = UID;
-            UMI.Manager.UMIGame.Connected = false;
             UMI.Manager.UMIGame.isFull = false;
+            UMI.Manager.UMIGame.Connected = false;
             if (UMI.Manager.UMIGame.connectLobby)
             {
                 UMISystem.L0g("Connect");
@@ -65,27 +65,27 @@ namespace UMI.Network.Client
             }
 
         }
-
         public static void cancelPlayerRespon(UMIPacket packet)
         {
-
+            int clientUID = packet.ReadInt();
+            Room.star.OnCancelPlayer(clientUID , "kicked");
         }
-
         public static void leaveRoom(UMIPacket packet)
         {
             int clientUID = packet.ReadInt();
             Room.star.roomManager(clientUID);
         }
-        public static void isMax(UMIPacket packet)
+        public static void readyPlayerRespon(UMIPacket packet)
         {
-            UMISystem.L0g("send");
-            int num = packet.ReadInt();
-            if (UMIClientManager.star.UID == num)
-            {
-                UMISystem.L0g("SERVER IS FULL");
-                UMIClientManager.star.TCP.socket.Close();
-                UMI.Manager.UMIGame.isFull = false;
-            }
+            int clientUID = packet.ReadInt();
+            Room.star.OnReady(clientUID);
         }
+        public static void cancelReadyRespon(UMIPacket packet)
+        {
+            int clientUID = packet.ReadInt();
+            Room.star.OnCancel(clientUID);
+        }
+
+
     }
 }

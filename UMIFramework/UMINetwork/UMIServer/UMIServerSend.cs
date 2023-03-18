@@ -117,7 +117,7 @@ namespace UMI.Network.Server
             using (UMIPacket packet = new UMIPacket((int)YUMIServerPackets.resCancelPlayer))
             {
                 packet.Write(client);
-                sendTCPDataExceptClient(client, packet);
+                sendTCPDataALL( packet);
             }
         }
         public static void leaveRoom(int client)
@@ -128,11 +128,18 @@ namespace UMI.Network.Server
                 sendTCPDataExceptClient(client, packet);
             }
         }
-        public static void serverFull(int client)
+        public static void readyPlayerSend(int client)
         {
-            using (UMIPacket packet = new UMIPacket((int)YUMIServerPackets.resIsFull))
+            using (UMIPacket packet = new UMIPacket((int)YUMIServerPackets.resReady))
             {
-                UMISystem.L0g("send");
+                packet.Write(client);
+                sendTCPDataALL(packet);
+            }
+        }
+        public static void readyCancelSend(int client)
+        {
+            using (UMIPacket packet = new UMIPacket((int)YUMIServerPackets.resCancelReady))
+            {
                 packet.Write(client);
                 sendTCPDataALL(packet);
             }

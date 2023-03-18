@@ -77,6 +77,30 @@ namespace UMI.Network.Client
                 sendTCPData(packet);
             }
         }
+        public static void submitReadyPlayer(int id)
+        {
+            using (UMIPacket packet = new UMIPacket((int)YUMIClientPackets.reqReady))
+            {
+                packet.Write(id);
+                sendTCPData(packet);
+            }
+        }
+        public static void submitCancelReady(int id)
+        {
+            using (UMIPacket packet = new UMIPacket((int)YUMIClientPackets.reqCancelReady))
+            {
+                packet.Write(id);
+                sendTCPData(packet);
+            }
+        }
+        public static void cancelPlayer(int id)
+        {
+            using (UMIPacket packet = new UMIPacket((int)YUMIClientPackets.reqCancelPlayer))
+            {
+                packet.Write(id);
+                sendTCPData(packet);
+            }
+        }
 
     }
 }

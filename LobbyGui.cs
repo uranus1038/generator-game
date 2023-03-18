@@ -328,6 +328,12 @@ public class LobbyGui : MonoBehaviour
                     this.delay_0 = Time.time;
                     this.eLobbyRoom_0 = eLobbyRoomState.isFull;
                 }
+                if(UMIClientManager.star.TCP.socket == null)
+                {
+                    UMI.UMISystem.L0g("Kicked");
+                    this.delay_0 = Time.time;
+                    this.eLobbyRoom_0 = eLobbyRoomState.createMutiplay;
+                }
             }
             else
             {
@@ -450,11 +456,10 @@ public class LobbyGui : MonoBehaviour
         if (GUI.Button(new Rect(0.5f * this.display_0 + 245f, 590f, 180f, 80f), Language.getMessage("LobbyGui", 15), this.style_13)) { }
         if (GUI.Button(new Rect(0.5f * this.display_0 + 60f, 542f, 334f / 2f, 206f / 2f), Language.getMessage("LobbyGui", 10), this.style_4))
         {
-            UMIClientManager.star.TCP.socket = null;
             UMIGame.Connected = true;
+            UMI.Manager.UMIGame.isFull = true;
             UMI.Manager.UMIGame.connectLobby = true;
             UMI.Manager.UMIGame.Join = true;
-            UMI.Manager.UMIGame.isFull = true;
             this.delay_0 = Time.time;
             this.eLobbyRoom_0 = eLobbyRoomState.isJoin;
         }

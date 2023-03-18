@@ -59,7 +59,8 @@ namespace UMI.Network.Server
 
         public static void cancelPlayer(int fClient, UMIPacket packet)
         {
-           
+            int clientUID = packet.ReadInt();
+            UMIServerSend.cancelPlayerSend(clientUID);
         }
 
         public static void leaveRoom(int fClient, UMIPacket packet)
@@ -75,7 +76,16 @@ namespace UMI.Network.Server
                 UMISystem.L0g("Player leave the room");
             }
         }
-
+        public static void readyPlayer(int fClient, UMIPacket packet)
+        {
+            int clientUID = packet.ReadInt();
+            UMIServerSend.readyPlayerSend(clientUID);
+        }
+        public static void readyCancel(int fClient, UMIPacket packet)
+        {
+            int clientUID = packet.ReadInt();
+            UMIServerSend.readyCancelSend(clientUID);
+        }
 
 
     }

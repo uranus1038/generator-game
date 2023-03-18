@@ -34,19 +34,6 @@ namespace UMI.Network.Server
             }
             public void Connect(TcpClient socket)
             {
-                UMISystem.L0g("Connect");
-                this.socket = socket;
-                socket.ReceiveBufferSize = dataBufferSize;
-                socket.SendBufferSize = dataBufferSize;
-                stream = this.socket.GetStream();
-                receiveBuffer = new byte[dataBufferSize];
-                stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
-                receiveData = new UMIPacket();
-                UMIServerSend.serverOn(this.UID, "SERVER_RESPON_STATUS()->LOG->CODE-200");
-            }
-            public void isFull(TcpClient socket)
-            {
-                UMISystem.L0g("Connect");
                 this.socket = socket;
                 socket.ReceiveBufferSize = dataBufferSize;
                 socket.SendBufferSize = dataBufferSize;
@@ -62,7 +49,6 @@ namespace UMI.Network.Server
                 {
                     if (this.socket != null)
                     {
-                        UMISystem.L0g("send 2");
                         this.stream.BeginWrite(packet.ToArray(), 0, packet.Length(), null, null);
                     }    
                 }
@@ -147,7 +133,8 @@ namespace UMI.Network.Server
 
             public void Disconnect()
             {
-                this.socket = null;
+                this.socket.Close();
+                this.socket = null; 
                 this.stream = null; 
                 this.receiveBuffer = null;
                 this.receiveData = null;

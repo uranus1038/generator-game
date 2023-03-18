@@ -11,6 +11,8 @@ public enum YUMIServerPackets
     resCancelPlayer , 
     resLeaveRoom , 
     resIsFull , 
+    resReady , 
+    resCancelReady , 
 }
 
 // Receive from client
@@ -24,6 +26,7 @@ public enum YUMIClientPackets
     getConnectLobby ,
     reqCancelPlayer , 
     reqLeaveRoom , 
-    reqIsFUll , 
-
+    reqIsFUll ,
+    reqReady,
+    reqCancelReady,
 }
