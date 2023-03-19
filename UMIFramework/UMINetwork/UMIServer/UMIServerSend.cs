@@ -28,10 +28,17 @@ namespace UMI.Network.Server
             packet.WriteLength();
             for (int i = 1; i <= UMIServer.maxPlayer; i++)
             {
-                if (i != exceptClient)
+                try
                 {
-                    UMIServer.clients[i].TCP.SendData(packet);
+                    if (i != exceptClient)
+                    {
+                        UMIServer.clients[i].TCP.SendData(packet);
+                    }
+                }catch
+                {
+                    UMISystem.L0g("ServerDown");
                 }
+               
             }
         }
         //Send udp data to all users

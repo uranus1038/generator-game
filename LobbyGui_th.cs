@@ -13,7 +13,7 @@ public class LobbyGui_th
             case 04: result = "ย้อนกลับ"; break;
             case 05: result = "กำลังโหลดข้อมูล"; break;
             case 06: result = "กำลังเชื่อต่อ"; break;
-            case 07: result = "ไม่พบเซิฟเวอร์"; break;
+            case 07: result = "ไม่พบห้อง"; break;
             case 08: result = "สร้างห้อง"; break;
             case 09: result = "เล่นหลายคน"; break;
             case 10: result = "เข้าร่วม"; break;
@@ -39,7 +39,7 @@ public class LobbyGui_th
             case 21: result = "ยกเลิก"; break;
             case 22: result = "เริ่มเกม"; break;
             case 23: result = "พร้อม"; break;
-            case 24: result = "เซิฟเวอร์เต็ม"; break;
+            case 24: result = "ไม่พบห้อง"; break;
             case 25: result = "ผู้เล่นยังไม่พร้อม"; break;
             default: return result;
         }

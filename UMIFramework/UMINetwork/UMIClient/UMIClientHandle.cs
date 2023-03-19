@@ -18,7 +18,14 @@ namespace UMI.Network.Client
                 UMIClientSend.requastConnectLobby();
                 UMI.Manager.UMIGame.connectLobby = false;
             }
+            try
+            {
+
             UMIClientManager.star.UDP.Connect(((IPEndPoint)UMIClientManager.star.TCP.socket.Client.LocalEndPoint).Port);
+            }catch
+            {
+                UMISystem.L0g("LocalEndPoint NULL");
+            }
         }
         public static void spawnPlayer(UMIPacket packet)
         {

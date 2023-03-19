@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Net;
 using System.Net.Sockets;
 using System;
+using UMI.Network.Server;
 namespace UMI.Network.Client
 {
     public class UMIClientManager : MonoBehaviour
@@ -55,8 +56,9 @@ namespace UMI.Network.Client
         // Quit Gmae 
         public void OnApplicationQuit()
         {
+            UMIServer.resetNetwork();
             UMIClientSend.DisconnectSend(this.UID);
-            Disconnect();
+            this.Disconnect();
         }
         public void connectServer(string UMIIPAdress)
         {
@@ -277,8 +279,8 @@ namespace UMI.Network.Client
             {
 
                 this.isConnected = false;
-                this.TCP.socket.Close();
-                this.UDP.socket.Close();
+                this.TCP.socket = null;
+                this.UDP.socket = null; 
                 UMISystem.Log($"UMI::DISCONNECT()");
             }
         }

@@ -14,7 +14,7 @@ public class LobbyGui_eng
             case 04: result = "Back"; break;
             case 05: result = "Loading Data "; break;
             case 06: result = "Connecting"; break;
-            case 07: result = "Server not found"; break;
+            case 07: result = "Room not found"; break;
             case 08: result = "Create Room"; break;
             case 09: result = "Mutiplayer"; break;
             case 10: result = "Join"; break;
@@ -40,7 +40,7 @@ public class LobbyGui_eng
             case 21: result = "CANCEL"; break;
             case 22: result = "START"; break;
             case 23: result = "READY"; break;
-            case 24: result = "Server is full"; break;
+            case 24: result = "Room not found"; break;
             case 25: result = "The player is not ready yet."; break;
             default: return result;
         }

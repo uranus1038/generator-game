@@ -40,7 +40,8 @@ public class Room : MonoBehaviour
         this.Init();
         this.eRoomState_0 = eRoomState.Init;
         star = this;
-
+        this.nReady = 1;
+        this.nPlayer = 0;
     }
     private void Init()
     {
@@ -87,8 +88,6 @@ public class Room : MonoBehaviour
         this.style_7.font = (Font)Resources.Load("GUI/Fonts/Prompt-Bold", typeof(Font));
         this.style_7.fontSize = 22;
         this.style_7.normal.textColor = new Color(0.5f, 0f, 0f, 0.8f);
-        this.nReady = 1;
-        this.nPlayer = 0;
         this.setInit();
 
     }
@@ -183,6 +182,11 @@ public class Room : MonoBehaviour
     }
     public void roomManager(int clientUID)
     {
+        this.nPlayer -= 1;
+        if(!this.isReady[clientUID])
+        {
+            this.nReady -= 1; 
+        }
         this.players[clientUID] = false;
         UMI.UMISystem.L0g(this.nPlayer);
         UMI.UMISystem.L0g(this.nReady);
@@ -383,7 +387,7 @@ public class Room : MonoBehaviour
                     {
                         this.OnCancelPlayer(4);
                     }
-                    if (isReady[3])
+                    if (isReady[4])
                     {
                         if (GUI.Button(new Rect(0.5f * this.display_0 - 230f, 569f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 20), this.style_7))
                         {
@@ -400,7 +404,7 @@ public class Room : MonoBehaviour
                 }
                 else
                 {
-                    if (isReady[3])
+                    if (isReady[4])
                     {
                         if (GUI.Button(new Rect(0.5f * this.display_0 - 150f, 569f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 20), this.style_7))
                         {
