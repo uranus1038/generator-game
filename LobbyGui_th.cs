@@ -41,6 +41,7 @@ public class LobbyGui_th
             case 23: result = "พร้อม"; break;
             case 24: result = "ไม่พบห้อง"; break;
             case 25: result = "ผู้เล่นยังไม่พร้อม"; break;
+            case 26: result = "ความสามารถ"; break;
             default: return result;
         }
         return result;

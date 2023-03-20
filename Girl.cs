@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Girl : GirlClass
 {
-    protected float offset_0 = -16f;
+    protected float offset_0 = -12f;
+    protected float offset_1 = -10f;
     protected float speed_2 = 4.2f;
     void Update()
     {
         this.OnPlayerController();
-        this.OnEffectMovementPlayer(this.offset_0, this.speed_2);
+        this.OnEffectMovementPlayer(this.offset_0, this.offset_1, this.speed_2);
     }
 }

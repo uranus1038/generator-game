@@ -11,6 +11,7 @@ public class Room : MonoBehaviour
     private int UID;
     private int nPlayer;
     private int nReady;
+    public bool isShowSkill;
     protected float display_0;
     protected float delay_0;
     private Texture texture_0;
@@ -20,6 +21,10 @@ public class Room : MonoBehaviour
     private Texture texture_4;
     private Texture texture_5;
     private Texture texture_6;
+    private Texture texture_7;
+    private Texture texture_8;
+    private Texture texture_9;
+    private Texture texture_10;
     private GUIStyle style_0;
     private GUIStyle style_1;
     private GUIStyle style_2;
@@ -28,6 +33,7 @@ public class Room : MonoBehaviour
     private GUIStyle style_5;
     private GUIStyle style_6;
     private GUIStyle style_7;
+    private GUIStyle style_8;
     // Resources
     private List<string> playerObject_0;
     private List<string> playerObject_1;
@@ -40,8 +46,6 @@ public class Room : MonoBehaviour
         this.Init();
         this.eRoomState_0 = eRoomState.Init;
         star = this;
-        this.nReady = 1;
-        this.nPlayer = 0;
     }
     private void Init()
     {
@@ -51,6 +55,10 @@ public class Room : MonoBehaviour
         this.texture_4 = (Texture)Resources.Load("GUI/Room/hopeIcon", typeof(Texture));
         this.texture_5 = (Texture)Resources.Load("GUI/Room/manaoIcon", typeof(Texture));
         this.texture_6 = (Texture)Resources.Load("GUI/Lobby/Notice_bar", typeof(Texture));
+        this.texture_7 = (Texture)Resources.Load("GUI/Room/Paper", typeof(Texture));
+        this.texture_8 = (Texture)Resources.Load("GUI/Skill/Dash", typeof(Texture));
+        this.texture_9 = (Texture)Resources.Load("GUI/Skill/Navigate", typeof(Texture));
+        this.texture_10 = (Texture)Resources.Load("GUI/Skill/Spay", typeof(Texture));
         this.style_0 = new GUIStyle();
         this.style_0.font = (Font)Resources.Load("GUI/Fonts/Prompt-Bold", typeof(Font));
         this.style_0.fontSize = 22;
@@ -88,117 +96,15 @@ public class Room : MonoBehaviour
         this.style_7.font = (Font)Resources.Load("GUI/Fonts/Prompt-Bold", typeof(Font));
         this.style_7.fontSize = 22;
         this.style_7.normal.textColor = new Color(0.5f, 0f, 0f, 0.8f);
+        this.style_8 = new GUIStyle();
+        this.style_8.normal.background = (Texture2D)((Texture)Resources.Load("GUI/Room/Btn02_n", typeof(Texture)));
+        this.style_8.hover.background = (Texture2D)((Texture)Resources.Load("GUI/Room/Btn02_h", typeof(Texture)));
+        this.style_8.fontSize = 26;
+        this.style_8.alignment = TextAnchor.MiddleCenter;
+        this.style_8.font = (Font)Resources.Load("GUI/Fonts/Prompt-Bold", typeof(Font));
+        this.style_8.normal.textColor = new Color(0f, 0.1f, 0.2f, 0.8f);
         this.setInit();
 
-    }
-    private void setInit()
-    {
-        this.players = new Dictionary<int, bool>() { { 1, true }, { 2, false }, { 3, false }, { 4, false } };
-        this.playerObject_0 = new List<string>() { "0", "1", "2", "3", "4" };
-        this.playerObject_1 = new List<string>() { "0", "1", "2", "3", "4" };
-        this.isReady = new Dictionary<int, bool>() { { 1, true } , { 2, true }, { 3, true }, { 4, true } };
-    }
-    public void OnDisconnectServer()
-    {
-        if (!players[1])
-        {
-            this.OnLeaveRoom();
-            this.resetGame();
-            this.delay_0 = Time.time;
-            this.eRoomState_0 = eRoomState.serverDisconnect;
-            return;
-        }
-
-    }
-    public void OnCancelPlayer(int UID , string msg)
-    {
-        if (UID == UMIClientManager.star.UID)
-        {
-            this.OnLeaveRoom();
-            this.resetGame();
-            this.delay_0 = Time.time;
-            this.eRoomState_0 = eRoomState.playerOut;
-        }
-    }
-    private void OnCancelPlayer(int UID)
-    {
-        UMIClientSend.cancelPlayer(UID);
-    }
-    private void hClose()
-    {
-        UMIServer.resetNetwork();
-    }
-    private void resetGame()
-    {
-        UMIClientManager.star.TCP.socket = null; 
-        UMIGame.Serve = true;
-        UMIGame.connectLobby = true;
-        UMIGame.Connecting = true;
-        UMIGame.Connected = true;
-        UMIGame.Successed = true;
-        UMIGame.Leave = false;
-        this.setInit();
-        UMI.UMISystem.L0g("ResetRoom");
-    }
-    private void OnLeaveRoom()
-    {
-        UMIClientSend.leaveRoom(UMIClientManager.star.UID);
-    }
-    private void OnSubmitReady()
-    {
-        UMIClientSend.submitReadyPlayer(UMIClientManager.star.UID);
-    }
-    private void OnCancelReady()
-    {
-        UMIClientSend.submitCancelReady(UMIClientManager.star.UID);
-    }
-    private void OnStartGame()
-    {
-        UMI.UMISystem.L0g(this.nPlayer);
-        UMI.UMISystem.L0g(this.nReady);
-        if (this.nPlayer == this.nReady)
-        {
-            this.OnJoinGame();
-            UMI.UMISystem.L0g("Game Start");
-        }else
-        {
-            this.delay_0 = Time.time;
-            this.eRoomState_0 = eRoomState.playerAllReady;
-        }
-    }
-    public void OnCancel(int fClient)
-    {
-        this.nReady -= 1;
-        this.isReady[fClient] = true; 
-    }
-    public void OnReady(int fClient)
-    {
-        this.isReady[fClient] = false;
-        this.nReady += 1;
-    }
-    private void OnJoinGame()
-    {
-
-    }
-    public void roomManager(int clientUID)
-    {
-        this.nPlayer -= 1;
-        if(!this.isReady[clientUID])
-        {
-            this.nReady -= 1; 
-        }
-        this.players[clientUID] = false;
-        UMI.UMISystem.L0g(this.nPlayer);
-        UMI.UMISystem.L0g(this.nReady);
-    }
-    public void spawnLobby(int slot, string userName, string gender , bool isReady)
-    {
-        this.nPlayer += 1;
-        this.playerObject_0[slot] = gender;
-        this.playerObject_1[slot] = userName;
-        this.players[slot] = true;
-        this.isReady[slot] = isReady;
-        UMI.UMISystem.L0g("spawn");
     }
     private void OnGUI()
     {
@@ -208,6 +114,12 @@ public class Room : MonoBehaviour
         if (!UMIGame.Successed)
         {
             this.UID = UMIClientManager.star.UID;
+            if (GUI.Button(new Rect(0.5f * this.display_0 + 20f, 420f, 393f / 2.5f, 193f / 2.5f), Language.getMessage("LobbyGui", 26), this.style_8))
+            {
+                this.delay_0 = Time.time;
+                this.isShowSkill = false;
+            }
+
             if (UMIData.getStringPlayerData(2) == "male")
             {
                 GUI.DrawTexture(new Rect(0.5f * this.display_0 + 220f, 160f, 508f / 2f, 728f / 2f), this.texture_2);
@@ -220,7 +132,7 @@ public class Room : MonoBehaviour
             {
                 if (GUI.Button(new Rect(0.5f * this.display_0 + 520f, 800f, 334f / 2f, 206f / 2f), Language.getMessage("LobbyGui", 04), this.style_3))
                 {
-                    UMIGame.isHeader = true; 
+                    UMIGame.isHeader = true;
                     this.hClose();
                     this.resetGame();
                     this.delay_0 = Time.time;
@@ -460,6 +372,128 @@ public class Room : MonoBehaviour
                 }
                 break;
         }
+        if (!isShowSkill)
+        {
+            GUI.DrawTexture(new Rect(0.5f * this.display_0 - 1472 / 4f, Mathf.SmoothStep(2048f, 45f, Time.time - this.delay_0),
+                1472f / 2f, 1881f / 2f), this.texture_7);
+            GUI.DrawTexture(new Rect(0.5f * this.display_0 - 220f, Mathf.SmoothStep(2048f, 160f, Time.time - this.delay_0), 262f / 2f, 298f / 2f), this.texture_8);
+            GUI.DrawTexture(new Rect(0.5f * this.display_0 - 220f, Mathf.SmoothStep(2048f, 360f, Time.time - this.delay_0), 262f / 2f, 298f / 2f), this.texture_9);
+            GUI.DrawTexture(new Rect(0.5f * this.display_0 - 220f, Mathf.SmoothStep(2048f, 560f, Time.time - this.delay_0), 262f / 2f, 298f / 2f), this.texture_10);
+            GUI.Box(new Rect(0.5f * this.display_0 - 80f, Mathf.SmoothStep(2048f, 160f, Time.time - this.delay_0), 262f / 2f, 298f / 2f),"Dsah" ,this.style_4);
+        }
+    }
+    private void setInit()
+    {
+        this.players = new Dictionary<int, bool>() { { 1, true }, { 2, false }, { 3, false }, { 4, false } };
+        this.playerObject_0 = new List<string>() { "0", "1", "2", "3", "4" };
+        this.playerObject_1 = new List<string>() { "0", "1", "2", "3", "4" };
+        this.isReady = new Dictionary<int, bool>() { { 1, true }, { 2, true }, { 3, true }, { 4, true } };
+        this.nReady = 1;
+        this.nPlayer = 0;
+        this.isShowSkill = true;
+    }
+    public void OnDisconnectServer()
+    {
+        if (!players[1])
+        {
+            this.OnLeaveRoom();
+            this.resetGame();
+            this.delay_0 = Time.time;
+            this.eRoomState_0 = eRoomState.serverDisconnect;
+            return;
+        }
+
+    }
+    public void OnCancelPlayer(int UID, string msg)
+    {
+        if (UID == UMIClientManager.star.UID)
+        {
+            this.OnLeaveRoom();
+            this.resetGame();
+            this.delay_0 = Time.time;
+            this.eRoomState_0 = eRoomState.playerOut;
+        }
+    }
+    private void OnCancelPlayer(int UID)
+    {
+        UMIClientSend.cancelPlayer(UID);
+    }
+    private void hClose()
+    {
+        UMIServer.resetNetwork();
+    }
+    private void resetGame()
+    {
+        UMIClientManager.star.TCP.socket = null;
+        UMIGame.Serve = true;
+        UMIGame.connectLobby = true;
+        UMIGame.Connecting = true;
+        UMIGame.Connected = true;
+        UMIGame.Successed = true;
+        UMIGame.Leave = false;
+        this.setInit();
+        UMI.UMISystem.L0g("ResetRoom");
+    }
+    private void OnLeaveRoom()
+    {
+        UMIClientSend.leaveRoom(UMIClientManager.star.UID);
+    }
+    private void OnSubmitReady()
+    {
+        UMIClientSend.submitReadyPlayer(UMIClientManager.star.UID);
+    }
+    private void OnCancelReady()
+    {
+        UMIClientSend.submitCancelReady(UMIClientManager.star.UID);
+    }
+    private void OnStartGame()
+    {
+        UMI.UMISystem.L0g(this.nPlayer);
+        UMI.UMISystem.L0g(this.nReady);
+        if (this.nPlayer == this.nReady)
+        {
+            this.OnJoinGame();
+            UMI.UMISystem.L0g("Game Start");
+        }
+        else
+        {
+            this.delay_0 = Time.time;
+            this.eRoomState_0 = eRoomState.playerAllReady;
+        }
+    }
+    public void OnCancel(int fClient)
+    {
+        this.nReady -= 1;
+        this.isReady[fClient] = true;
+    }
+    public void OnReady(int fClient)
+    {
+        this.isReady[fClient] = false;
+        this.nReady += 1;
+    }
+    private void OnJoinGame()
+    {
+
+    }
+    public void roomManager(int clientUID)
+    {
+        this.nPlayer -= 1;
+        if (!this.isReady[clientUID])
+        {
+            this.nReady -= 1;
+        }
+        this.players[clientUID] = false;
+        UMI.UMISystem.L0g(this.nPlayer);
+        UMI.UMISystem.L0g(this.nReady);
+    }
+    public void spawnLobby(int slot, string userName, string gender, bool isReady)
+    {
+        this.nPlayer += 1;
+        this.playerObject_0[slot] = gender;
+        this.playerObject_1[slot] = userName;
+        this.players[slot] = true;
+        this.isReady[slot] = isReady;
+        UMI.UMISystem.L0g("spawn");
     }
     private void RenderNoticeMessage(string message)
     {

@@ -42,6 +42,7 @@ public class LobbyGui_eng
             case 23: result = "READY"; break;
             case 24: result = "Room not found"; break;
             case 25: result = "The player is not ready yet."; break;
+            case 26: result = "Skill"; break;
             default: return result;
         }
         return result;

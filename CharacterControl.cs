@@ -692,29 +692,29 @@ public class CharacterControl : MonoBehaviour
             this.action.Play(this.actorState[11], 0, 0);
 
     }
-    protected void OnEffectMovementPlayer(float offset_0, float speed_1)
+    protected void OnEffectMovementPlayer(float offset_0, float offset_1,float speed_1)
     {
         if (Input.GetButton("left shift") && Input.GetButton("a"))
         {
-            PlayerCameraControl.star.offest_1 = offset_0;
+            PlayerCameraControl.star.updateOffset(offset_0);
             this.speed_1 = speed_1;
         }
         else if (Input.GetButton("left shift") && Input.GetButton("w"))
         {
-            PlayerCameraControl.star.offest_1 = offset_0;
+            PlayerCameraControl.star.updateOffset(offset_0);
             this.speed_1 = speed_1;
         }
         else if (Input.GetButton("left shift") && Input.GetButton("d"))
         {
-            PlayerCameraControl.star.offest_1 = offset_0;
+            PlayerCameraControl.star.updateOffset(offset_0);
             this.speed_1 = speed_1;
         }
         else if (Input.GetButton("left shift") && Input.GetButton("s"))
         {
-            PlayerCameraControl.star.offest_1 = offset_0;
+            PlayerCameraControl.star.updateOffset(offset_0);
             this.speed_1 = speed_1;
         }
-        else { PlayerCameraControl.star.offest_1 = -15f; this.speed_1 = 3f; }
+        else { PlayerCameraControl.star.updateOffset(offset_1); this.speed_1 = 3f; }
 
     }
 
