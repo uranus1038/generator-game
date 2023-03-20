@@ -74,14 +74,6 @@ public class LobbyGui : MonoBehaviour
         this.InitCreateRoom();
         this.InitRoom();
     }
-    private void Start()
-    {
-#pragma warning disable UNT0010 // Component instance creation
-        if (this.LoadingGui == null)
-            this.LoadingGui = GetComponent<LoadingGui>();
-#pragma warning restore UNT0010 // Component instance creation
-    }
-
     private void InitaMenu()
     {
         this.texture_0 = (Texture)Resources.Load("GUI/Lobby/Lobby_background01", typeof(Texture));

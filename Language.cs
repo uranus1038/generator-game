@@ -22,6 +22,7 @@ public class Language : MonoBehaviour
 		switch(nScriptName)
         {
 			case "LobbyGui": result = LobbyGui_th.getMessage(nCode); break; 
+			case "GameGui": result = GameGui_th.getMessage(nCode); break; 
         }
 		return result; 
 	}
@@ -31,6 +32,7 @@ public class Language : MonoBehaviour
 		switch (nScriptName)
 		{
 			case "LobbyGui": result = LobbyGui_eng.getMessage(nCode); break;
+			case "GameGui": result = GameGui_eng.getMessage(nCode); break;
 		}
 		return result;
 	}

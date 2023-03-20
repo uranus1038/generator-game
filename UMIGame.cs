@@ -6,6 +6,7 @@ namespace UMI.Manager
 {
     public class UMIGame : MonoBehaviour
     {
+        // Network
         public static bool isFull = true;
         public static bool Serve = true;
         public static bool Join = true;
@@ -15,10 +16,12 @@ namespace UMI.Manager
         public static bool Successed = true;
         public static bool Leave = true; 
         public static bool isHeader = true; 
-
-
+        // Login
         public static bool loginConnect = true;
         public static bool loginFail = true;
+        //Game Start
+        public static bool Start = true;
+
         public static void LoadNextLevel(int num)
         {
 
