@@ -47,15 +47,16 @@ namespace UMI.Network.Server
             {
                 //receive
                 {   (int)YUMIClientPackets.getRespon , UMIServerHandle.connectReq },
+                {   (int)YUMIClientPackets.reqSpawnPlayer, UMIServerHandle.spawnPlayer} , 
                 {   (int)YUMIClientPackets.reqPlayerMovement , UMIServerHandle.playerMovement2D},
                 {   (int)YUMIClientPackets.reqDisconnect , UMIServerHandle.disconnectReceive} ,
-                {   (int)YUMIClientPackets.reqSpawnPlayer , UMIServerHandle.spawnPlayer} ,
                 {   (int)YUMIClientPackets.reqAnimation , UMIServerHandle.playerAnimation} ,
                 {   (int)YUMIClientPackets.getConnectLobby , UMIServerHandle.connectLobby} ,
                 {   (int)YUMIClientPackets.reqCancelPlayer , UMIServerHandle.cancelPlayer} ,
                 {   (int)YUMIClientPackets.reqLeaveRoom , UMIServerHandle.leaveRoom} ,
                 {   (int)YUMIClientPackets.reqReady , UMIServerHandle.readyPlayer} ,
                 {   (int)YUMIClientPackets.reqCancelReady , UMIServerHandle.readyCancel} ,
+                {   (int)YUMIClientPackets.reqStartGame , UMIServerHandle.startGame} ,
             };
             UMISystem.Log("UMI::DATA_SERVER()->LOG->initializeServer");
         }
@@ -65,7 +66,6 @@ namespace UMI.Network.Server
             port = portV;
             UMISystem.Log("UMI::START()->SERVERRUNNING");
             initializeServerData();
-
             // Start Server
             try
             {
@@ -82,7 +82,6 @@ namespace UMI.Network.Server
             }
             UMISystem.Log($"UMI::PORT->{port}");
         }
-
         private static void TCPConnectCallback(IAsyncResult result)
         {
             TcpClient client = UMITCPListener.EndAcceptTcpClient(result);
@@ -100,8 +99,6 @@ namespace UMI.Network.Server
                 }
                 UMISystem.Log($"UMI::STATUSSERVER()->{client.Client.RemoteEndPoint}.FULL");
             }
-          
-            
         }
         public static void resetNetwork()
         {

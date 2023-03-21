@@ -170,6 +170,9 @@ public class Room : MonoBehaviour
     {
 
         this.UID = UMIClientManager.star.UID;
+        GUI.Box(new Rect(0.5f * this.display_0 + 145f,  650f, 262f / 2f, 298f / 2f), Language.getMessage("GameGui", 03), this.style_0);
+        GUI.Box(new Rect(0.5f * this.display_0 + 295f,  650f, 262f / 2f, 298f / 2f), Language.getMessage("GameGui", 04), this.style_0);
+        GUI.Box(new Rect(0.5f * this.display_0 + 520f,  650f, 262f / 2f, 298f / 2f), Language.getMessage("GameGui", 05), this.style_0);
         if (GUI.Button(new Rect(0.5f * this.display_0 + 20f, 420f, 393f / 2.5f, 193f / 2.5f), Language.getMessage("LobbyGui", 26), this.style_8))
         {
             this.delay_0 = Time.time;
@@ -441,6 +444,10 @@ public class Room : MonoBehaviour
         }
         GUI.Box(new Rect(0.5f * this.display_0 - 395f, 670f, 130f, 130f), this.setUp.getTime(), this.style_9);
     }
+    private void OnSubmitStart()
+    {
+        UMIClientSend.OnSubmitStart("Start Game!");
+    }
     private void setInit()
     {
         this.players = new Dictionary<int, bool>() { { 1, true }, { 2, false }, { 3, false }, { 4, false } };
@@ -480,6 +487,7 @@ public class Room : MonoBehaviour
     }
     private void hClose()
     {
+        UMIGame.Start = true;
         UMIServer.resetNetwork();
     }
     private void resetGame()
@@ -490,6 +498,7 @@ public class Room : MonoBehaviour
         UMIGame.Connecting = true;
         UMIGame.Connected = true;
         UMIGame.Successed = true;
+        UMIGame.Start = true;
         UMIGame.Leave = false;
         this.setInit();
         UMI.UMISystem.L0g("ResetRoom");
@@ -512,8 +521,10 @@ public class Room : MonoBehaviour
         UMI.UMISystem.L0g(this.nReady);
         if (this.nPlayer == this.nReady)
         {
+            this.OnSubmitStart();
             this.OnStart();
             UMI.UMISystem.L0g("Game Start");
+            UMI.Manager.UMIGame.isHeader = true; 
         }
         else
         {
@@ -531,14 +542,14 @@ public class Room : MonoBehaviour
         this.isReady[fClient] = false;
         this.nReady += 1;
     }
-    private void OnStart()
+    public void OnStart()
     {
         this.setUp.OnStart(5f);
         UMIGame.Start = false;
     }
     private void OnJoinGame()
     {
-        UMIGame.LoadNextLevel(1);
+        UMIGame.LoadNextLevel(3);
     }
     public void roomManager(int clientUID)
     {
@@ -564,6 +575,12 @@ public class Room : MonoBehaviour
     {
         GUI.DrawTexture(new Rect(0.5f * this.display_0 - 645f / 2.8f, 1024 / 2.5f, 735f / 1.4f, 243f / 1.4f), this.texture_6);
         GUI.Label(new Rect(0.5f * this.display_0 - 645f / 2.8f, 1024f / 2.5f, 700f / 1.4f, 268f / 1.4f), message, this.style_4);
+    }
+    public void OnApplicationQuit()
+    {
+
+        UMIClientSend.leaveRoom(this.UID);
+
     }
 }
 

@@ -27,14 +27,6 @@ namespace UMI.Network.Client
                 UMISystem.L0g("LocalEndPoint NULL");
             }
         }
-        public static void spawnPlayer(UMIPacket packet)
-        {
-            int UID = packet.ReadInt();
-            string userName = packet.ReadString();
-            Vector3 position = packet.ReadVector3();
-            Quaternion rotation = packet.ReadQuaternion();
-            UMIGameManager.star.spawnPlayer(UID, userName, position, rotation);
-        }
         public static void spawnPlayerLobby(UMIPacket packet)
         {
             int UID = packet.ReadInt();
@@ -92,6 +84,10 @@ namespace UMI.Network.Client
         {
             int clientUID = packet.ReadInt();
             Room.star.OnCancel(clientUID);
+        }
+        public static void getStart(UMIPacket packet)
+        {
+            Room.star.OnStart();
         }
 
 

@@ -13,15 +13,16 @@ public enum YUMIServerPackets
     resIsFull , 
     resReady , 
     resCancelReady , 
+    resStartGame ,
 }
 
 // Receive from client
 public enum YUMIClientPackets
 {
     getRespon = 1,
+    reqSpawnPlayer  ,
     reqPlayerMovement,
     reqDisconnect,   
-    reqSpawnPlayer  ,
     reqAnimation  , 
     getConnectLobby ,
     reqCancelPlayer , 
@@ -29,4 +30,5 @@ public enum YUMIClientPackets
     reqIsFUll ,
     reqReady,
     reqCancelReady,
+    reqStartGame , 
 }

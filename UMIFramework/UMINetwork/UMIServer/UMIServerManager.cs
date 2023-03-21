@@ -189,16 +189,17 @@ namespace UMI.Network.Server
             UDP.Disconnect();
         }
 
-        public void SendIntoGame(string playerName)
+        public void SendIntoGame(string playerName , string gender , int nMission)
         {
-            player = new UMIPlayer(this.UID, playerName, new Vector3(0, 0, 0));
+            UMI.UMISystem.L0g("H2");
+            player = new UMIPlayer(this.UID, playerName, new Vector3(0, 0, 0), gender);
             foreach (UMIServerManager client in UMIServer.clients.Values)
             {
                 if (client.player != null)
                 {
                     if (client.UID != this.UID)
                     {
-                        UMIServerSend.spawnPlayer(this.UID, client.player);
+                        UMIServerSend.spawnPlayer(this.UID, client.player  , nMission);
                     }
 
                 }
@@ -207,7 +208,7 @@ namespace UMI.Network.Server
             {
                 if (client.player != null)
                 {
-                    UMIServerSend.spawnPlayer(client.UID, this.player);
+                    UMIServerSend.spawnPlayer(client.UID,this.player, nMission);
 
                 }
             }

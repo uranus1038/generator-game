@@ -9,12 +9,14 @@ namespace UMI.Network.Server
         public string userName;
         public Vector3 position;
         public Quaternion rotation;
-        public UMIPlayer(int UID, string userName, Vector3 spawnPosition)
+        public string gender;
+        public UMIPlayer(int UID, string userName, Vector3 spawnPosition , string gender)
         {
             this.UID = UID;
             this.userName = userName;
             this.position = spawnPosition;
             this.rotation = Quaternion.Identity;
+            this.gender = gender; 
         }
         public void UMIUpdate()
         {

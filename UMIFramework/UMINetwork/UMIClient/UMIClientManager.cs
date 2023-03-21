@@ -26,7 +26,7 @@ namespace UMI.Network.Client
         {
                 //Receive respon 
            { (int)YUMIServerPackets.resServer ,UMIClientHandle.connectRespon},
-           { (int)YUMIServerPackets.resSpawnPlayer ,UMIClientHandle.spawnPlayer},
+           { (int)YUMIServerPackets.resSpawnPlayer  ,MIssionManager.setPlayer},
            { (int)YUMIServerPackets.resPlayerPosition ,UMIClientHandle.playerPosition2D},
            { (int)YUMIServerPackets.resDisconnect ,UMIClientHandle.disconnectGetRespon},
            { (int)YUMIServerPackets.resAnimation ,UMIClientHandle.playerAnimation},
@@ -35,6 +35,7 @@ namespace UMI.Network.Client
            { (int)YUMIServerPackets.resLeaveRoom ,UMIClientHandle.leaveRoom} ,
            { (int)YUMIServerPackets.resReady ,UMIClientHandle.readyPlayerRespon} ,
            { (int)YUMIServerPackets.resCancelReady ,UMIClientHandle.cancelReadyRespon} ,
+           { (int)YUMIServerPackets.resStartGame ,UMIClientHandle.getStart} ,
         
         };
         }
@@ -58,6 +59,7 @@ namespace UMI.Network.Client
         {
             UMIServer.resetNetwork();
             UMIClientSend.DisconnectSend(this.UID);
+            UMIClientSend.leaveRoom(this.UID);
             this.Disconnect();
         }
         public void connectServer(string UMIIPAdress)
@@ -105,6 +107,7 @@ namespace UMI.Network.Client
                 {
                     if (this.socket != null)
                     {
+                        UMISystem.L0g($"send");
                         stream.BeginWrite(packet.ToArray(), 0, packet.Length(), null, null);
                     }
                 }

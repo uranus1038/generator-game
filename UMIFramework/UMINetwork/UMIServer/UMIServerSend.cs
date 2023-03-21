@@ -71,7 +71,7 @@ namespace UMI.Network.Server
                 SendTCPData(toClient, packet);
             }
         }
-        public static void spawnPlayer(int toClient, UMIPlayer player)
+        public static void spawnPlayer(int toClient, UMIPlayer player  ,  int nMission)
         {
             using (UMIPacket packet = new UMIPacket((int)YUMIServerPackets.resSpawnPlayer))
             {
@@ -79,6 +79,8 @@ namespace UMI.Network.Server
                 packet.Write(player.userName);
                 packet.Write(player.position);
                 packet.Write(player.rotation);
+                packet.Write(player.gender);
+                packet.Write(nMission);
                 SendTCPData(toClient, packet);
             }
         }
@@ -150,6 +152,15 @@ namespace UMI.Network.Server
             {
                 packet.Write(client);
                 sendTCPDataALL(packet);
+            }
+        }
+
+        public static void startGame(string msg)
+        {
+            using (UMIPacket packet = new UMIPacket((int)YUMIServerPackets.resStartGame))
+            {
+                packet.Write(msg);
+                sendTCPDataExceptClient((1),packet);
             }
         }
 

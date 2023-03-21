@@ -29,6 +29,7 @@ namespace UMI.Manager
             {
                 case 1: Application.LoadLevel("T00_GamePlay"); break;
                 case 2: Application.LoadLevel("A01_LobbyGui"); break;
+                case 3: Application.LoadLevel("C001_MeadowOfWind"); break;
                 default: return;
             }
 

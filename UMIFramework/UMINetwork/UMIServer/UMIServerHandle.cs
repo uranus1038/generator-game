@@ -30,9 +30,12 @@ namespace UMI.Network.Server
         }
         public static void spawnPlayer(int client, UMIPacket packet)
         {
+            UMI.UMISystem.L0g("H!");
             int UID = packet.ReadInt();
             string userName = packet.ReadString();
-            UMIServer.clients[UID].SendIntoGame(userName);
+            string gender  = packet.ReadString();
+            int nMission = packet.ReadInt(); 
+            UMIServer.clients[UID].SendIntoGame(userName , gender , nMission);
         }
         public static void playerMovement2D(int fClient, UMIPacket packet)
         {
@@ -88,6 +91,12 @@ namespace UMI.Network.Server
             UMIServerSend.readyCancelSend(clientUID);
             UMIServer.clients[clientUID].data.isReadyPlayer(true);
         }
+        public static void startGame(int fClient, UMIPacket packet)
+        {
+            string msg = packet.ReadString();
+            UMIServerSend.startGame(msg);
+        }
+
 
 
     }

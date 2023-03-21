@@ -30,11 +30,20 @@ public class PlayerCameraControl : MonoBehaviour
         {
             if (CharacterControl.camera_0 == true)
             {
-
-                this.target_0 = GameObject.Find("girlChar(Clone)");
-                Vector3 playerPosition = this.target_0.transform.position + this.offset_0;
-                Vector3 smoothedPosition = Vector3.Lerp(transform.position, playerPosition, smoothSpeed);
-                this.transform.position = smoothedPosition;
+                if(GameObject.Find("girlChar(Clone)"))
+                {
+                    this.target_0 = GameObject.Find("girlChar(Clone)");
+                    Vector3 playerPosition = this.target_0.transform.position + this.offset_0;
+                    Vector3 smoothedPosition = Vector3.Lerp(transform.position, playerPosition, smoothSpeed);
+                    this.transform.position = smoothedPosition;
+                }else
+                {
+                    this.target_0 = GameObject.Find("boyChar(Clone)");
+                    Vector3 playerPosition = this.target_0.transform.position + this.offset_0;
+                    Vector3 smoothedPosition = Vector3.Lerp(transform.position, playerPosition, smoothSpeed);
+                    this.transform.position = smoothedPosition;
+                }
+             
             }
         } catch
         {

@@ -16,18 +16,21 @@ namespace UMI.Network.Client
             packet.WriteLength();
             UMIClientManager.star.UDP.SendData(packet);
         }
-        private static void sendUDPData(int UID,UMIPacket packet)
+        private static void sendUDPData(int UID, UMIPacket packet)
         {
             packet.WriteLength();
             UMIClientManager.star.UDP.SendData(packet);
         }
         #endregion
-        public static void requastConnect()
+        public static void OnJoinGame(string Discription, int nMission)
         {
-            using (UMIPacket packet = new UMIPacket((int)YUMIClientPackets.getRespon))
+            using (UMIPacket packet = new UMIPacket((int)YUMIClientPackets.reqSpawnPlayer))
             {
+                UMI.UMISystem.L0g("Send! ->");
                 packet.Write(UMIClientManager.star.UID);
-                packet.Write("GODU");
+                packet.Write(UMI.Network.API.UMIData.getStringPlayerData(1));
+                packet.Write(UMI.Network.API.UMIData.getStringPlayerData(2));
+                packet.Write((nMission));
                 sendTCPData(packet);
             }
         }
@@ -44,21 +47,21 @@ namespace UMI.Network.Client
         }
         public static void reqPlayerMoveMent(Vector3 position)
         {
-            using (UMIPacket packet = new UMIPacket((int)YUMIClientPackets.reqPlayerMovement))
-            {   
-                packet.Write(position);
-                // _Packet.Write(GameManager.players[Client.instance.my_Id].transform.rotation);
-                sendUDPData(packet);
-            }
+            //using (UMIPacket packet = new UMIPacket((int)YUMIClientPackets.reqPlayerMovement))
+            //{
+            //    packet.Write(position);
+            //    // _Packet.Write(GameManager.players[Client.instance.my_Id].transform.rotation);
+            //    sendUDPData(packet);
+            //}
         }
         public static void reqAnimation(int actor)
         {
-            using (UMIPacket packet = new UMIPacket((int)YUMIClientPackets.reqAnimation))
-            {
-                packet.Write(actor);
-                // _Packet.Write(GameManager.players[Client.instance.my_Id].transform.rotation);
-                sendUDPData(packet);
-            }
+            //using (UMIPacket packet = new UMIPacket((int)YUMIClientPackets.reqAnimation))
+            //{
+            //    packet.Write(actor);
+            //    // _Packet.Write(GameManager.players[Client.instance.my_Id].transform.rotation);
+            //    sendUDPData(packet);
+            //}
         }
         public static void DisconnectSend(int id)
         {
@@ -101,6 +104,13 @@ namespace UMI.Network.Client
                 sendTCPData(packet);
             }
         }
-
+        public static void OnSubmitStart(string msg)
+        {
+            using (UMIPacket packet = new UMIPacket((int)YUMIClientPackets.reqStartGame))
+            {
+                packet.Write(msg);
+                sendTCPData(packet);
+            }
+        }
     }
 }
