@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class GirlClass : CharacterControl
 {
@@ -20,4 +19,8 @@ public class GirlClass : CharacterControl
               /*11*/ "girlRunLeft" ,
 
            };
+    private void Start()
+    {
+        this.GetGender("fm");
+    }
 }

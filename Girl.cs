@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class Girl : GirlClass
 {
@@ -11,5 +10,10 @@ public class Girl : GirlClass
     {
         this.OnPlayerController();
         this.OnEffectMovementPlayer(this.offset_0, this.offset_1, this.speed_2);
+    }
+    private void Start()
+    {
+        camera_0 = true;
+        this.GetGender("fm");
     }
 }

@@ -28,11 +28,9 @@ public class CharacterControl : MonoBehaviour
         star = this;
         this.rigidbody2d = GetComponent<Rigidbody2D>();
         this.action = GetComponent<Animator>();
-        this.GetGender("fm");
     }
     private void Start()
     {
-        camera_0 = true;
         if (this.action == null)
         {
             this.action = GetComponent<Animator>();
@@ -52,7 +50,7 @@ public class CharacterControl : MonoBehaviour
     }
     protected void OnPlayerController()
     {
-        if (this.isMove)
+        if (this.isMove)   
         {
             #region Input Movement & Animation
             #region Move

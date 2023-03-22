@@ -30,8 +30,10 @@ public class PlayerCameraControl : MonoBehaviour
         {
             if (CharacterControl.camera_0 == true)
             {
-                if(GameObject.Find("girlChar(Clone)"))
+                UMISystem.L0g("camera condition");
+                if (GameObject.Find("girlChar(Clone)") != null)
                 {
+                    UMISystem.L0g("true");
                     this.target_0 = GameObject.Find("girlChar(Clone)");
                     Vector3 playerPosition = this.target_0.transform.position + this.offset_0;
                     Vector3 smoothedPosition = Vector3.Lerp(transform.position, playerPosition, smoothSpeed);
@@ -47,7 +49,7 @@ public class PlayerCameraControl : MonoBehaviour
             }
         } catch
         {
-            UMISystem.Log("UMI::ERRSEND()->NONE_OBJECT_(boyChar)");
+            UMISystem.Log("UMI::ERRSEND()->NONE_OBJECT_(Player)");
             this.transform.position = this.transform.position;
         }
     }

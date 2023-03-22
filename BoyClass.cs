@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class BoyClass : CharacterControl
 {
@@ -17,5 +16,10 @@ public class BoyClass : CharacterControl
               /*8*/  "boyRunForward" ,
               /*9*/  "boyRunBack" , /*10*/  "boyRunRight" , /*11*/  "boyRunLeft" ,
 
-            }; 
+            };
+    private void Start()
+    {
+        this.GetGender("m");
+    }
+
 }
