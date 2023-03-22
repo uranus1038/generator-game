@@ -191,7 +191,6 @@ namespace UMI.Network.Server
 
         public void SendIntoGame(string playerName , string gender , int nMission)
         {
-            UMI.UMISystem.L0g("H2");
             player = new UMIPlayer(this.UID, playerName, new Vector3(0, 0, 0), gender);
             foreach (UMIServerManager client in UMIServer.clients.Values)
             {

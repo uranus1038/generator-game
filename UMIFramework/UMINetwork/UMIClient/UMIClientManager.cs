@@ -107,13 +107,12 @@ namespace UMI.Network.Client
                 {
                     if (this.socket != null)
                     {
-                        UMISystem.L0g($"send");
                         stream.BeginWrite(packet.ToArray(), 0, packet.Length(), null, null);
                     }
                 }
                 catch (Exception ex)
                 {
-                    UMISystem.L0g($"SEND_DATA()->ERR_CLIENT");
+                    UMISystem.L0g($"SEND_DATA()->ERR_CLIENT->"+ex);
                 }
             }
             private void ReceiveCallback(IAsyncResult result)

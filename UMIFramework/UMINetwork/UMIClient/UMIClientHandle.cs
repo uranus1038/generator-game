@@ -40,7 +40,16 @@ namespace UMI.Network.Client
             int UID = packet.ReadInt();
             Vector3 position = packet.ReadVector3();
             //Quaternion rotation = Packet.ReadQuaternion();
-            UMIGameManager.players[UID].transform.position = position;
+            try
+            {
+
+             UMIGameManager.players[UID].transform.position = position;
+            }
+            catch
+            {
+                UMISystem.L0g("Loading");
+                UMISystem.L0g("Loading");
+            }
 
             //GameManager.players[UID].transform.rotation = rotation;
         }

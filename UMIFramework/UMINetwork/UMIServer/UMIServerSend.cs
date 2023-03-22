@@ -110,7 +110,7 @@ namespace UMI.Network.Server
             {
                 packet.Write(UID);
                 packet.Write(actor);
-                sendUDPDataExceptClient(UID, packet);
+                sendUDPDataALL(packet);
             }
         }
         public static void disconnectSend(int client)

@@ -11,7 +11,6 @@ public class C001_MeadowOfWind : MonoBehaviour
     // Resources
     List<string> playerObject_0 = new List<string>();
     private GameObject player_0;
-    public static Dictionary<int, UMIPlayerManager> players = new Dictionary<int, UMIPlayerManager>();
     private void Awake()
     {
         this.Init();
@@ -57,7 +56,7 @@ public class C001_MeadowOfWind : MonoBehaviour
         }
         player_0.GetComponent<UMIPlayerManager>().UID = UID;
         player_0.GetComponent<UMIPlayerManager>().userName = userName;
-        players.Add(UID, player_0.GetComponent<UMIPlayerManager>());
+        UMIGameManager.players.Add(UID , player_0.GetComponent<UMIPlayerManager>());
     }
     private void OnGUI()
     {

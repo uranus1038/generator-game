@@ -19,26 +19,11 @@ public class CharacterControl : MonoBehaviour
     //Array string  
     private string[] actorState;
     //Constructor
-    public CharacterControl()
-    {
-
-    }
     private void Awake()
     {
         star = this;
         this.rigidbody2d = GetComponent<Rigidbody2D>();
         this.action = GetComponent<Animator>();
-    }
-    private void Start()
-    {
-        if (this.action == null)
-        {
-            this.action = GetComponent<Animator>();
-        }
-        if (this.rigidbody2d == null)
-        {
-            this.rigidbody2d = GetComponent<Rigidbody2D>();
-        }
     }
     public void GetGender(string gender)
     {
@@ -181,6 +166,7 @@ public class CharacterControl : MonoBehaviour
                 }
                 else if (Input.GetButtonUp("a") && Input.GetButton("w"))
                 {
+                    UMISystem.L0g("");
                     this.action.Play(this.actorState[0], 0, 0f);
                     UMIClientSend.reqAnimation((int)eAction.isWalkBack);
                 }

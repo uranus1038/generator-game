@@ -47,21 +47,21 @@ namespace UMI.Network.Client
         }
         public static void reqPlayerMoveMent(Vector3 position)
         {
-            //using (UMIPacket packet = new UMIPacket((int)YUMIClientPackets.reqPlayerMovement))
-            //{
-            //    packet.Write(position);
-            //    // _Packet.Write(GameManager.players[Client.instance.my_Id].transform.rotation);
-            //    sendUDPData(packet);
-            //}
+            using (UMIPacket packet = new UMIPacket((int)YUMIClientPackets.reqPlayerMovement))
+            {
+                packet.Write(position);
+                // _Packet.Write(GameManager.players[Client.instance.my_Id].transform.rotation);
+                sendUDPData(packet);
+            }
         }
         public static void reqAnimation(int actor)
         {
-            //using (UMIPacket packet = new UMIPacket((int)YUMIClientPackets.reqAnimation))
-            //{
-            //    packet.Write(actor);
-            //    // _Packet.Write(GameManager.players[Client.instance.my_Id].transform.rotation);
-            //    sendUDPData(packet);
-            //}
+            using (UMIPacket packet = new UMIPacket((int)YUMIClientPackets.reqAnimation))
+            {
+                packet.Write(actor);
+                // _Packet.Write(GameManager.players[Client.instance.my_Id].transform.rotation);
+                sendUDPData(packet);
+            }
         }
         public static void DisconnectSend(int id)
         {

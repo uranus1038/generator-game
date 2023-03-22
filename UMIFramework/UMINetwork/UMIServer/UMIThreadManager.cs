@@ -8,7 +8,7 @@ namespace UMI.Network.Server
         private void Update()
         {
             UMIMain();
-            //UMIGameLogic.UMIUpdate();
+            UMIGameLogic.UMIUpdate();
         }
        
        
