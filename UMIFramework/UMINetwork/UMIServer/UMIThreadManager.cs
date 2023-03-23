@@ -8,10 +8,14 @@ namespace UMI.Network.Server
         private void Update()
         {
             UMIMain();
+           
+        }
+        private void LateUpdate()
+        {
             UMIGameLogic.UMIUpdate();
         }
-       
-       
+
+
 
         private static readonly List<Action> executeOnMainThread = new List<Action>();
         private static readonly List<Action> executeCopiedOnMainThread = new List<Action>();

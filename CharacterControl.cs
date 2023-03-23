@@ -166,7 +166,7 @@ public class CharacterControl : MonoBehaviour
                 }
                 else if (Input.GetButtonUp("a") && Input.GetButton("w"))
                 {
-                    UMISystem.L0g("");
+                    UMISystem.L0g(" yes");
                     this.action.Play(this.actorState[0], 0, 0f);
                     UMIClientSend.reqAnimation((int)eAction.isWalkBack);
                 }
@@ -177,6 +177,7 @@ public class CharacterControl : MonoBehaviour
                 }
                 else
                 {
+                    UMISystem.L0g(" yes");
                     this.action.Play(this.actorState[7], 0, 0f);
                      UMIClientSend.reqAnimation((int)eAction.isLeft);
                 }
@@ -342,312 +343,17 @@ public class CharacterControl : MonoBehaviour
         #endregion
 
         #region Smoot Collison
-        else
-        {
-            float horizontalInput = Input.GetAxis("Horizontal");
-            this.rigidbody2d.velocity = new Vector2(horizontalInput * this.speed_0, this.rigidbody2d.velocity.y);
-            float VerticalInput = Input.GetAxis("Vertical");
-            this.rigidbody2d.velocity = new Vector2(this.rigidbody2d.velocity.x, VerticalInput * this.speed_0);
-            #region Animation
-            // get W
-            if (Input.GetButton("w"))
-            {
-                if (Input.GetButtonDown("w"))
-                {
-                    this.action.Play(this.actorState[0], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isWalkBack);
-                }
-            }
-            else if (Input.GetButtonUp("w"))
-            {
-                if (Input.GetButton("s") && Input.GetButtonUp("w"))
-                {
-                    this.action.Play(this.actorState[2], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isWalkForward);
-                }
-                else if (Input.GetButton("d") && Input.GetButtonUp("w"))
-                {
-                    this.action.Play(this.actorState[4], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isWalkRight);
-                }
-                else if (Input.GetButton("a") && Input.GetButtonUp("w"))
-                {
-                    this.action.Play(this.actorState[6], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isWalkLeft);
-                }
-                else
-                {
-                    this.action.Play(this.actorState[1], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isBack);
-                }
-            }
-            // get S
-            if (Input.GetButton("s"))
-            {
-                if (Input.GetButtonDown("s"))
-                {
-                    this.action.Play(this.actorState[2], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isWalkForward);
-                }
-            }
-            else if (Input.GetButtonUp("s"))
-            {
-                if (Input.GetButtonUp("s") && Input.GetButton("w"))
-                {
-                    this.action.Play(this.actorState[0], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isWalkBack);
-                }
-                else if (Input.GetButtonUp("s") && Input.GetButton("d"))
-                {
-                    this.action.Play(this.actorState[4], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isWalkRight);
-                }
-                else if (Input.GetButtonUp("s") && Input.GetButton("a"))
-                {
-                    this.action.Play(this.actorState[6], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isWalkLeft);
-                }
-                else
-                {
-                    this.action.Play(this.actorState[3], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isForward);
-                }
-            }
-            // get D
-            if (Input.GetButton("d"))
-            {
-                if (Input.GetButton("d") != Input.GetButton("w") ||
-                    Input.GetButton("d") != Input.GetButton("s"))
-                {
-                    if (Input.GetButtonDown("d"))
-                    {
-                        this.action.Play(this.actorState[4], 0, 0f);
-                        UMIClientSend.reqAnimation((int)eAction.isWalkRight);
-                    }
-                }
-            }
-            else if (Input.GetButtonUp("d"))
-            {
-                if (Input.GetButton("a") && Input.GetButtonUp("d"))
-                {
-                    this.action.Play(this.actorState[6], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isWalkLeft);
-                }
-                else if (Input.GetButtonUp("d") && Input.GetButton("w"))
-                {
-                    this.action.Play(this.actorState[0], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isWalkBack);
-                }
-                else if (Input.GetButtonUp("d") && Input.GetButton("s"))
-                {
-                    this.action.Play(this.actorState[2], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isWalkForward);
-                }
-                else
-                {
-                    this.action.Play(this.actorState[5], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isRight);
-                }
-            }
-            // get A
-            if (Input.GetButton("a"))
-            {
-                if (Input.GetButton("a") != Input.GetButton("w") ||
-                   Input.GetButton("a") != Input.GetButton("s"))
-                {
-                    if (Input.GetButtonDown("a"))
-                    {
-                        this.action.Play(this.actorState[6], 0, 0f);
-                        UMIClientSend.reqAnimation((int)eAction.isWalkLeft);
-                    }
-                }
-            }
-            else if (Input.GetButtonUp("a"))
-            {
-                if (Input.GetButton("d") && Input.GetButtonUp("a"))
-                {
-                    this.action.Play(this.actorState[4], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isWalkRight);
-                }
-                else if (Input.GetButtonUp("a") && Input.GetButton("w"))
-                {
-                    this.action.Play(this.actorState[0], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isWalkBack);
-                }
-                else if (Input.GetButtonUp("a") && Input.GetButton("s"))
-                {
-                    this.action.Play(this.actorState[2], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isWalkForward);
-                }
-                else
-                {
-                    this.action.Play(this.actorState[7], 0, 0f);
-                }
-                UMIClientSend.reqAnimation((int)eAction.isLeft);
-            }
-
-            // Get Run 
-
-            //Key S
-            if (Input.GetButton("left shift") && Input.GetButton("s"))
-            {
-                if (Input.GetButtonDown("s"))
-                {
-                    this.action.Play(this.actorState[8], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isRunForward);
-                }
-                else if (Input.GetButtonDown("left shift"))
-                {
-                    this.action.Play(this.actorState[8], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isRunForward);
-                }
-            }
-            else if (Input.GetButton("left shift") && Input.GetButtonUp("s"))
-            {
-                if (Input.GetButton("d"))
-                {
-                    this.action.Play(this.actorState[10], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isRunRight);
-                }
-                if (Input.GetButton("w"))
-                {
-                    this.action.Play(this.actorState[9], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isRunBack);
-                }
-                if (Input.GetButton("a"))
-                {
-                    this.action.Play(this.actorState[11], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isRunLeft);
-                }
-            }
-            //Key W
-            if (Input.GetButton("left shift") && Input.GetButton("w"))
-            {
-                if (Input.GetButtonDown("w"))
-                {
-                    this.action.Play(this.actorState[9], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isRunBack);
-                }
-                else if (Input.GetButtonDown("left shift"))
-                {
-                    this.action.Play(this.actorState[9], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isRunBack);
-                }
-            }
-            else if (Input.GetButton("left shift") && Input.GetButtonUp("w"))
-            {
-                if (Input.GetButton("d"))
-                {
-                    this.action.Play(this.actorState[10], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isRunRight);
-                }
-                if (Input.GetButton("s"))
-                {
-                    this.action.Play(this.actorState[8], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isRunForward);
-                }
-                if (Input.GetButton("a"))
-                {
-                    this.action.Play(this.actorState[11], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isRunLeft);
-                }
-            }
-            //Key D
-            if (Input.GetButton("left shift") && Input.GetButton("d"))
-            {
-                if (Input.GetButtonDown("d"))
-                {
-                    this.action.Play(this.actorState[10], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isRunRight);
-                }
-                else if (Input.GetButtonDown("left shift"))
-                {
-                    this.action.Play(this.actorState[10], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isRunRight);
-                }
-            }
-            else if (Input.GetButton("left shift") && Input.GetButtonUp("d"))
-            {
-                if (Input.GetButton("w"))
-                {
-                    this.action.Play(this.actorState[9], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isRunBack);
-                }
-                else if (Input.GetButton("s"))
-                {
-                    this.action.Play(this.actorState[8], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isRunForward);
-                }
-                else if (Input.GetButton("a"))
-                {
-                    this.action.Play(this.actorState[11], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isRunLeft);
-                }
-            }
-            //Key A
-            if (Input.GetButton("left shift") && Input.GetButton("a"))
-            {
-                if (Input.GetButtonDown("a"))
-                {
-                    this.action.Play(this.actorState[11], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isRunLeft);
-                }
-                else if (Input.GetButtonDown("left shift"))
-                {
-                    this.action.Play(this.actorState[11], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isRunLeft);
-                }
-            }
-            else if (Input.GetButton("left shift") && Input.GetButtonUp("a"))
-            {
-                if (Input.GetButton("w"))
-                {
-                    this.action.Play(this.actorState[9], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isRunBack);
-                }
-                else if (Input.GetButton("s"))
-                {
-                    this.action.Play(this.actorState[8], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isRunForward);
-                }
-                else if (Input.GetButton("d"))
-                {
-                    this.action.Play(this.actorState[10], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isRunRight);
-                }
-            }
-            else if (Input.GetButtonUp("left shift"))
-            {
-                if (Input.GetButton("s"))
-                {
-                    this.action.Play(this.actorState[2], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isWalkForward);
-                }
-                else if (Input.GetButton("w"))
-                {
-                    this.action.Play(this.actorState[0], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isWalkBack);
-                }
-                else if (Input.GetButton("d"))
-                {
-                    this.action.Play(this.actorState[4], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isWalkRight);
-                }
-                else if (Input.GetButton("a"))
-                {
-                    this.action.Play(this.actorState[6], 0, 0f);
-                    UMIClientSend.reqAnimation((int)eAction.isWalkLeft);
-                }
-            }
-
-        }
+        //else
+        //{
+        //    float horizontalInput = Input.GetAxis("Horizontal");
+        //    this.rigidbody2d.velocity = new Vector2(horizontalInput * this.speed_0, this.rigidbody2d.velocity.y);
+        //    float VerticalInput = Input.GetAxis("Vertical");
+        //    this.rigidbody2d.velocity = new Vector2(this.rigidbody2d.velocity.x, VerticalInput * this.speed_0);
         #endregion
         this.position = this.transform.position;
 
         UMIClientSend.reqPlayerMoveMent(this.position);
     }
-    #endregion
-
     public void OnAnimationPlayerController(int actorState)
     {
         if (actorState == (int)eAction.isWalkForward)
@@ -702,34 +408,34 @@ public class CharacterControl : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        // Check Collision
-        if (collision.gameObject.name == "boyCharPlayer(Clone)")
-        {
-            this.isMove = false;
-            UMISystem.Log("Enter");
-        }
-        else if (collision.gameObject.name == "girlCharPlayer(Clone)")
-        {
-            this.isMove = false;
-            UMISystem.Log("Enter");
-        }
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        // Check Collision
-        if (collision.gameObject.name == "boyCharPlayer(Clone)")
-        {
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    // Check Collision
+    //    if (collision.gameObject.name == "boyCharPlayer(Clone)")
+    //    {
+    //        this.isMove = false;
+    //        UMISystem.Log("Enter");
+    //    }
+    //    else if (collision.gameObject.name == "girlCharPlayer(Clone)")
+    //    {
+    //        this.isMove = false;
+    //        UMISystem.Log("Enter");
+    //    }
+    //}
+    //private void OnCollisionExit2D(Collision2D collision)
+    //{
+    //    // Check Collision
+    //    if (collision.gameObject.name == "boyCharPlayer(Clone)")
+    //    {
 
 
-        }
-        else if (collision.gameObject.name == "girlCharPlayer(Clone)")
-        {
+    //    }
+    //    else if (collision.gameObject.name == "girlCharPlayer(Clone)")
+    //    {
            
-            this.isMove = true;
-            UMISystem.Log("Leave");
+    //        this.isMove = true;
+    //        UMISystem.Log("Leave");
 
-        }
-    }
+    //    }
+    //}
 }

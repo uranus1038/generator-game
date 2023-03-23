@@ -8,5 +8,6 @@ namespace UMI.Network.Client
     {
         public int UID;
         public string userName;
+        public string gender;
     }
 }

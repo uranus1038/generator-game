@@ -56,6 +56,7 @@ public class C001_MeadowOfWind : MonoBehaviour
         }
         player_0.GetComponent<UMIPlayerManager>().UID = UID;
         player_0.GetComponent<UMIPlayerManager>().userName = userName;
+        player_0.GetComponent<UMIPlayerManager>().gender = gender;
         UMIGameManager.players.Add(UID , player_0.GetComponent<UMIPlayerManager>());
     }
     private void OnGUI()
