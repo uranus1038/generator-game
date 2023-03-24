@@ -9,12 +9,6 @@ public class Girl : GirlClass
     void Update()
     {
         this.OnPlayerController();
-        this.OnEffectMovementPlayer(this.offset_0, this.offset_1, this.speed_2);
-       
-    }
-    private void Start()
-    {
-        this.GetGender("fm");
-        camera_0 = true;
+        this.OnEffectMovementPlayer(this.offset_0, this.offset_1, this.speed_2); 
     }
 }

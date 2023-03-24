@@ -23,7 +23,8 @@ public class Language : MonoBehaviour
         {
 			case "LobbyGui": result = LobbyGui_th.getMessage(nCode); break; 
 			case "GameGui": result = GameGui_th.getMessage(nCode); break; 
-        }
+			case "C001": result = C001_TheDoorWasOpened_th.getMessage(nCode); break; ;
+		}
 		return result; 
 	}
 	private static string getEnglishMessage(string nScriptName, int nCode)
@@ -32,7 +33,8 @@ public class Language : MonoBehaviour
 		switch (nScriptName)
 		{
 			case "LobbyGui": result = LobbyGui_eng.getMessage(nCode); break;
-			case "GameGui": result = GameGui_eng.getMessage(nCode); break;
+			case "GameGui": result = GameGui_eng.getMessage(nCode); break;;
+			case "C001": result = C001_TheDoorWasOpened_eng.getMessage(nCode); break;;
 		}
 		return result;
 	}

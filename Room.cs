@@ -11,7 +11,7 @@ public class Room : MonoBehaviour
     public static Room star;
     public TimeManager setUp;
     private int UID;
-    private int nPlayer;
+    public int nPlayer;
     private int nReady;
     public bool isShowSkill;
     protected float display_0;
@@ -178,15 +178,10 @@ public class Room : MonoBehaviour
             this.delay_0 = Time.time;
             this.isShowSkill = false;
         }
-
         if (UMIData.getStringPlayerData(2) == "male")
-        {
             GUI.DrawTexture(new Rect(0.5f * this.display_0 + 220f, 160f, 508f / 2f, 728f / 2f), this.texture_2);
-        }
         else
-        {
             GUI.DrawTexture(new Rect(0.5f * this.display_0 + 220f, 160f, 508f / 2f, 728f / 2f), this.texture_3);
-        }
         if (this.UID == 1)
         {
             if (GUI.Button(new Rect(0.5f * this.display_0 + 520f, 800f, 334f / 2f, 206f / 2f), Language.getMessage("LobbyGui", 04), this.style_3))
@@ -236,18 +231,13 @@ public class Room : MonoBehaviour
         }
         if (players[1])
         {
-            if (GUI.Button(new Rect(0.5f * this.display_0 - 530f, 288f, 238f / 3f, 238f / 3f), playerObject_1[1].ToString(), this.style_0)) { }
-            if (GUI.Button(new Rect(0.5f * this.display_0 - 180f, 288f, 238f / 3f, 238f / 3f), "[Header]", this.style_2)) { }
-
+            GUI.Box(new Rect(0.5f * this.display_0 - 530f, 288f, 238f / 3f, 238f / 3f), playerObject_1[1].ToString(), this.style_0);
+            GUI.Box(new Rect(0.5f * this.display_0 - 180f, 288f, 238f / 3f, 238f / 3f), "[Header]", this.style_2);
             if (playerObject_0[1].ToString() == "male")
-            {
 
                 GUI.DrawTexture(new Rect(0.5f * this.display_0 - 630f, 248f, 238f / 3f, 238f / 3f), this.texture_4);
-            }
             else
-            {
                 GUI.DrawTexture(new Rect(0.5f * this.display_0 - 630f, 248f, 238f / 3f, 238f / 3f), this.texture_5);
-            }
         }
         else
         {
@@ -256,7 +246,7 @@ public class Room : MonoBehaviour
         }
         if (players[2])
         {
-            if (GUI.Button(new Rect(0.5f * this.display_0 - 530f, 383f, 238f / 3f, 238f / 3f), playerObject_1[2].ToString(), this.style_0)) { }
+            GUI.Box(new Rect(0.5f * this.display_0 - 530f, 383f, 238f / 3f, 238f / 3f), playerObject_1[2].ToString(), this.style_0);
             if (this.UID == 1)
             {
                 if (GUI.Button(new Rect(0.5f * this.display_0 - 130f, 383f, 104F / 2F, 99F / 2F), string.Empty, this.style_1))
@@ -265,95 +255,45 @@ public class Room : MonoBehaviour
                     this.OnCancelPlayer(2);
                 }
                 if (isReady[2])
-                {
-                    if (GUI.Button(new Rect(0.5f * this.display_0 - 230f, 383f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 20), this.style_7))
-                    {
-
-                    }
-                }
+                    GUI.Box(new Rect(0.5f * this.display_0 - 230f, 383f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 20), this.style_7);
                 else
-                {
-                    if (GUI.Button(new Rect(0.5f * this.display_0 - 230f, 383f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 19), this.style_6))
-                    {
-
-                    }
-                }
+                    GUI.Box(new Rect(0.5f * this.display_0 - 230f, 383f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 19), this.style_6);
             }
             else
             {
                 if (isReady[2])
-                {
-                    if (GUI.Button(new Rect(0.5f * this.display_0 - 150f, 383f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 20), this.style_7))
-                    {
-
-                    }
-                }
+                    GUI.Box(new Rect(0.5f * this.display_0 - 150f, 383f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 20), this.style_7);
                 else
-                {
-                    if (GUI.Button(new Rect(0.5f * this.display_0 - 150f, 383f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 19), this.style_6))
-                    {
-
-                    }
-                }
+                    GUI.Box(new Rect(0.5f * this.display_0 - 150f, 383f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 19), this.style_6);
             }
             if (playerObject_0[2].ToString() == "male")
-            {
                 GUI.DrawTexture(new Rect(0.5f * this.display_0 - 630f, 343f, 238f / 3f, 238f / 3f), this.texture_4);
-            }
             else
-            {
                 GUI.DrawTexture(new Rect(0.5f * this.display_0 - 630f, 343f, 238f / 3f, 238f / 3f), this.texture_5);
-            }
         }
         if (players[3])
         {
-            if (GUI.Button(new Rect(0.5f * this.display_0 - 530f, 476f, 238f / 3f, 238f / 3f), playerObject_1[3].ToString(), this.style_0)) { }
+            GUI.Box(new Rect(0.5f * this.display_0 - 530f, 476f, 238f / 3f, 238f / 3f), playerObject_1[3].ToString(), this.style_0);
             if (this.UID == 1)
             {
                 if (GUI.Button(new Rect(0.5f * this.display_0 - 130f, 476f, 104F / 2F, 99F / 2F), string.Empty, this.style_1))
-                {
                     this.OnCancelPlayer(3);
-                }
                 if (isReady[3])
-                {
-                    if (GUI.Button(new Rect(0.5f * this.display_0 - 230f, 476f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 20), this.style_7))
-                    {
-
-                    }
-                }
+                    GUI.Box(new Rect(0.5f * this.display_0 - 230f, 476f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 20), this.style_7);
                 else
-                {
-                    if (GUI.Button(new Rect(0.5f * this.display_0 - 230f, 476f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 19), this.style_6))
-                    {
-
-                    }
-                }
+                    GUI.Box(new Rect(0.5f * this.display_0 - 230f, 476f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 19), this.style_6);
             }
             else
             {
                 if (isReady[3])
-                {
-                    if (GUI.Button(new Rect(0.5f * this.display_0 - 150f, 476f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 20), this.style_7))
-                    {
-
-                    }
-                }
+                    GUI.Box(new Rect(0.5f * this.display_0 - 150f, 476f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 20), this.style_7);
                 else
-                {
-                    if (GUI.Button(new Rect(0.5f * this.display_0 - 150f, 476f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 19), this.style_6))
-                    {
-
-                    }
-                }
+                    GUI.Box(new Rect(0.5f * this.display_0 - 150f, 476f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 19), this.style_6);
             }
             if (playerObject_0[3].ToString() == "male")
-            {
                 GUI.DrawTexture(new Rect(0.5f * this.display_0 - 630f, 436f, 238f / 3f, 238f / 3f), this.texture_4);
-            }
             else
-            {
                 GUI.DrawTexture(new Rect(0.5f * this.display_0 - 630f, 436f, 238f / 3f, 238f / 3f), this.texture_5);
-            }
         }
         if (players[4])
         {
@@ -361,49 +301,23 @@ public class Room : MonoBehaviour
             if (this.UID == 1)
             {
                 if (GUI.Button(new Rect(0.5f * this.display_0 - 130f, 569f, 104F / 2F, 99F / 2F), string.Empty, this.style_1))
-                {
                     this.OnCancelPlayer(4);
-                }
                 if (isReady[4])
-                {
-                    if (GUI.Button(new Rect(0.5f * this.display_0 - 230f, 569f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 20), this.style_7))
-                    {
-
-                    }
-                }
+                    GUI.Box(new Rect(0.5f * this.display_0 - 230f, 569f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 20), this.style_7);
                 else
-                {
-                    if (GUI.Button(new Rect(0.5f * this.display_0 - 230f, 569f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 19), this.style_6))
-                    {
-
-                    }
-                }
+                    GUI.Box(new Rect(0.5f * this.display_0 - 230f, 569f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 19), this.style_6);
             }
             else
             {
                 if (isReady[4])
-                {
-                    if (GUI.Button(new Rect(0.5f * this.display_0 - 150f, 569f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 20), this.style_7))
-                    {
-
-                    }
-                }
+                    GUI.Box(new Rect(0.5f * this.display_0 - 150f, 569f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 20), this.style_7);
                 else
-                {
-                    if (GUI.Button(new Rect(0.5f * this.display_0 - 150f, 569f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 19), this.style_6))
-                    {
-
-                    }
-                }
+                    GUI.Box(new Rect(0.5f * this.display_0 - 150f, 569f, 104F / 2F, 99F / 2F), Language.getMessage("LobbyGui", 19), this.style_6);
             }
             if (playerObject_0[4].ToString() == "male")
-            {
                 GUI.DrawTexture(new Rect(0.5f * this.display_0 - 630f, 529f, 238f / 3f, 238f / 3f), this.texture_4);
-            }
             else
-            {
                 GUI.DrawTexture(new Rect(0.5f * this.display_0 - 630f, 529f, 238f / 3f, 238f / 3f), this.texture_5);
-            }
         }
 
 

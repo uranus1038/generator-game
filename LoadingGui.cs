@@ -17,7 +17,7 @@ public class LoadingGui : MonoBehaviour
     public LoadingGui()
     {
         this.float_0 = 0.5f;
-        this.eLoadingState_0 = eLoadingState.fadeIn;
+        this.eLoadingState_0 = eLoadingState.Init;
     }
     private void Awake()
     {

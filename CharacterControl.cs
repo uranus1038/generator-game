@@ -6,7 +6,6 @@ public class CharacterControl : MonoBehaviour
     public static CharacterControl star;
     //Animator control
     protected Animator action;
-    public static bool camera_0 = false;
     //Speed
     protected float speed_0 = 3f;
     protected float speed_1 = 3f;
@@ -35,7 +34,7 @@ public class CharacterControl : MonoBehaviour
     }
     protected void OnPlayerController()
     {
-        if (this.isMove)   
+        if (Game.isMove_0)   
         {
             #region Input Movement & Animation
             #region Move
@@ -408,34 +407,31 @@ public class CharacterControl : MonoBehaviour
 
     }
 
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    // Check Collision
-    //    if (collision.gameObject.name == "boyCharPlayer(Clone)")
-    //    {
-    //        this.isMove = false;
-    //        UMISystem.Log("Enter");
-    //    }
-    //    else if (collision.gameObject.name == "girlCharPlayer(Clone)")
-    //    {
-    //        this.isMove = false;
-    //        UMISystem.Log("Enter");
-    //    }
-    //}
-    //private void OnCollisionExit2D(Collision2D collision)
-    //{
-    //    // Check Collision
-    //    if (collision.gameObject.name == "boyCharPlayer(Clone)")
-    //    {
-
-
-    //    }
-    //    else if (collision.gameObject.name == "girlCharPlayer(Clone)")
-    //    {
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Check Collision
+        if (collision.gameObject.name == "boyCharPlayer(Clone)")
+        {
            
-    //        this.isMove = true;
-    //        UMISystem.Log("Leave");
+        }
+        else if (collision.gameObject.name == "girlCharPlayer(Clone)")
+        {
+          
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        // Check Collision
+        if (collision.gameObject.name == "boyCharPlayer(Clone)")
+        {
 
-    //    }
-    //}
+
+        }
+        else if (collision.gameObject.name == "girlCharPlayer(Clone)")
+        {
+
+            
+
+        }
+    }
 }

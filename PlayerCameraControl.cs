@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UMI; 
+using UMI;
 public class PlayerCameraControl : MonoBehaviour
 {
     public static PlayerCameraControl star;
@@ -11,7 +11,7 @@ public class PlayerCameraControl : MonoBehaviour
     private Vector3 offset_0;
     //float
     protected float smoothSpeed;
-    protected float offest_1 = -10f; 
+    protected float offest_1 = -10f;
     private void Awake()
     {
         star = this;
@@ -20,7 +20,7 @@ public class PlayerCameraControl : MonoBehaviour
     }
     public void updateOffset(float offset)
     {
-        this.offest_1 = offset; 
+        this.offest_1 = offset;
     }
     // Update is called once per frame
     void LateUpdate()
@@ -28,26 +28,25 @@ public class PlayerCameraControl : MonoBehaviour
         this.offset_0 = new Vector3(0f, 0f, offest_1);
         try
         {
-            if (CharacterControl.camera_0 == true)
+            if (Game.camera_0)
             {
-                UMISystem.L0g("camera condition");
-                if (GameObject.Find("girlChar(Clone)") != null)
+                if (GameObject.Find("maleChar(Clone)") != null)
                 {
-                    UMISystem.L0g("true");
-                    this.target_0 = GameObject.Find("girlChar(Clone)");
-                    Vector3 playerPosition = this.target_0.transform.position + this.offset_0;
-                    Vector3 smoothedPosition = Vector3.Lerp(transform.position, playerPosition, smoothSpeed);
-                    this.transform.position = smoothedPosition;
-                }else
-                {
-                    this.target_0 = GameObject.Find("boyChar(Clone)");
+                    this.target_0 = GameObject.Find("maleChar(Clone)");
                     Vector3 playerPosition = this.target_0.transform.position + this.offset_0;
                     Vector3 smoothedPosition = Vector3.Lerp(transform.position, playerPosition, smoothSpeed);
                     this.transform.position = smoothedPosition;
                 }
-             
+                else
+                {
+                    this.target_0 = GameObject.Find("femaleChar(Clone)");
+                    Vector3 playerPosition = this.target_0.transform.position + this.offset_0;
+                    Vector3 smoothedPosition = Vector3.Lerp(transform.position, playerPosition, smoothSpeed);
+                    this.transform.position = smoothedPosition;
+                }
             }
-        } catch
+        }
+        catch
         {
             UMISystem.Log("UMI::ERRSEND()->NONE_OBJECT_(Player)");
             this.transform.position = this.transform.position;

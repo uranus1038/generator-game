@@ -17,7 +17,7 @@ public class MIssionManager : MonoBehaviour
         UMI.UMISystem.L0g(nMisssion);
         switch (nMisssion)
         {
-            case 101 : C001_MeadowOfWind.star.createPlayer(UID, userName, position, rotation, gender); break; 
+            case 101 : C001_TheDoorWasOpened.star.createPlayer(UID, userName, position, rotation, gender); break; 
         }
     }
 
