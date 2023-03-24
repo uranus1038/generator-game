@@ -8,4 +8,5 @@ public enum eLoadingState
     Shiro ,
     Kuro , 
    shiroTimer , 
+   startGame ,
 }

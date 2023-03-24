@@ -101,7 +101,7 @@ namespace UMI.Manager.Period
             {
                 this.displayText += this.message[this.index];
                 this.index++;
-                yield return new WaitForSeconds(0.08f);
+                yield return new WaitForSeconds(0.06f);
             }
         }
 

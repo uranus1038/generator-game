@@ -12,5 +12,9 @@ public class GameGui : MonoBehaviour
         GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, new Vector3((float)Screen.height / 1024f, (float)Screen.height / 1024f, 1f));
         GUI.depth = 2;
         this.display_0 = (float)(1024 * Screen.width / Screen.height);
+        if(Game.GameOn)
+        {
+
+        }
     }
 }

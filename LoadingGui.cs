@@ -14,6 +14,7 @@ public class LoadingGui : MonoBehaviour
     private Texture texture_3;
     private Texture texture_4;
     private Texture texture_5;
+    private GUIStyle style_0;
     public LoadingGui()
     {
         this.float_0 = 0.5f;
@@ -21,12 +22,20 @@ public class LoadingGui : MonoBehaviour
     }
     private void Awake()
     {
-
         this.InitCloudFade();
+        this.Init();
+    }
+    private void Init()
+    {
         texture_0 = (Texture)Resources.Load("GUI/Loading/White", typeof(Texture));
         texture_5 = (Texture)Resources.Load("GUI/Loading/Black", typeof(Texture));
+        this.style_0 = new GUIStyle();
+        this.style_0.font = (Font)Resources.Load("GUI/Fonts/Prompt-Bold", typeof(Font));
+        this.style_0.fontSize = 78;
+        this.style_0.normal.textColor = new Color(0f, 0.1f, 0.2f, 0.8f);
+        this.style_0.alignment = TextAnchor.MiddleCenter; 
     }
-    public void InitCloudFade()
+    private void InitCloudFade()
     {
         this.texture_1 = (Texture)Resources.Load("GUI/Loading/Cloud01", typeof(Texture));
         this.texture_2 = (Texture)Resources.Load("GUI/Loading/Cloud02", typeof(Texture));
@@ -122,6 +131,29 @@ public class LoadingGui : MonoBehaviour
             base.enabled = true;
         }
     }
+    public virtual void startGame()
+    {
+        if (this.eLoadingState_0 != eLoadingState.startGame)
+        {
+            this.eLoadingState_0 = eLoadingState.startGame;
+            this.delay_0 = Time.time;
+            this.float_0 = 2.5f;
+            base.enabled = true;
+        }
+    }
+    public void setState(int num)
+    {
+        switch(num)
+        {
+            case 100:
+                this.eLoadingState_0 = eLoadingState.Init;
+                break; 
+        }
+    }
+    public void setStateDefault()
+    {
+        this.eLoadingState_0 = eLoadingState.Init;
+    }
     public void OnGUI()
     {
         GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, new Vector3((float)Screen.height / 1024f, (float)Screen.height / 1024f, 1f));
@@ -131,10 +163,10 @@ public class LoadingGui : MonoBehaviour
         switch (eLoadingState_0)
         {
             case eLoadingState.fadeOut:
-                float a2 = Mathf.Lerp(0f, 1f, (Time.time - this.delay_0) / this.float_0);
-                Color color2 = GUI.color;
-                color2.a = a2;
-                GUI.color = color2;
+                float a = Mathf.Lerp(0f, 1f, (Time.time - this.delay_0) / this.float_0);
+                Color color = GUI.color;
+                color.a = a;
+                GUI.color = color;
                 GUI.DrawTexture(new Rect(0.5f * this.display_0 - 960f, 0f, 1920f, 1024f), this.texture_0);
                 break;
             case eLoadingState.cloudFadeIn:
@@ -148,41 +180,48 @@ public class LoadingGui : MonoBehaviour
                 1920f, 1024f), this.texture_4);
                 break;
             case eLoadingState.fadeIn:
-                float a = Mathf.Lerp(1f, 0f, (Time.time - this.delay_0) / this.float_0);
-                Color color = GUI.color;
+                a = Mathf.Lerp(1f, 0f, (Time.time - this.delay_0) / this.float_0);
+                color = GUI.color;
                 color.a = a;
                 GUI.color = color;
                 GUI.DrawTexture(new Rect(0.5f * this.display_0 - 960f, 0f, 1920f, 1024f), this.texture_0);
                 break;
             case eLoadingState.Shiro :
-                float a_ = 2f * (this.delay_0 + this.float_0 - Time.time);
-                Color color_ = GUI.color;
-                color_.a = a_;
-                GUI.color = color_;
+                a = 2f * (this.delay_0 + this.float_0 - Time.time);
+                color = GUI.color;
+                color.a = a;
+                GUI.color = color;
                 GUI.DrawTexture(new Rect(0.5f * this.display_0 - 960f, 0f, 1920f, 1024f), this.texture_0);
-                Color color2_ = GUI.color;
-                color2_.a = 1f;
-                GUI.color = color2_;
+                Color color2 = GUI.color;
+                color2.a = 1f;
+                GUI.color = color2;
                 break;
             case eLoadingState.shiroTimer :
-                float a_2 = 2f * (this.delay_0 + this.float_0 - Time.time);
-                Color color_2 = GUI.color;
-                color_2.a = a_2;
-                GUI.color = color_2;
+                a = 2f * (this.delay_0 + this.float_0 - Time.time);
+                color = GUI.color;
+                color.a = a;
+                GUI.color = color;
                 GUI.DrawTexture(new Rect(0.5f * this.display_0 - 960f, 0f, 1920f, 1024f), this.texture_0);
-                Color color2_2 = GUI.color;
-                color2_2.a = 1f;
-                GUI.color = color2_2;
+                color2 = GUI.color;
+                color2.a = 1f;
+                GUI.color = color2;
                 break;
             case eLoadingState.Kuro:
-                float a_1 = 2f * (this.delay_0 + 0.5f - Time.time);
-                Color color_1 = GUI.color;
-                color_1.a = a_1;
-                GUI.color = color_1;
+                a = 2f * (this.delay_0 + 0.5f - Time.time);
+                color = GUI.color;
+                color.a = a;
+                GUI.color = color;
                 GUI.DrawTexture(new Rect(0.5f * this.display_0 - 960f, 0f, 1920f, 1024f), this.texture_5);
-                Color color2_1 = GUI.color;
-                color2_1.a = 1f;
-                GUI.color = color2_1;
+                color2 = GUI.color;
+                color2.a = 1f;
+                GUI.color = color2;
+                break;
+            case eLoadingState.startGame:
+                a = Mathf.Lerp(0f, 1f, (Time.time - this.delay_0) / this.float_0);
+                color = GUI.color;
+                color.a = a;
+                GUI.color = color;
+                GUI.Box(new Rect(0.5f * this.display_0 -400f, 312f, 800f, 300f), "START MISSION !",this.style_0);
                 break;
         }
     }
