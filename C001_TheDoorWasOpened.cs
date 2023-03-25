@@ -10,7 +10,7 @@ public class C001_TheDoorWasOpened : MonoBehaviour
     public static C001_TheDoorWasOpened star;
     private float delay_0;
     private float display_0;
-    private eGameState eGameState_0;
+    private eChapterState eChaoterState_0;
     private LoadingGui LoadingGui;
     private TimeManager txt;
     private Texture texture_0;
@@ -26,7 +26,7 @@ public class C001_TheDoorWasOpened : MonoBehaviour
         this.num_0 = 0;
         this.isMessage = true;
         this.NEXT_MESSAGE = false;
-        this.eGameState_0 = eGameState.Init;
+        this.eChaoterState_0 = eChapterState.Init;
         this.Init();
         star = this;
 #pragma warning disable UNT0010
@@ -69,7 +69,7 @@ public class C001_TheDoorWasOpened : MonoBehaviour
         if (UMIGameManager.players.Count == Room.star.nPlayer)
         {
             this.delay_0 = Time.time;
-            this.eGameState_0 = eGameState.Normal;
+            this.eChaoterState_0 = eChapterState.Normal;
         }
     }
     private void OnStartGame()
@@ -90,13 +90,13 @@ public class C001_TheDoorWasOpened : MonoBehaviour
     }
     private void RenderTalkMessage()
     {
-        if (this.eGameState_0 == eGameState.Init)
+        if (this.eChaoterState_0 == eChapterState.Init)
         {
             Game.camera_0 = true;
             GUI.DrawTexture(new Rect(0.5f * this.display_0 - 1980 / 2f, 0f, 1980f, 1024f), this.texture_1);
             this.OnNetworkConnect();
         }
-        if (this.eGameState_0 == eGameState.Normal)
+        if (this.eChaoterState_0 == eChapterState.Normal)
         {
             this.LoadingGui.fadeIn();
             GUI.DrawTexture(new Rect(Mathf.SmoothStep(-660f, -180f, (Time.time - this.delay_0) / 1.5f), 2f,
@@ -115,19 +115,19 @@ public class C001_TheDoorWasOpened : MonoBehaviour
             GUI.Box(new Rect(310, 728f, 800, 200f), this.txt.getMessage(out NEXT_MESSAGE), this.style_0);
             if (NEXT_MESSAGE)
             {
-                this.eGameState_0 = eGameState.Start;
+                this.eChaoterState_0 = eChapterState.Start;
             }
         }
-        if (this.eGameState_0 == eGameState.Start)
+        if (this.eChaoterState_0 == eChapterState.Start)
         {
             this.delay_0 = Time.time;
             Game.GameOn = true;
-            this.eGameState_0 = eGameState.missionOn;
+            this.eChaoterState_0 = eChapterState.missionOn;
         }
     }
     private void RenderStartGame()
     {
-        if (this.eGameState_0 == eGameState.missionOn)
+        if (this.eChaoterState_0 == eChapterState.missionOn)
         {
             if (this.delay_0 + 3.5f > Time.time)
             {
@@ -136,9 +136,9 @@ public class C001_TheDoorWasOpened : MonoBehaviour
             }
             this.LoadingGui.setStateDefault();
             this.delay_0 = Time.time;
-            this.eGameState_0 = eGameState.missionStart;
+            this.eChaoterState_0 = eChapterState.missionStart;
         }
-        if (this.eGameState_0 == eGameState.missionStart)
+        if (this.eChaoterState_0 == eChapterState.missionStart)
         {
 
 
