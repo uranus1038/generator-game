@@ -103,7 +103,7 @@ public class C001_TheDoorWasOpened : MonoBehaviour
                660f, 1020f), (Texture)Resources.Load($"GUI/Character/{this.gender}", typeof(Texture)));
             GUI.DrawTexture(new Rect(0.5f * this.display_0 - 1409f / 2f, Mathf.SmoothStep(1000f, 625f, Time.time - this.delay_0),
                 1409f, 355f), this.texture_0);
-            if (Time.time - delay_0 < 1.5f)
+            if (Time.time - this.delay_0 < 1.5f)
             {
                 return;
             }

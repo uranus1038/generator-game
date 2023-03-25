@@ -10,6 +10,7 @@ public class Room : MonoBehaviour
 {
     public static Room star;
     public TimeManager setUp;
+    public LoadingGui LoadingGui;
     private int UID;
     public int nPlayer;
     private int nReady;
@@ -51,6 +52,7 @@ public class Room : MonoBehaviour
         star = this;
 #pragma warning disable UNT0010
         this.setUp = (TimeManager)this.GetComponent(typeof(TimeManager));
+        this.LoadingGui = (LoadingGui)this.GetComponent(typeof(LoadingGui));
 #pragma warning disable UNT0010
     }
     private void Init()
@@ -352,9 +354,18 @@ public class Room : MonoBehaviour
         {
             if (!UMIGame.Start)
             {
+                this.LoadingGui.fadeOutTimer(1.5f);
+                if (Time.time - this.delay_0 < 1.5f)
+                {
+                    return;
+                }
                 this.OnJoinGame();
-                UMI.UMISystem.L0g("TRY!");
+                UMI.UMISystem.L0g("Start Game!");
+                UMIGame.Start = true; 
             }
+        }else
+        {
+            this.delay_0 = Time.time;
         }
         GUI.Box(new Rect(0.5f * this.display_0 - 395f, 670f, 130f, 130f), this.setUp.getTime(), this.style_9);
     }
