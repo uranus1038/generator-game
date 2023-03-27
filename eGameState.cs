@@ -6,5 +6,6 @@ public enum eGameState
     Start , 
     fadeInGame, 
     dafeOutGame , 
+    GamePlay , 
 
 }
