@@ -9,4 +9,7 @@ public class Game : MonoBehaviour
     public static bool isMove_0 = false; 
     public static bool scene_0 = false; 
     public static bool GameOn = false; 
+
+    //Skill
+    public static bool isRun= false; 
 }
