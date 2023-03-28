@@ -63,7 +63,6 @@ namespace UMI.Manager.Period
             if (!Start)
             {
                 this.second -= 1 * Time.deltaTime;
-                UMISystem.L0g(this.second.ToString("0"));
                 if (this.second <= 0)
                 {
                     this.Start = false;

@@ -321,7 +321,6 @@ public class LobbyGui : MonoBehaviour
                 {
                     if (UMI.Manager.UMIGame.isFull && UMIClientManager.star.TCP.socket.Connected)
                     {
-                        UMI.UMISystem.L0g("serverIsfull");
                         this.delay_0 = Time.time;
                         this.eLobbyRoom_0 = eLobbyRoomState.isFull;
                     }
@@ -334,7 +333,6 @@ public class LobbyGui : MonoBehaviour
                 }
                 if(UMIClientManager.star.TCP.socket == null)
                 {
-                    UMI.UMISystem.L0g("Kicked");
                     this.delay_0 = Time.time;
                     this.eLobbyRoom_0 = eLobbyRoomState.createMutiplay;
                 }

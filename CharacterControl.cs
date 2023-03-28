@@ -42,7 +42,6 @@ public class CharacterControl : MonoBehaviour
         // Check Collision
         if (collision.gameObject.name == "maleCharPlayer(Clone)")
         {
-            UMI.UMISystem.L0g("Enter");
            
         }
         else if (collision.gameObject.name == "femaleCharPlayer(Clone)")

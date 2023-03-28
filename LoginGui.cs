@@ -142,7 +142,7 @@ public class LoginGui : MonoBehaviour
                 }
                 catch
                 {
-                    UMISystem.L0g("ERRSEND()->LOG->processing server.");
+
                 }
                 return;
             }
@@ -282,7 +282,6 @@ public class LoginGui : MonoBehaviour
     private void OnConnect()
     {
         req = JSON.UMIRespon(UMIData.getStringPlayerData(8));
-        UMISystem.L0g(req.status);
     }
     private void getDataPlayer()
     {

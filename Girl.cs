@@ -179,7 +179,6 @@ public class Girl : MonoBehaviour
                 }
                 else if (Input.GetButtonUp("a") && Input.GetButton("w"))
                 {
-                    UMISystem.L0g(" yes");
                     this.mChar.action.Play(this.mChar.actorState[0], 0, 0f);
                     UMIClientSend.reqAnimation((int)eAction.isWalkBack);
                 }
@@ -190,7 +189,6 @@ public class Girl : MonoBehaviour
                 }
                 else
                 {
-                    UMISystem.L0g(" yes");
                     this.mChar.action.Play(this.mChar.actorState[7], 0, 0f);
                     UMIClientSend.reqAnimation((int)eAction.isLeft);
                 }

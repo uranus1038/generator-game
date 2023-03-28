@@ -120,7 +120,6 @@ public class GameGui : MonoBehaviour
                 }
                 if (this.float_0 <= 8f)
                 {
-                    UMI.UMISystem.L0g("cc");
                     Game.isRun = false;
                 }
                 else
