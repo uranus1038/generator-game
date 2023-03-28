@@ -11,5 +11,7 @@ public class Game : MonoBehaviour
     public static bool GameOn = false; 
 
     //Skill
-    public static bool isRun= false; 
+    public static bool isRun= false;
+    //Game
+    public static bool isCollider = false;
 }

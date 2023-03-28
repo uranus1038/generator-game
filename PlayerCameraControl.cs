@@ -16,7 +16,7 @@ public class PlayerCameraControl : MonoBehaviour
     {
         star = this;
         this.offset_0 = new Vector3(0f, 0f, offest_1);
-        this.smoothSpeed = 0.018f;
+        this.smoothSpeed = 0.1f;
     }
     public void updateOffset(float offset)
     {
