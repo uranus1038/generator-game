@@ -57,7 +57,7 @@ namespace UMI.Network.Client
         {
             int UID = packet.ReadInt();
             int actor = packet.ReadInt();
-            UMIGameManager.players[UID].GetComponent<CharacterControl>().OnAnimationPlayerController(actor);
+            UMIGameManager.players[UID].GetComponent<AnimationControl>().OnAnimationPlayerController(actor);
         }
         public static void disconnectGetRespon(UMIPacket packet)
         {
