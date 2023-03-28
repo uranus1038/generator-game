@@ -17,18 +17,22 @@ public class CharacterControl : MonoBehaviour
     public Rigidbody2D rigidbody2d;
     // Current position
     public Vector3 position;
+    public Vector2 moveMent;
     public bool isMove ;
+    public bool isMine ;
     //Array string  
     public string[] actorState;
+
     public CharacterControl()
     {
         this.offset_0 = -12f;
         this.offset_1 = -10f;
-        this.speed_1 = 3f;
-        this.speed_2 = 4.2f;
-        this.speed_3 = 3f;
+        this.speed_1 = 30f;
+        this.speed_2 = 40f;
+        this.speed_3 = 30f;
         this.position = Vector3.zero;
         this.isMove = true;
+        this.isMine = true;
     }
     private void FixedUpdate()
     {

@@ -21,7 +21,12 @@ public class Boy : MonoBehaviour
     }
     private void Update()
     {
-        this.AddAnimation();
+        if (this.mChar.isMine)
+        {
+            this.mChar.moveMent.x = Input.GetAxis("Horizontal");
+            this.mChar.moveMent.y = Input.GetAxis("Vertical");
+            this.AddAnimation();
+        }
     }
     void FixedUpdate()
     {
@@ -33,10 +38,7 @@ public class Boy : MonoBehaviour
         #region Control
         if (Game.isMove_0)
         {
-            float horizontalInput = Input.GetAxis("Horizontal");
-            this.mChar.rigidbody2d.velocity = new Vector2(horizontalInput * this.mChar.speed_1, this.mChar.rigidbody2d.velocity.y);
-            float VerticalInput = Input.GetAxis("Vertical");
-            this.mChar.rigidbody2d.velocity = new Vector2(this.mChar.rigidbody2d.velocity.x, VerticalInput * this.mChar.speed_1);
+            this.mChar.rigidbody2d.MovePosition(this.mChar.rigidbody2d.position + this.mChar.moveMent * this.mChar.speed_1 * Time.fixedDeltaTime);
         }
         #endregion
         this.mChar.position = this.transform.position;
