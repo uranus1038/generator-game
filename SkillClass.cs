@@ -7,6 +7,7 @@ public class SkillClass
     public float Value;
     public float minValue;
     public float maxValue;
+    public float coolDown; 
 
     public SkillClass()
     {
@@ -14,6 +15,7 @@ public class SkillClass
         this.Value = 0F;
         this.minValue = 0F;
         this.maxValue = 0F;
+        this.coolDown = 0F;
         this.isLoadBar = false;
         this.LoadBar = false;
     

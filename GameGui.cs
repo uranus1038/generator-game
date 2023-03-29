@@ -14,6 +14,8 @@ public class GameGui : MonoBehaviour
     Texture texture_1;
     Texture texture_2;
     Texture texture_3;
+    Texture texture_4;
+    GUIStyle style_0;
     private void Awake()
     {
         this.Init();
@@ -22,6 +24,9 @@ public class GameGui : MonoBehaviour
     private void Init()
     {
         this.skillCharacter = new SkillClass();
+        this.style_0 = new GUIStyle();
+        this.style_0.normal.background = (Texture2D)((Texture)Resources.Load("GUI/Game/Manual", typeof(Texture)));
+        this.style_0.hover.background = (Texture2D)((Texture)Resources.Load("GUI/Game/Manual_h", typeof(Texture)));
     }
     private void InitSkill()
     {
@@ -29,6 +34,7 @@ public class GameGui : MonoBehaviour
         this.texture_1 = (Texture)Resources.Load("GUI/Skill/Navigate", typeof(Texture));
         this.texture_2 = (Texture)Resources.Load("GUI/Skill/Spray", typeof(Texture));
         this.texture_3 = (Texture)Resources.Load("GUI/Skill/Runbar", typeof(Texture));
+        this.texture_4 = (Texture)Resources.Load("GUI/Skill/PowerRun", typeof(Texture));
 
     }
     private void Start()
@@ -43,7 +49,12 @@ public class GameGui : MonoBehaviour
         if (Game.GameOn)
         {
             this.gameIntro();
-            this.GameSkill();
+            if (this.eGameState == eGameState.GamePlay)
+            {
+                this.GameSkill();
+                this.GameManual();
+            }
+           
         }
 
     }
@@ -51,8 +62,9 @@ public class GameGui : MonoBehaviour
     {
         if (this.eGameState == eGameState.Start)
         {
-            this.skillCharacter.moveSpeedTimer = 38f;
-            this.skillCharacter.delayMoveSpeedTimer = 210f;
+            Game.isMove_0 = true;
+            this.skillCharacter.moveSpeedTimer = 180f; // cooldown 3 sec
+            this.skillCharacter.delayMoveSpeedTimer = 300f; // cool down 5 sec
             this.skillCharacter.setValueDistance(418f);
             this.delay_0 = Time.time;
             this.eGameState = eGameState.fadeInGame;
@@ -60,6 +72,7 @@ public class GameGui : MonoBehaviour
         }
         if (this.eGameState == eGameState.fadeInGame)
         {
+            // Skill
             if (Time.time < this.delay_0 + 2f)
             {
                 GUI.DrawTexture(new Rect(0.5f * this.display_0 - 423f / 2f, Mathf.SmoothStep(1000, 828f, Time.time - this.delay_0), 262f / 2f, 298f / 2f), this.texture_0);
@@ -70,65 +83,68 @@ public class GameGui : MonoBehaviour
             this.delay_0 = Time.time;
             this.eGameState = eGameState.GamePlay;
             return;
+        } 
+    } 
+    private void GameManual()
+    {
+        if (GUI.Button(new Rect(0.5f * this.display_0 + 448f / 2f, 885f, 180f / 2.5f, 180f / 2.5f),string.Empty, this.style_0))
+        {
+
         }
-    }
+    } 
     private void GameSkill()
     {
-        if (this.eGameState == eGameState.GamePlay)
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 423f / 2f, 828f, 262f / 2f, 298f / 2f), this.texture_0);
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 131f / 2f, 830f, 262f / 2f, 298f / 2f), this.texture_1);
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 + 161f / 2f, 829f, 262f / 2f, 298f / 2f), this.texture_2);
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 540f / 2f, 780f, 180f / 4f, 180f / 4f), this.texture_4);
+        #region SkillRun
+        if (Game.isMove_0)
         {
-            Game.isMove_0 = true;
-            #region SkillRun
-            GUI.DrawTexture(new Rect(0.5f * this.display_0 - 423f / 2f, 828f, 262f / 2f, 298f / 2f), this.texture_0);
-            GUI.DrawTexture(new Rect(0.5f * this.display_0 - 131f / 2f, 830f, 262f / 2f, 298f / 2f), this.texture_1);
-            GUI.DrawTexture(new Rect(0.5f * this.display_0 + 161f / 2f, 829f, 262f / 2f, 298f / 2f), this.texture_2);
-            if (Game.isMove_0)
+            if (!this.skillCharacter.isLoadBar)
             {
-                if (!this.skillCharacter.isLoadBar)
+                GUI.DrawTexture(new Rect(0.5f * this.display_0 - 418f / 2f, 800f, 836f / 2f, 5f), this.texture_3);
+            }
+            if (Input.GetButtonDown("left shift"))
+            {
+                this.delay_0 = Time.time;
+                this.skillCharacter.LoadBar = true;
+            }
+            else
+            {
+                if (this.skillCharacter.LoadBar)
                 {
-                    GUI.DrawTexture(new Rect(0.5f * this.display_0 - 418f / 2f, 800f, 836f / 2f, 5f), this.texture_3);
+                    this.skillCharacter.isLoadBar = true;
+                    GUI.DrawTexture(new Rect(0.5f * this.display_0 - 418f / 2f, 800f, this.float_0 = Mathf.Lerp(this.skillCharacter.Value, 0,
+                        (Time.time - this.delay_0) / this.skillCharacter.moveSpeedTimer), 3.5f), this.texture_3);
+                    this.skillCharacter.setValueDistance(this.float_0);
                 }
-                if (Input.GetButtonDown("left shift"))
-                {
-                    this.delay_0 = Time.time;
-                    this.skillCharacter.LoadBar = true;
-                }
-                else
-                {
-                    if (this.skillCharacter.LoadBar)
-                    {
-                        this.skillCharacter.isLoadBar = true;
-                        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 418f / 2f, 800f, this.float_0 = Mathf.SmoothStep(this.skillCharacter.Value, 0,
-                            (Time.time - this.delay_0) / this.skillCharacter.moveSpeedTimer), 3.5f), this.texture_3);
-                        this.skillCharacter.setValueDistance(this.float_0);
-                    }
 
-                }
-                if (Input.GetButtonUp("left shift"))
+            }
+            if (Input.GetButtonUp("left shift"))
+            {
+                this.delay_0 = Time.time;
+                this.skillCharacter.LoadBar = false;
+            }
+            else
+            {
+                if (!this.skillCharacter.LoadBar)
                 {
-                    this.delay_0 = Time.time;
-                    this.skillCharacter.LoadBar = false;
-                }
-                else
-                {
-                    if (!this.skillCharacter.LoadBar)
-                    {
-                        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 418f / 2f, 800f, this.float_1 = Mathf.SmoothStep(this.skillCharacter.Value, 418,
-                            (Time.time - this.delay_0) / this.skillCharacter.delayMoveSpeedTimer), 3.5f), this.texture_3);
-                        this.skillCharacter.setValueDistance(this.float_1);
-                        this.float_0 = float_1; 
-                    }
-                }
-                if (this.float_0 <= 8f)
-                {
-                    Game.isRun = false;
-                }
-                else
-                {
-                    Game.isRun = true;
+                    GUI.DrawTexture(new Rect(0.5f * this.display_0 - 418f / 2f, 800f, this.float_1 = Mathf.Lerp(this.skillCharacter.Value, 418,
+                        (Time.time - this.delay_0) / this.skillCharacter.delayMoveSpeedTimer), 3.5f), this.texture_3);
+                    this.skillCharacter.setValueDistance(this.float_1);
+                    this.float_0 = float_1;
                 }
             }
-
-            #endregion
+            if (this.float_0 <= 8f)
+            {
+                Game.isRun = false;
+            }
+            else
+            {
+                Game.isRun = true;
+            }
         }
+        #endregion
     }
 }
