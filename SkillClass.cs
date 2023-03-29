@@ -1,14 +1,16 @@
 public class SkillClass
 {
-    public float  moveSpeedTimer ;
-    public float  delayMoveSpeedTimer ;
+    public float moveSpeedTimer;
+    public float delayMoveSpeedTimer;
     public bool isLoadBar;
     public bool LoadBar;
     public float Value;
     public float minValue;
     public float maxValue;
-    public float coolDown; 
-
+    public float coolDown;
+    public string nType;
+    public bool[] nSkill; 
+    public eSkillTargetState eSkillTargetState; 
     public SkillClass()
     {
         this.moveSpeedTimer = 0F;
@@ -18,17 +20,15 @@ public class SkillClass
         this.coolDown = 0F;
         this.isLoadBar = false;
         this.LoadBar = false;
-    
+        this.eSkillTargetState = eSkillTargetState.self; 
     }
     public void setValueDistance(float value)
     {
-        this.Value = value; 
+        this.Value = value;
     }
-    public void setValueDistance(float min , float max)
+    public void setValueDistance(float min, float max)
     {
         this.minValue = min;
         this.maxValue = max;
     }
-
-
 }

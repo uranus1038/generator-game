@@ -34,8 +34,13 @@ public class CharacterControl : MonoBehaviour
         this.isMove = true;
         this.isMine = true;
     }
-    private void FixedUpdate()
+    private void Update()
     {
+        
+    }
+    public void AddCoolDown()
+    {
+
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
