@@ -36,8 +36,11 @@ public class C001_TheDoorWasOpened : MonoBehaviour
     }
     public void Start()
     {
-        UMIClientSend.OnJoinGame("TheDoorWasOpened", 101);
-        this.gender = UMIData.getStringPlayerData(2);
+        //UMIClientSend.OnJoinGame("TheDoorWasOpened", 101);
+        //this.gender = UMIData.getStringPlayerData(2);
+
+        //DEMO
+        this.gender = "male";
     }
     private void Init()
     {
@@ -66,11 +69,13 @@ public class C001_TheDoorWasOpened : MonoBehaviour
     }
     private void OnNetworkConnect()
     {
-        if (UMIGameManager.players.Count == Room.star.nPlayer)
-        {
-            this.delay_0 = Time.time;
-            this.eChaoterState_0 = eChapterState.Normal;
-        }
+        this.delay_0 = Time.time;
+        this.eChaoterState_0 = eChapterState.Normal;
+        //if (UMIGameManager.players.Count == Room.star.nPlayer)
+        //{
+        //    this.delay_0 = Time.time;
+        //    this.eChaoterState_0 = eChapterState.Normal;
+        //}
     }
     private void OnStartGame()
     {

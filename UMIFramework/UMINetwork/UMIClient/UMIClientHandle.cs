@@ -48,7 +48,6 @@ namespace UMI.Network.Client
             catch
             {
                 UMISystem.L0g("Loading");
-                UMISystem.L0g("Loading");
             }
 
             //GameManager.players[UID].transform.rotation = rotation;

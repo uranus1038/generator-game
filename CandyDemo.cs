@@ -10,25 +10,16 @@ public class CandyDemo : MonoBehaviour
     private void Awake()
     {
         this.Init();
-        if (star == null)
-        {
             star = this;
-        }
-        else if (star != this)
-        {
-            Debug.Log($"UMI::DESTROY()->INSTANCE");
-            Destroy(this);
-        }
     }
     private void Start()
     {
-        this.player_0 = (GameObject)UnityEngine.Object.Instantiate((GameObject)Resources.Load(this.playerObject_2,
+        this.player_0 = (GameObject)UnityEngine.Object.Instantiate((GameObject)Resources.Load(this.playerObject_0,
             typeof(GameObject)), Vector3.zero, Quaternion.identity);
     }
     private void Init()
     {
-        this.playerObject_0 = "GameAssets/Characters/viewChar/boyChar";
-        this.playerObject_1 = "GameAssets/Characters/viewChar/boyCharPlayer";
-        this.playerObject_2 = "GameAssets/Characters/viewChar/girlChar";
+        this.playerObject_0 = "GameAssets/Characters/viewChar/maleChar";
+        this.playerObject_1 = "GameAssets/Characters/viewChar/femaleChar";
     }
 }

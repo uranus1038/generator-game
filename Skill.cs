@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Skill : MonoBehaviour
 {
-    private static SkillClass setSkill; 
-    public static SkillClass getSkill(string nSkill)
+    public static SkillClass getSkill(string nameSkill)
     {
-        setSkill = new SkillClass();
-        switch (nSkill)
+        SkillClass setSkill = new SkillClass();
+        switch (nameSkill)
         {
             case "c_nDash":
-                setSkill.nSkill[1] = true; 
+                setSkill.speed = 150f;
+                setSkill.skill = 1;
+                setSkill.CD = 4;
+                setSkill.eSkillTargetState = eSkillTargetState.self; 
                 break;
             case "c_nSpray":
-                setSkill.nSkill[2] = true;
+                setSkill.skill = 2;
+                setSkill.CD = 30;
+                setSkill.eSkillTargetState = eSkillTargetState.self;
                 break;
         }
-        return setSkill; 
+        return setSkill;
     }
-
 }

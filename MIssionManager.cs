@@ -1,5 +1,5 @@
 using UnityEngine;
-public class MIssionManager : MonoBehaviour
+public class MissionManager : MonoBehaviour
 {
     public static void setPlayer(UMI.Network.Client.UMIPacket packet )
     {
@@ -14,7 +14,6 @@ public class MIssionManager : MonoBehaviour
     }
     private static void setMission(int UID,string userName,Vector3 position , Quaternion rotation,string gender ,int nMisssion)
     {
-        UMI.UMISystem.L0g(nMisssion);
         switch (nMisssion)
         {
             case 101 : C001_TheDoorWasOpened.star.createPlayer(UID, userName, position, rotation, gender); break; 

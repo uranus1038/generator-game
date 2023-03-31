@@ -26,7 +26,7 @@ namespace UMI.Network.Client
         {
                 //Receive respon 
            { (int)YUMIServerPackets.resServer ,UMIClientHandle.connectRespon},
-           { (int)YUMIServerPackets.resSpawnPlayer  ,MIssionManager.setPlayer},
+           { (int)YUMIServerPackets.resSpawnPlayer  ,MissionManager.setPlayer},
            { (int)YUMIServerPackets.resPlayerPosition ,UMIClientHandle.playerPosition2D},
            { (int)YUMIServerPackets.resDisconnect ,UMIClientHandle.disconnectGetRespon},
            { (int)YUMIServerPackets.resAnimation ,UMIClientHandle.playerAnimation},

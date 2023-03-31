@@ -13,7 +13,6 @@ public class AnimationControl : MonoBehaviour
     {
         if (gender == "male")
         {
-            UMI.UMISystem.L0g("Hlloew");
             this.actorState = new string[]
             {
               /*0*/  "boyWalkBack",

@@ -14,7 +14,7 @@ namespace UMI.Network.Client
         private static void sendUDPData(UMIPacket packet)
         {
             packet.WriteLength();
-            UMIClientManager.star.UDP.SendData(packet);
+           // UMIClientManager.star.UDP.SendData(packet);
         }
         private static void sendUDPData(int UID, UMIPacket packet)
         {

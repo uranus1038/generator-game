@@ -15,5 +15,8 @@ public class Game : MonoBehaviour
     //Game
     public static bool isCollider = false;
     //skill 
-    public static bool[] isSkill = new bool[] { false,true,  true };
+    public static bool[] isSkill = new bool[] { false,true,true };
+    public static bool useSkill = false;
+    public static bool useRun = false;
+
 }
