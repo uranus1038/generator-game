@@ -14,7 +14,7 @@ public class CandyDemo : MonoBehaviour
     }
     private void Start()
     {
-        this.player_0 = (GameObject)UnityEngine.Object.Instantiate((GameObject)Resources.Load(this.playerObject_0,
+        this.player_0 = (GameObject)UnityEngine.Object.Instantiate((GameObject)Resources.Load(this.playerObject_1,
             typeof(GameObject)), Vector3.zero, Quaternion.identity);
     }
     private void Init()

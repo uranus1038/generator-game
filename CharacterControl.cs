@@ -43,15 +43,6 @@ public class CharacterControl : MonoBehaviour
     GUIStyle style_2;
     public CharacterControl()
     {
-        this.offset_0 = -12f;
-        this.offset_1 = -10f;
-        this.speed_1 = 30f;
-        this.speed_2 = 42f;
-        this.speed_3 = 30f;
-        this.position = Vector3.zero;
-        this.isMove = true;
-        this.isMine = true;
-        this.isTime = false;
         this.skill = new SkillClass();
     }
     private void Awake()
