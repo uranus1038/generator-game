@@ -195,12 +195,13 @@ public class CharacterControl : MonoBehaviour
         this.speed_1 = skill.speed;
         this.cooldown.getSkillCD(skill.skill, skill.CD);
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Check Collision
-        if (collision.gameObject.name == "maleCharPlayer(Clone)")
+        if (collision.gameObject.name == "swapQuestion")
         {
-
+            UMI.UMISystem.L0g("enter");
         }
         else if (collision.gameObject.name == "femaleCharPlayer(Clone)")
         {
