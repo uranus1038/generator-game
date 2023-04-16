@@ -36,8 +36,8 @@ public class C001_TheDoorWasOpened : MonoBehaviour
     }
     public void Start()
     {
-        //UMIClientSend.OnJoinGame("TheDoorWasOpened", 101);
-        //this.gender = UMIData.getStringPlayerData(2);
+        UMIClientSend.OnJoinGame("TheDoorWasOpened", 101);
+        this.gender = UMIData.getStringPlayerData(2);
 
         //DEMO
         this.gender = "male";
