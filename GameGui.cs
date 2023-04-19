@@ -62,7 +62,6 @@ public class GameGui : MonoBehaviour
             return;
         }
     }
-   
     private void getSkill()
     {
         Game.useSkill = true; 
