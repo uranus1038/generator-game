@@ -99,32 +99,31 @@ public class CharacterControl : MonoBehaviour
 
         }
 
-
     }
     public void SkillManager()
     {
         #region Skill Cooldown
-        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 423f / 2f, 828f, 262f / 2f, 298f / 2f), this.texture_0);
-        GUI.Box(new Rect(0.5f * this.display_0 - 383f / 2f, 828f, 262f / 2f, 260f / 2f), "1", this.style_1);
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 363f / 2f, 868f, 262f / 3f, 298f / 3f), this.texture_0);
+        GUI.Box(new Rect(0.5f * this.display_0 - 323f / 2f, 868f, 262f / 3f, 260f / 3f), "1", this.style_1);
         if (!Game.isSkill[1])
         {
-            GUI.DrawTexture(new Rect(0.5f * this.display_0 - 423f / 2f, 833f, 263f / 2f, 298f / 2f), this.texture_5);
-            GUI.Box(new Rect(0.5f * this.display_0 - 423f / 2f, 828f, 262f / 2f, 298f / 2f), this.cooldown.getTime(1), this.style_2);
+            GUI.DrawTexture(new Rect(0.5f * this.display_0 - 363f / 2f, 872f, 263f / 3f, 298f / 3f), this.texture_5);
+            GUI.Box(new Rect(0.5f * this.display_0 - 363f / 2f, 868f, 262f / 3f, 298f / 3f), this.cooldown.getTime(1), this.style_2);
             if (this.cooldown.nextTime(1))
             {
                 Game.isSkill[1] = true;
             }
         }
 
-        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 131f / 2f, 830f, 262f / 2f, 298f / 2f), this.texture_1);
-        GUI.Box(new Rect(0.5f * this.display_0 - 91f / 2f, 830f, 262f / 2f, 260f / 2f), "2", this.style_1);
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 131f / 2f, 870f, 262f / 3f, 298f / 3f), this.texture_1);
+        GUI.Box(new Rect(0.5f * this.display_0 - 91f / 2f, 870f, 262f / 3f, 260f / 3f), "2", this.style_1);
 
-        GUI.DrawTexture(new Rect(0.5f * this.display_0 + 161f / 2f, 829f, 262f / 2f, 298f / 2f), this.texture_2);
-        GUI.Box(new Rect(0.5f * this.display_0 + 201f / 2f, 829f, 262f / 2f, 260f / 2f), "3", this.style_1);
+        GUI.DrawTexture(new Rect(0.5f * this.display_0 + 101f / 2f, 870f, 262f / 3f, 298f / 3f), this.texture_2);
+        GUI.Box(new Rect(0.5f * this.display_0 + 141f / 2f, 870f, 262f / 3f, 260f / 3f), "3", this.style_1);
         if (!Game.isSkill[2])
         {
-            GUI.DrawTexture(new Rect(0.5f * this.display_0 + 161f / 2f, 829f, 263f / 2f, 298f / 2f), this.texture_5);
-            GUI.Box(new Rect(0.5f * this.display_0 + 161f / 2f, 829f, 263f / 2f, 298f / 2f), this.cooldown.getTime(2), this.style_2);
+            GUI.DrawTexture(new Rect(0.5f * this.display_0 + 101f / 2f, 870f, 263f / 3f, 298f / 3f), this.texture_5);
+            GUI.Box(new Rect(0.5f * this.display_0 + 101f / 2f, 870f, 263f / 3f, 298f / 3f), this.cooldown.getTime(2), this.style_2);
             if (this.cooldown.nextTime(2))
             {
                 Game.isSkill[2] = true;
@@ -132,14 +131,14 @@ public class CharacterControl : MonoBehaviour
         }
         #endregion
 
-        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 540f / 2f, 780f, 180f / 4f, 180f / 4f), this.texture_4);
+       // GUI.DrawTexture(new Rect(0.5f * this.display_0 - 540f / 2f, 780f, 180f / 4f, 180f / 4f), this.texture_4);
 
         #region SkillRun
         if (Game.isMove_0)
         {
             if (!this.skill.isLoadBar)
             {
-                GUI.DrawTexture(new Rect(0.5f * this.display_0 - 418f / 2f, 800f, 836f / 2f, 5f), this.texture_3);
+                //GUI.DrawTexture(new Rect(0.5f * this.display_0 - 418f / 2f, 800f, 836f / 2f, 5f), this.texture_3);
             }
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
@@ -166,10 +165,13 @@ public class CharacterControl : MonoBehaviour
             {
                 if (!this.skill.LoadBar)
                 {
-                    GUI.DrawTexture(new Rect(0.5f * this.display_0 - 418f / 2f, 800f, this.float_1 = Mathf.Lerp(this.skill.Value, 418,
-                        (Time.time - this.delay_0) / this.skill.delayMoveSpeedTimer), 3.5f), this.texture_3);
-                    this.skill.setValueDistance(this.float_1);
-                    this.float_0 = float_1;
+                    if (this.float_0 < 410f)
+                    {
+                        GUI.DrawTexture(new Rect(0.5f * this.display_0 - 418f / 2f, 800f, this.float_1 = Mathf.Lerp(this.skill.Value, 418,
+                       (Time.time - this.delay_0) / this.skill.delayMoveSpeedTimer), 3.5f), this.texture_3);
+                        this.skill.setValueDistance(this.float_1);
+                        this.float_0 = float_1;
+                    }
                 }
             }
             if (this.float_0 <= 8f)
@@ -185,7 +187,7 @@ public class CharacterControl : MonoBehaviour
     }
     private void GameManual()
     {
-        if (GUI.Button(new Rect(0.5f * this.display_0 + 448f / 2f, 885f, 180f / 2.5f, 180f / 2.5f), string.Empty, this.style_0))
+        if (GUI.Button(new Rect(0.5f * this.display_0 + 308f / 2f, 900f, 180f / 3f, 180f / 3f), string.Empty, this.style_0))
         {
 
         }
@@ -195,7 +197,6 @@ public class CharacterControl : MonoBehaviour
         this.speed_1 = skill.speed;
         this.cooldown.getSkillCD(skill.skill, skill.CD);
     }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Check Collision

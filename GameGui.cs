@@ -52,9 +52,9 @@ public class GameGui : MonoBehaviour
             // Skill
             if (Time.time < this.delay_0 + 2f)
             {
-                GUI.DrawTexture(new Rect(0.5f * this.display_0 - 423f / 2f, Mathf.SmoothStep(1000, 828f, Time.time - this.delay_0), 262f / 2f, 298f / 2f), this.texture_0);
-                GUI.DrawTexture(new Rect(0.5f * this.display_0 - 131f / 2f, Mathf.SmoothStep(1000, 830f, Time.time - this.delay_0), 262f / 2f, 298f / 2f), this.texture_1);
-                GUI.DrawTexture(new Rect(0.5f * this.display_0 + 161f / 2f, Mathf.SmoothStep(1000, 829f, Time.time - this.delay_0), 262f / 2f, 298f / 2f), this.texture_2);
+                GUI.DrawTexture(new Rect(0.5f * this.display_0 - 363f / 2f, Mathf.SmoothStep(1000, 868f, Time.time - this.delay_0), 262f / 3f, 298f / 3f), this.texture_0);
+                GUI.DrawTexture(new Rect(0.5f * this.display_0 - 131f / 2f, Mathf.SmoothStep(1000, 870f, Time.time - this.delay_0), 262f / 3f, 298f / 3f), this.texture_1);
+                GUI.DrawTexture(new Rect(0.5f * this.display_0 + 101f / 2f, Mathf.SmoothStep(1000, 869f, Time.time - this.delay_0), 262f / 3f, 298f / 3f), this.texture_2);
                 return;
             }
             this.delay_0 = Time.time;
